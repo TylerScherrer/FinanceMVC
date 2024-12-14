@@ -1,0 +1,15 @@
+@model BudgetTracker.Models.Category
+
+<h1>Category Details</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h2>@Model.Name</h2>
+    </div>
+    <div class="card-body">
+        <p><strong>Allocated Amount:</strong> @Model.AllocatedAmount</p>
+        <p><strong>Budget:</strong> @Model.Budget?.Name</p>
+    </div>
+</div>
+
+<a class="btn btn-primary" href="@Url.Action("Index", "Budget")">Back to Budget</a>
