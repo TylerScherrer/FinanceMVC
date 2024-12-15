@@ -11,6 +11,7 @@ namespace BudgetTracker.Data
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Transaction> Transactions { get; set; }
+        public object BudgetCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

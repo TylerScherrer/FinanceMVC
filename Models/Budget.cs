@@ -11,6 +11,7 @@ namespace BudgetTracker.Models
         public string Name { get; set; }
 
         [Required]
+        [Range(0, double.MaxValue, ErrorMessage = "Total Amount cannot be negative.")]
         public decimal TotalAmount { get; set; }
 
         public DateTime DateCreated { get; set; } = DateTime.Now;

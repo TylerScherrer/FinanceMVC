@@ -31,18 +31,36 @@ namespace BudgetTracker.Controllers
             return View();
         }
 
-        // POST: Save the new budget
+                
         [HttpPost]
         public IActionResult Create(Budget budget)
         {
+            // Validate TotalAmount for negative values
+            if (budget.TotalAmount < 0)
+            {
+                ModelState.AddModelError("TotalAmount", "Total amount must be a positive value.");
+                return View(budget); // Stay on the same view
+            }
+
+            if (_context.Budgets.Any(b => b.Name == budget.Name))
+            {
+                ModelState.AddModelError("Name", "A budget with the same name already exists.");
+                return View(budget); // Return to the same view with the error
+            }
+
+            // Check model state validity
             if (ModelState.IsValid)
             {
                 _context.Budgets.Add(budget);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            return View(budget);
+
+            return View(budget); // Return view if model state is invalid
         }
+
+
+
 
         // GET: View details of a specific budget
         public IActionResult Details(int id)
