@@ -1,6 +1,6 @@
 @using System.Linq
+@using Microsoft.EntityFrameworkCore
 @model BudgetTracker.Models.BudgetWithTasksViewModel
-
 
 <div class="container">
     <h2>Budgets</h2>
@@ -43,7 +43,8 @@
                             <td>@budget.Name</td>
                             <td>@budget.TotalAmount.ToString("C")</td>
                             <td>@budget.DateCreated.ToShortDateString()</td>
-                            <td>@(budget.TotalAmount - (budget.Categories?.Sum(c => c.AllocatedAmount) ?? 0))</td>
+                            <td>@budget.RemainingAmount.ToString("C")</td> <!-- Use model property -->
+
                             <td>
                                 <a class="btn btn-info" href="@Url.Action("Details", "Budget", new { id = budget.Id })">View</a>
                                 <a class="btn btn-warning" href="@Url.Action("Edit", "Budget", new { id = budget.Id })">Edit</a>
@@ -69,6 +70,7 @@
                                                     <a class="dropdown-item" href="@Url.Action("Details", "Category", new { id = category.Id })">
                                                         @category.Name - @category.AllocatedAmount.ToString("C")
                                                     </a>
+                                                    <a class="dropdown-item text-warning" href="@Url.Action("Edit", "Category", new { id = category.Id })">Edit</a>
                                                 </li>
                                             }
                                         }

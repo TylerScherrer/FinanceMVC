@@ -3,20 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BudgetTracker.Models
 {
-    public class Budget
-    {
-        public int Id { get; set; }
+public class Budget
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal TotalAmount { get; set; }
+    public DateTime DateCreated { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+    public ICollection<Category> Categories { get; set; } = new List<Category>();
 
-        [Required]
-        [Range(0, double.MaxValue, ErrorMessage = "Total Amount cannot be negative.")]
-        public decimal TotalAmount { get; set; }
+    public decimal RemainingAmount => TotalAmount - (Categories?.Sum(c => c.AllocatedAmount) ?? 0);
+}
 
-        public DateTime DateCreated { get; set; } = DateTime.Now;
 
-        // Collection of Categories
-        public List<Category> Categories { get; set; } = new List<Category>();
-    }
 }

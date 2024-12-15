@@ -25,6 +25,8 @@ namespace BudgetTracker.Controllers
                 .Include(b => b.Categories) // Load related categories
                 .ToList();
 
+                // Update Remaining Amount dynamically
+
             // Fetch tasks for the current week
             var currentWeekTasks = _context.Tasks
                 .Where(t => t.Date >= currentDate.StartOfWeek() && t.Date <= currentDate.EndOfWeek())
@@ -50,31 +52,37 @@ namespace BudgetTracker.Controllers
 
                 
         [HttpPost]
-        public IActionResult Create(Budget budget)
+public IActionResult Create(Category category)
+{
+    if (ModelState.IsValid)
+    {
+        // Fetch the budget
+        var budget = _context.Budgets
+                             .Include(b => b.Categories) // Include categories to calculate RemainingAmount
+                             .FirstOrDefault(b => b.Id == category.BudgetId);
+
+        if (budget == null)
         {
-            // Validate TotalAmount for negative values
-            if (budget.TotalAmount < 0)
-            {
-                ModelState.AddModelError("TotalAmount", "Total amount must be a positive value.");
-                return View(budget); // Stay on the same view
-            }
-
-            if (_context.Budgets.Any(b => b.Name == budget.Name))
-            {
-                ModelState.AddModelError("Name", "A budget with the same name already exists.");
-                return View(budget); // Return to the same view with the error
-            }
-
-            // Check model state validity
-            if (ModelState.IsValid)
-            {
-                _context.Budgets.Add(budget);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(budget); // Return view if model state is invalid
+            return NotFound("Budget not found.");
         }
+
+        // Validate allocated amount
+        if (budget.RemainingAmount < category.AllocatedAmount)
+        {
+            ModelState.AddModelError("", "Allocated amount exceeds the remaining budget.");
+            return View(category);
+        }
+
+        // Add the new category
+        _context.Categories.Add(category);
+        _context.SaveChanges();
+
+        return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
+    }
+
+    return View(category);
+}
+
 
 
 
@@ -88,17 +96,14 @@ namespace BudgetTracker.Controllers
             return View(budget);
         }
 
-        // GET: Edit a budget
         [HttpGet]
         public IActionResult Edit(int id)
         {
             var budget = _context.Budgets.FirstOrDefault(b => b.Id == id);
             if (budget == null) return NotFound();
-
             return View(budget);
         }
 
-        // POST: Save the edited budget
         [HttpPost]
         public IActionResult Edit(Budget budget)
         {
@@ -106,10 +111,11 @@ namespace BudgetTracker.Controllers
             {
                 _context.Budgets.Update(budget);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(budget);
         }
+
 
         [HttpPost]
         public IActionResult Delete(int id)

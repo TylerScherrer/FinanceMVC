@@ -28,39 +28,38 @@ public class CategoryController : Controller
         return View(category);
     }
 
-    // POST: Handle the form submission and save the category
-    [HttpPost]
-    public IActionResult Create(Category category)
+[HttpPost]
+public IActionResult Create(Category category)
+{
+    if (ModelState.IsValid)
     {
-        if (ModelState.IsValid)
+        var budget = _context.Budgets
+                             .Include(b => b.Categories)
+                             .FirstOrDefault(b => b.Id == category.BudgetId);
+
+        if (budget == null)
         {
-            // Fetch the budget associated with the category
-            var budget = _context.Budgets.FirstOrDefault(b => b.Id == category.BudgetId);
-
-            if (budget == null)
-            {
-                return NotFound("Budget not found.");
-            }
-
-            // Ensure the allocated amount does not exceed the remaining budget
-            if (budget.TotalAmount < category.AllocatedAmount)
-            {
-                ModelState.AddModelError("", "Allocated amount exceeds the available budget.");
-                return View(category);
-            }
-
-            // Subtract the allocated amount from the budget
-            budget.TotalAmount -= category.AllocatedAmount;
-
-            // Save the new category
-            _context.Categories.Add(category);
-            _context.SaveChanges();
-
-            return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
+            return NotFound("Budget not found.");
         }
 
-        return View(category);
+        // Validate allocated amount
+        if (budget.RemainingAmount < category.AllocatedAmount)
+        {
+            ModelState.AddModelError("", "Allocated amount exceeds the remaining budget.");
+            return View(category);
+        }
+
+        // Add the category (do not touch TotalAmount)
+        _context.Categories.Add(category);
+        _context.SaveChanges();
+
+        return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
     }
+
+    return View(category);
+}
+
+
 
 
     [HttpGet]
@@ -78,6 +77,36 @@ public class CategoryController : Controller
 
         return View(category);
     }
+
+    [HttpPost]
+    public IActionResult Delete(int id)
+    {
+        var category = _context.Categories.Find(id);
+        if (category != null)
+        {
+            // Get the associated budget
+            var budget = _context.Budgets.Find(category.BudgetId);
+
+            if (budget != null)
+            {
+                // Adjust the TotalAmount or RemainingAmount of the budget
+                
+
+                // Update the budget in the database
+                _context.Budgets.Update(budget);
+            }
+
+            // Remove the category
+            _context.Categories.Remove(category);
+
+            // Save all changes
+            _context.SaveChanges();
+        }
+
+        return RedirectToAction("Index", "Budget");
+    }
+
+
 
 }
 }

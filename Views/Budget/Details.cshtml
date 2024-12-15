@@ -5,9 +5,9 @@
 <div class="card mb-3">
     <div class="card-body">
         <h3 class="card-title">@Model.Name</h3>
-        <p><strong>Total Amount:</strong> @Model.TotalAmount</p>
+        <p><strong>Total Amount:</strong> @Model.TotalAmount.ToString("C")</p>
         <p><strong>Date Created:</strong> @Model.DateCreated.ToShortDateString()</p>
-        <p><strong>Remaining Amount:</strong> @Model.TotalAmount - @Model.Categories.Sum(c => c.AllocatedAmount)</p>
+        <p><strong>Remaining Amount:</strong> @Model.RemainingAmount.ToString("C")</p>
     </div>
 </div>
 
@@ -30,12 +30,16 @@
             {
                 <tr>
                     <td>@category.Name</td>
-                    <td>@category.AllocatedAmount</td>
-                    <td>@category.AllocatedAmount - @category.Transactions.Sum(t => t.Amount)</td>
+                    <td>@category.AllocatedAmount.ToString("C")</td>
+                    <td>@(category.AllocatedAmount - (category.Transactions?.Sum(t => t.Amount) ?? 0)).ToString("C")</td>
+
                     <td>
                         <a class="btn btn-info" href="@Url.Action("Details", "Category", new { id = category.Id })">View</a>
                         <a class="btn btn-warning" href="@Url.Action("Edit", "Category", new { id = category.Id })">Edit</a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Category", new { id = category.Id })">Delete</a>
+                        <form asp-action="Delete" asp-controller="Category" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@category.Id" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
             }

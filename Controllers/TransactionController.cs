@@ -55,6 +55,18 @@ namespace BudgetTracker.Controllers
 
             return View(transaction);
         }
+    [HttpPost]
+    public IActionResult Delete(int id)
+    {
+        var transaction = _context.Transactions.Find(id);
+        if (transaction != null)
+        {
+            _context.Transactions.Remove(transaction);
+            _context.SaveChanges();
+        }
+        return RedirectToAction("Details", "Category", new { id = transaction.CategoryId }); 
+        // Redirect back to the Category Details
+    }
 
     }
 }
