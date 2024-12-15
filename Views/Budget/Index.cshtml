@@ -2,6 +2,26 @@
 @model IEnumerable<BudgetTracker.Models.Budget>
 
 
+<div class="container">
+    <h2>Budgets</h2>
+
+    
+    <div class="mb-3">
+        <h4>Create New Budget</h4>
+        <form asp-action="Create" method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" name="Name" class="form-control" placeholder="Budget Name" required />
+                </div>
+                <div class="col-md-4">
+                    <input type="number" name="TotalAmount" class="form-control" placeholder="Total Amount" step="0.01" required />
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Add Budget</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
 <table class="table">
     <thead>
@@ -27,6 +47,8 @@
                     <a class="btn btn-danger" href="@Url.Action("Delete", "Budget", new { id = budget.Id })">Delete</a>
                     <a class="btn btn-primary" href="@Url.Action("Create", "Category", new { budgetId = budget.Id })">Add Category</a>
                     <!-- Dropdown for categories -->
+
+                    
                 <div class="dropdown mt-2">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton@budget.Id" data-bs-toggle="dropdown" aria-expanded="false">
                         Categories
