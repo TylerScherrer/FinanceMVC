@@ -1,11 +1,11 @@
 @using System.Linq
-@model IEnumerable<BudgetTracker.Models.Budget>
+@model BudgetTracker.Models.BudgetWithTasksViewModel
 
 
 <div class="container">
     <h2>Budgets</h2>
 
-    
+    <!-- Form to Create New Budget -->
     <div class="mb-3">
         <h4>Create New Budget</h4>
         <form asp-action="Create" method="post">
@@ -23,57 +23,86 @@
         </form>
     </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Total Amount</th>
-            <th>Date Created</th>
-            <th>Actions</th>
-            <th>Remaining Amount</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var budget in Model)
-        {
-            <tr>
-                <td>@budget.Name</td>
-                <td>@budget.TotalAmount</td>
-                <td>@budget.DateCreated.ToShortDateString()</td>
-                <td>@budget.TotalAmount</td>
-                <td>
-                    <a class="btn btn-info" href="@Url.Action("Details", "Budget", new { id = budget.Id })">View</a>
-                    <a class="btn btn-warning" href="@Url.Action("Edit", "Budget", new { id = budget.Id })">Edit</a>
-                    <a class="btn btn-danger" href="@Url.Action("Delete", "Budget", new { id = budget.Id })">Delete</a>
-                    <a class="btn btn-primary" href="@Url.Action("Create", "Category", new { budgetId = budget.Id })">Add Category</a>
-                    <!-- Dropdown for categories -->
+    <div class="row">
+        <!-- Budget Table -->
+        <div class="col-md-8">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Total Amount</th>
+                        <th>Date Created</th>
+                        <th>Remaining Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var budget in Model.Budgets)
+                    {
+                        <tr>
+                            <td>@budget.Name</td>
+                            <td>@budget.TotalAmount.ToString("C")</td>
+                            <td>@budget.DateCreated.ToShortDateString()</td>
+                            <td>@(budget.TotalAmount - (budget.Categories?.Sum(c => c.AllocatedAmount) ?? 0))</td>
+                            <td>
+                                <a class="btn btn-info" href="@Url.Action("Details", "Budget", new { id = budget.Id })">View</a>
+                                <a class="btn btn-warning" href="@Url.Action("Edit", "Budget", new { id = budget.Id })">Edit</a>
+                                <a class="btn btn-primary" href="@Url.Action("Create", "Category", new { budgetId = budget.Id })">Add Category</a>
 
-                    
-                <div class="dropdown mt-2">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton@budget.Id" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categories
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton@budget.Id">
-                        @if (budget.Categories != null && budget.Categories.Any())
-                        {
-                            @foreach (var category in budget.Categories)
-                            {
-                                <li>
-                                    <a class="dropdown-item" href="@Url.Action("Details", "Category", new { id = category.Id })">
-                                        @category.Name - @category.AllocatedAmount.ToString("C")
-                                    </a>
-                                </li>
-                            }
-                        }
-                        else
-                        {
-                            <li><span class="dropdown-item-text">No categories available</span></li>
-                        }
-                    </ul>
-                </div>
+                                <!-- Delete Button -->
+                                <form asp-action="Delete" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@budget.Id" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                                <!-- Categories Dropdown -->
+                                <div class="dropdown mt-2">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton@budget.Id" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Categories
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton@budget.Id">
+                                        @if (budget.Categories != null && budget.Categories.Any())
+                                        {
+                                            @foreach (var category in budget.Categories)
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item" href="@Url.Action("Details", "Category", new { id = category.Id })">
+                                                        @category.Name - @category.AllocatedAmount.ToString("C")
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li><span class="dropdown-item-text">No categories available</span></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Upcoming Tasks for This Week -->
+        <div class="col-md-4">
+            <h4>Upcoming Tasks for This Week</h4>
+            <ul class="list-group">
+                @if (Model.CurrentWeekTasks != null && Model.CurrentWeekTasks.Any())
+                {
+                    @foreach (var task in Model.CurrentWeekTasks)
+                    {
+                        <li class="list-group-item">
+                            <strong>@task.Name</strong> - @task.Date.ToShortDateString()
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">No tasks for this week</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

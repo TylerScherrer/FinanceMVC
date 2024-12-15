@@ -2,6 +2,8 @@ using BudgetTracker.Data;
 using BudgetTracker.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BudgetTracker.Extensions;
+
 
 namespace BudgetTracker.Controllers
 {
@@ -14,15 +16,30 @@ namespace BudgetTracker.Controllers
             _context = context;
         }
 
-        // GET: List all budgets
         public IActionResult Index()
         {
+            var currentDate = DateTime.Now;
+
+            // Fetch all budgets
             var budgets = _context.Budgets
-                .Include(b => b.Categories) // Load categories for each budget
+                .Include(b => b.Categories) // Load related categories
                 .ToList();
 
-            return View(budgets);
+            // Fetch tasks for the current week
+            var currentWeekTasks = _context.Tasks
+                .Where(t => t.Date >= currentDate.StartOfWeek() && t.Date <= currentDate.EndOfWeek())
+                .ToList();
+
+            // Combine into ViewModel
+            var model = new BudgetWithTasksViewModel
+            {
+                Budgets = budgets,
+                CurrentWeekTasks = currentWeekTasks
+            };
+
+            return View(model); // Ensure the view receives BudgetWithTasksViewModel
         }
+
 
         // GET: Create a new budget
         [HttpGet]
@@ -94,16 +111,24 @@ namespace BudgetTracker.Controllers
             return View(budget);
         }
 
-        // POST: Delete a budget
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var budget = _context.Budgets.FirstOrDefault(b => b.Id == id);
-            if (budget == null) return NotFound();
+            // Find the budget by ID
+            var budget = _context.Budgets.Find(id);
 
-            _context.Budgets.Remove(budget);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            // Check if the budget exists
+            if (budget != null)
+            {
+                _context.Budgets.Remove(budget);
+                _context.SaveChanges();
+            }
+
+            // Redirect back to the Budget list (Index page)
+            return RedirectToAction(nameof(Index));
         }
+
+        
+
     }
 }
