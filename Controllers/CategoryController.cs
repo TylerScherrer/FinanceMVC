@@ -32,37 +32,43 @@ public class CategoryController : Controller
     [HttpPost]
     public IActionResult Create(Category category)
     {
-        Console.WriteLine($"Category Data: Name={category.Name}, AllocatedAmount={category.AllocatedAmount}, BudgetId={category.BudgetId}");
-
         if (ModelState.IsValid)
         {
-            Console.WriteLine("Model is valid. Saving to database...");
+            // Fetch the budget associated with the category
+            var budget = _context.Budgets.FirstOrDefault(b => b.Id == category.BudgetId);
+
+            if (budget == null)
+            {
+                return NotFound("Budget not found.");
+            }
+
+            // Ensure the allocated amount does not exceed the remaining budget
+            if (budget.TotalAmount < category.AllocatedAmount)
+            {
+                ModelState.AddModelError("", "Allocated amount exceeds the available budget.");
+                return View(category);
+            }
+
+            // Subtract the allocated amount from the budget
+            budget.TotalAmount -= category.AllocatedAmount;
+
+            // Save the new category
             _context.Categories.Add(category);
             _context.SaveChanges();
-            Console.WriteLine("Category saved successfully!");
 
-            return RedirectToAction("Index", "Budget");
-        }
-
-        // Log validation errors
-        Console.WriteLine("Model is invalid.");
-        foreach (var key in ModelState.Keys)
-        {
-            var errors = ModelState[key].Errors;
-            foreach (var error in errors)
-            {
-                Console.WriteLine($"Field: {key}, Error: {error.ErrorMessage}");
-            }
+            return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
         }
 
         return View(category);
     }
+
 
     [HttpGet]
     public IActionResult Details(int id)
     {
         var category = _context.Categories
             .Include(c => c.Budget) // Load the related Budget for context if needed
+            .Include(c => c.Transactions) // Include related transactions
             .FirstOrDefault(c => c.Id == id);
 
         if (category == null)

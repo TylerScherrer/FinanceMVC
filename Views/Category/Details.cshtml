@@ -2,15 +2,42 @@
 
 <h1>Category Details</h1>
 
-<div class="card">
-    <div class="card-header">
-        <h2>@Model.Name</h2>
-    </div>
+<div class="card mb-3">
     <div class="card-body">
+        <h3 class="card-title">@Model.Name</h3>
         <p><strong>Allocated Amount:</strong> @Model.AllocatedAmount</p>
-        <p><strong>Budget:</strong> @Model.Budget?.Name</p>
+        <p><strong>Budget:</strong> @Model.Budget.Name</p>
+        <p><strong>Remaining Amount:</strong> @Model.AllocatedAmount</p>
+
     </div>
 </div>
 
-<a class="btn btn-primary" href="@Url.Action("Index", "Budget")">Back to Budget</a>
-<a class="btn btn-primary" href="@Url.Action("Create", "Transaction", new { categoryId = Model.Id })">Add Transaction</a>
+<a class="btn btn-primary mb-3" href="@Url.Action("Create", "Transaction", new { categoryId = Model.Id })">Add Transaction</a>
+
+@if (Model.Transactions != null && Model.Transactions.Any())
+{
+    <h2>Transactions</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model.Transactions)
+            {
+                <tr>
+                    <td>@transaction.Description</td>
+                    <td>@transaction.Amount</td>
+                    <td>@transaction.Date.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No transactions available.</p>
+}
