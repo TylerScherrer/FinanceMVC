@@ -13,6 +13,10 @@ public class Category
     [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than zero.")]
     public decimal AllocatedAmount { get; set; }
 
+    public List<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+
+
     [Required]
     public int BudgetId { get; set; } // Foreign key linking to Budget
 

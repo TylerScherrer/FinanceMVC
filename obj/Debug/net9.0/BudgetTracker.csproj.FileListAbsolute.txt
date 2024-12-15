@@ -127,6 +127,7 @@ C:\Users\Tyler\OneDrive\Desktop\FinanceWebApp\BudgetTracker\obj\Debug\net9.0\Bud
 C:\Users\Tyler\OneDrive\Desktop\FinanceWebApp\BudgetTracker\obj\Debug\net9.0\BudgetTracker.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Tyler\OneDrive\Desktop\FinanceWebApp\BudgetTracker\obj\Debug\net9.0\BudgetTracker.RazorAssemblyInfo.cache
 C:\Users\Tyler\OneDrive\Desktop\FinanceWebApp\BudgetTracker\obj\Debug\net9.0\BudgetTracker.RazorAssemblyInfo.cs
+C:\Users\Tyler\OneDrive\Desktop\FinanceWebApp\BudgetTracker\obj\Debug\net9.0\BudgetTracker.sourcelink.json
 C:\Users\Tyler\OneDrive\Desktop\FinanceWebApp\BudgetTracker\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Tyler\OneDrive\Desktop\FinanceWebApp\BudgetTracker\obj\Debug\net9.0\scopedcss\bundle\BudgetTracker.styles.css
 C:\Users\Tyler\OneDrive\Desktop\FinanceWebApp\BudgetTracker\obj\Debug\net9.0\scopedcss\projectbundle\BudgetTracker.bundle.scp.css
