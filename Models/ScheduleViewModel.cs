@@ -4,6 +4,8 @@ namespace BudgetTracker.Models
     {
         public List<TaskItem> CurrentWeekTasks { get; set; }
         public List<TaskItem> UpcomingWeekTasks { get; set; }
+
+        public List<TaskItem> FarthestTasks { get; set; } // Tasks beyond the next week
     }
 
     public class TaskItem

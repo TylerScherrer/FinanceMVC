@@ -17,30 +17,36 @@ namespace BudgetTracker.Controllers
         {
             _context = context;
         }
+    public IActionResult Index()
+    {
+        var currentDate = DateTime.Now;
 
-        public IActionResult Index()
+        // Get tasks for the current week
+        var currentWeekTasks = _context.Tasks
+            .Where(t => t.Date >= currentDate.StartOfWeek() && t.Date <= currentDate.EndOfWeek())
+            .ToList();
+
+        // Get tasks for the upcoming week
+        var upcomingWeekTasks = _context.Tasks
+            .Where(t => t.Date > currentDate.EndOfWeek() && t.Date <= currentDate.AddDays(14).EndOfWeek())
+            .ToList();
+
+        // Get tasks beyond the next two weeks
+        var farthestTasks = _context.Tasks
+            .Where(t => t.Date > currentDate.AddDays(14).EndOfWeek())
+            .ToList();
+
+        // Pass data to the view
+        var model = new ScheduleViewModel
         {
-            var currentDate = DateTime.Now;
+            CurrentWeekTasks = currentWeekTasks,
+            UpcomingWeekTasks = upcomingWeekTasks,
+            FarthestTasks = farthestTasks // Fixed
+        };
 
-            // Get tasks for the current week
-            var currentWeekTasks = _context.Tasks
-                .Where(t => t.Date >= currentDate.StartOfWeek() && t.Date <= currentDate.EndOfWeek())
-                .ToList();
+        return View(model);
+    }
 
-            // Get tasks for the upcoming week
-            var upcomingWeekTasks = _context.Tasks
-                .Where(t => t.Date > currentDate.EndOfWeek() && t.Date <= currentDate.AddDays(14).EndOfWeek())
-                .ToList();
-
-            // Pass data to the view
-            var model = new ScheduleViewModel
-            {
-                CurrentWeekTasks = currentWeekTasks,
-                UpcomingWeekTasks = upcomingWeekTasks
-            };
-
-            return View(model);
-        }
 
         [HttpPost]
         public IActionResult AddTask(string Name, DateTime Date)

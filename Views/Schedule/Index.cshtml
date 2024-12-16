@@ -19,6 +19,8 @@
     </div>
 </div>
 
+
+
 <!-- Current Week Tasks -->
 <div class="row">
     <div class="col-md-6">
@@ -33,6 +35,8 @@
         </ul>
     </div>
 
+
+
     <!-- Upcoming Week Tasks -->
     <div class="col-md-6">
         <h4>Upcoming Tasks</h4>
@@ -46,3 +50,18 @@
         </ul>
     </div>
 </div>
+
+        <!-- New Section: Future Tasks -->
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Future Tasks</h4>
+                <ul class="list-group">
+                    @foreach (var task in Model.FarthestTasks)
+                    {
+                        <li class="list-group-item">
+                            <strong>@task.Name</strong> - @task.Date.ToShortDateString()
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>   

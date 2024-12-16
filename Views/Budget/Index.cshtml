@@ -90,6 +90,9 @@
         <!-- Upcoming Tasks for This Week -->
         <div class="col-md-4">
             <h4>Upcoming Tasks for This Week</h4>
+
+            <a class="btn btn-success mb-3" href="@Url.Action("Index", "Schedule")">Add Task</a>
+
             <ul class="list-group">
                 @if (Model.CurrentWeekTasks != null && Model.CurrentWeekTasks.Any())
                 {
