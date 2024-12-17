@@ -1,0 +1,23 @@
+@model BudgetTracker.Models.ToDoItem
+
+<h2>Add Task</h2>
+
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DueDate">Due Date</label>
+        <input asp-for="DueDate" type="date" class="form-control" />
+    </div>
+    <div class="form-check">
+        <input asp-for="IsDaily" type="checkbox" class="form-check-input" />
+        <label asp-for="IsDaily" class="form-check-label">Add as Daily Task</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="IsTodayOnly" type="checkbox" class="form-check-input" />
+        <label asp-for="IsTodayOnly" class="form-check-label">Add for Today Only</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

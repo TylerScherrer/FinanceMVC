@@ -1,0 +1,66 @@
+@model BudgetTracker.Models.ToDoViewModel
+
+<h2>Today's Tasks</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Create New Task</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Task</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var task in Model.TodayTasks)
+    {
+        <tr>
+            <td>@task.Name</td>
+            <td>@task.DueDate.ToShortDateString()</td>
+            <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
+            <td>
+                <form method="post" asp-action="MarkComplete" asp-route-id="@task.Id" style="display:inline;">
+                    <button type="submit" class="btn btn-success btn-sm">Mark Complete</button>
+                </form>
+                <form method="post" asp-action="Delete" asp-route-id="@task.Id" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<hr />
+
+<h2>All Tasks</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Task</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var task in Model.AllTasks)
+    {
+        <tr>
+            <td>@task.Name</td>
+            <td>@task.DueDate.ToShortDateString()</td>
+            <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
+            <td>
+                <form method="post" asp-action="MarkComplete" asp-route-id="@task.Id" style="display:inline;">
+                    <button type="submit" class="btn btn-success btn-sm">Mark Complete</button>
+                </form>
+                <form method="post" asp-action="Delete" asp-route-id="@task.Id" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

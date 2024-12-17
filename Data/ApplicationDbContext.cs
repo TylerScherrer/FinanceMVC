@@ -13,6 +13,7 @@ namespace BudgetTracker.Data
         public DbSet<Transaction> Transactions { get; set; }
 
         public DbSet<TaskItem> Tasks { get; set; }
+        public DbSet<ToDoItem> ToDoItems { get; set; }
 
         public object BudgetCategories { get; set; }
 

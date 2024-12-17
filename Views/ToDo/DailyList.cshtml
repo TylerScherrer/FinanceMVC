@@ -1,0 +1,31 @@
+@model IEnumerable<BudgetTracker.Models.ToDoItem>
+
+<h2>Today's To-Do List</h2>
+<a asp-action="Create" class="btn btn-primary">Add Task</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Task</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var task in Model)
+    {
+        <tr>
+            <td>@task.Name</td>
+            <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
+            <td>
+                @if (!task.IsCompleted)
+                {
+                    <form method="post" asp-action="MarkComplete" asp-route-id="@task.Id">
+                        <button type="submit" class="btn btn-success">Mark Complete</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -3,6 +3,7 @@ using System;
 using BudgetTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetTracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241217005905_ToDoViewModel")]
+    partial class ToDoViewModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -132,6 +135,21 @@ namespace BudgetTracker.Migrations
                     b.ToTable("Transactions");
                 });
 
+            modelBuilder.Entity("ToDoItemToDoItem", b =>
+                {
+                    b.Property<int>("AllTasksId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TodayTasksId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AllTasksId", "TodayTasksId");
+
+                    b.HasIndex("TodayTasksId");
+
+                    b.ToTable("ToDoItemToDoItem");
+                });
+
             modelBuilder.Entity("BudgetTracker.Models.Category", b =>
                 {
                     b.HasOne("BudgetTracker.Models.Budget", "Budget")
@@ -152,6 +170,21 @@ namespace BudgetTracker.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ToDoItemToDoItem", b =>
+                {
+                    b.HasOne("BudgetTracker.Models.ToDoItem", null)
+                        .WithMany()
+                        .HasForeignKey("AllTasksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BudgetTracker.Models.ToDoItem", null)
+                        .WithMany()
+                        .HasForeignKey("TodayTasksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BudgetTracker.Models.Budget", b =>

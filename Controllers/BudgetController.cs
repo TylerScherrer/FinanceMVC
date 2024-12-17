@@ -31,12 +31,18 @@ namespace BudgetTracker.Controllers
             var currentWeekTasks = _context.Tasks
                 .Where(t => t.Date >= currentDate.StartOfWeek() && t.Date <= currentDate.EndOfWeek())
                 .ToList();
+            
+                // Fetch To-Do tasks for today
+            var todayTasks = _context.ToDoItems
+                .Where(t => t.IsDaily || t.DueDate.Date == currentDate.Date)
+                .ToList();
 
             // Combine into ViewModel
             var model = new BudgetWithTasksViewModel
             {
                 Budgets = budgets,
-                CurrentWeekTasks = currentWeekTasks
+                CurrentWeekTasks = currentWeekTasks,
+                TodayTasks = todayTasks // Add today's To-Do tasks
             };
 
             return View(model); // Ensure the view receives BudgetWithTasksViewModel
