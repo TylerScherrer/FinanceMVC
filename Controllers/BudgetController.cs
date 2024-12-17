@@ -26,7 +26,10 @@ namespace BudgetTracker.Controllers
                 .ToList();
 
                 // Update Remaining Amount dynamically
-
+            var pendingTasks = _context.ToDoItems
+                .Where(t => !t.IsCompleted) // Only pending tasks
+                .ToList();
+                
             // Fetch tasks for the current week
             var currentWeekTasks = _context.Tasks
                 .Where(t => t.Date >= currentDate.StartOfWeek() && t.Date <= currentDate.EndOfWeek())

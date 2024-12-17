@@ -110,6 +110,21 @@ public IActionResult Create(ToDoItem task)
             // Redirect back to the Index page
             return RedirectToAction(nameof(Index));
         }
+[HttpPost]
+public IActionResult AssignTaskToTime(int taskId, int hour)
+{
+    var task = _context.ToDoItems.Find(taskId);
+
+    if (task != null)
+    {
+        Console.WriteLine($"Task '{task.Name}' assigned to {hour}:00.");
+        // Optional: Save this assignment to a database if needed
+    }
+
+    return RedirectToAction("Index", "Budget");
+}
 
     }
+
+    
 }

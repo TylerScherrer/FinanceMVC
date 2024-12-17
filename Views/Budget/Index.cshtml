@@ -142,3 +142,35 @@
     }
     </tbody>
 </table>
+<!-- Daily Schedule Section -->
+<h3>Organize My Day</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Time</th>
+            <th>Task</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int hour = 1; hour <= 12; hour++)
+        {
+            <tr>
+                <td>@(hour <= 12 ? $"{hour} a.m." : $"{hour - 12} p.m.")</td>
+                <td>
+                    <!-- Dropdown to Assign Task -->
+                    <form method="post" asp-action="AssignTaskToTime" asp-controller="ToDo">
+                        <select name="taskId" class="form-control">
+                            <option value="">-- Select Task --</option>
+                            @foreach (var task in Model.TodayTasks)
+                            {
+                                <option value="@task.Id">@task.Name</option>
+                            }
+                        </select>
+                        <input type="hidden" name="hour" value="@hour" />
+                        <button type="submit" class="btn btn-primary btn-sm mt-1">Assign</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
