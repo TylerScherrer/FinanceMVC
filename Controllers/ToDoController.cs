@@ -1,6 +1,7 @@
 using BudgetTracker.Data;
 using BudgetTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace BudgetTracker.Controllers
@@ -15,26 +16,31 @@ namespace BudgetTracker.Controllers
         }
 
         // GET: All tasks
-        public IActionResult Index()
-        {
-            var today = DateTime.Now.Date;
+public IActionResult Index()
+{
+    var today = DateTime.Now.Date;
 
-            // Tasks for Today: IsDaily OR IsTodayOnly for the current date
-            var todayTasks = _context.ToDoItems
-                                    .Where(t => t.IsDaily || (t.IsTodayOnly && t.DueDate.Date == today))
-                                    .ToList();
+    var todayTasks = _context.ToDoItems
+        .Where(t => t.IsDaily || (t.IsTodayOnly && t.DueDate.Date == today))
+        .ToList();
 
-            // All tasks
-            var allTasks = _context.ToDoItems.ToList();
+    var dailySchedules = _context.DailySchedules
+        .Include(ds => ds.Task)
+        .ToList();
 
-            var model = new ToDoViewModel
-            {
-                TodayTasks = todayTasks,
-                AllTasks = allTasks
-            };
+    var model = new BudgetWithTasksViewModel
+    {
+        TodayTasks = todayTasks,
+        DailySchedules = dailySchedules,
+        Budgets = new List<Budget>(), // Empty if not needed
+        CurrentWeekTasks = new List<TaskItem>()
+    };
 
-            return View(model);
-        }
+    return View(model); // Ensure the ToDo/Index view expects BudgetWithTasksViewModel
+}
+
+
+
 
 
         // GET: Daily tasks
@@ -117,12 +123,32 @@ public IActionResult AssignTaskToTime(int taskId, int hour)
 
     if (task != null)
     {
-        Console.WriteLine($"Task '{task.Name}' assigned to {hour}:00.");
-        // Optional: Save this assignment to a database if needed
+        // Check if there's already a task scheduled for this hour
+        var existingSchedule = _context.DailySchedules
+            .FirstOrDefault(ds => ds.Hour == hour);
+
+        if (existingSchedule != null)
+        {
+            existingSchedule.TaskId = taskId; // Update existing schedule
+        }
+        else
+        {
+            var newSchedule = new DailySchedule
+            {
+                TaskId = taskId,
+                Hour = hour
+            };
+            _context.DailySchedules.Add(newSchedule); // Add new task assignment
+        }
+
+        _context.SaveChanges();
     }
 
+    // Redirect back to Budget Index, ensure controller name is correct
     return RedirectToAction("Index", "Budget");
 }
+
+
 
     }
 

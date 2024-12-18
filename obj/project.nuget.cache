@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Kvj8BU9F8Qs=",
+  "dgSpecHash": "6scf61AG1zw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\BudgetTracker.csproj",
+  "projectFilePath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\budgettracker\\BudgetTracker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tyler\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Tyler\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",

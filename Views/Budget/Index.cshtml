@@ -152,12 +152,23 @@
         </tr>
     </thead>
     <tbody>
-        @for (int hour = 1; hour <= 12; hour++)
+        @for (int hour = 9; hour <= 17; hour++) 
         {
             <tr>
                 <td>@(hour <= 12 ? $"{hour} a.m." : $"{hour - 12} p.m.")</td>
                 <td>
-                    <!-- Dropdown to Assign Task -->
+                    @{
+                        // Find the scheduled task for the current hour
+                        var scheduledTask = Model.DailySchedules?
+                            .FirstOrDefault(ds => ds.Hour == hour);
+                    }
+                    @if (scheduledTask != null)
+                    {
+                        <span>@scheduledTask.Task.Name</span> <!-- Display assigned task -->
+                    }
+                    else
+                    {
+                        <!-- Dropdown to assign a task -->
                     <form method="post" asp-action="AssignTaskToTime" asp-controller="ToDo">
                         <select name="taskId" class="form-control">
                             <option value="">-- Select Task --</option>
@@ -169,6 +180,8 @@
                         <input type="hidden" name="hour" value="@hour" />
                         <button type="submit" class="btn btn-primary btn-sm mt-1">Assign</button>
                     </form>
+
+                    }
                 </td>
             </tr>
         }

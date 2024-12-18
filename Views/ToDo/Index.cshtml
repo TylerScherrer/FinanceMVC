@@ -1,4 +1,5 @@
-@model BudgetTracker.Models.ToDoViewModel
+@model BudgetTracker.Models.BudgetWithTasksViewModel
+
 
 <h2>Today's Tasks</h2>
 
@@ -46,6 +47,8 @@
         </tr>
     </thead>
     <tbody>
+@if (Model.AllTasks != null && Model.AllTasks.Any())
+{
     @foreach (var task in Model.AllTasks)
     {
         <tr>
@@ -53,14 +56,21 @@
             <td>@task.DueDate.ToShortDateString()</td>
             <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
             <td>
-                <form method="post" asp-action="MarkComplete" asp-route-id="@task.Id" style="display:inline;">
+                <form method="post" asp-action="MarkComplete" asp-controller="ToDo" asp-route-id="@task.Id" style="display:inline;">
                     <button type="submit" class="btn btn-success btn-sm">Mark Complete</button>
                 </form>
-                <form method="post" asp-action="Delete" asp-route-id="@task.Id" style="display:inline;">
+                <form method="post" asp-action="Delete" asp-controller="ToDo" asp-route-id="@task.Id" style="display:inline;">
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                 </form>
             </td>
         </tr>
     }
-    </tbody>
+}
+else
+{
+    <tr>
+        <td colspan="4">No tasks available</td>
+    </tr>
+}
+
 </table>

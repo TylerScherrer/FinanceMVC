@@ -15,6 +15,9 @@ namespace BudgetTracker.Data
         public DbSet<TaskItem> Tasks { get; set; }
         public DbSet<ToDoItem> ToDoItems { get; set; }
 
+        public DbSet<DailySchedule> DailySchedules { get; set; }
+
+
         public object BudgetCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
