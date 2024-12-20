@@ -2,10 +2,9 @@ namespace BudgetTracker.Models
 {
     public class ScheduleViewModel
     {
-        public List<TaskItem> CurrentWeekTasks { get; set; }
-        public List<TaskItem> UpcomingWeekTasks { get; set; }
-
-        public List<TaskItem> FarthestTasks { get; set; } // Tasks beyond the next week
+        public List<TaskItem> CurrentWeekTasks { get; set; } = new List<TaskItem>();
+        public List<TaskItem> UpcomingWeekTasks { get; set; } = new List<TaskItem>();
+        public List<TaskItem> FarthestTasks { get; set; } = new List<TaskItem>(); // Tasks beyond the next week
     }
 
     public class TaskItem

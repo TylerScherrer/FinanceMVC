@@ -1,54 +1,42 @@
-using BudgetTracker.Data;
+using BudgetTracker.Interfaces;
 using BudgetTracker.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace BudgetTracker.Controllers
 {
     public class ToDoController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IToDoService _toDoService;
 
-        public ToDoController(ApplicationDbContext context)
+        public ToDoController(IToDoService toDoService)
         {
-            _context = context;
+            _toDoService = toDoService;
         }
 
         // GET: All tasks
-public IActionResult Index()
-{
-    var today = DateTime.Now.Date;
+        public async Task<IActionResult> Index()
+        {
+            var todayTasks = await _toDoService.GetTodayTasksAsync();
+            var dailySchedules = await _toDoService.GetDailySchedulesAsync();
+            var allTasks = await _toDoService.GetAllTasksAsync(); // Add this line
 
-    var todayTasks = _context.ToDoItems
-        .Where(t => t.IsDaily || (t.IsTodayOnly && t.DueDate.Date == today))
-        .ToList();
+            var model = new BudgetWithTasksViewModel
+            {
+                TodayTasks = todayTasks,
+                DailySchedules = dailySchedules,
+                Budgets = new List<Budget>(), // Empty if not needed
+                CurrentWeekTasks = new List<TaskItem>(), // Empty if not needed
+                AllTasks = allTasks // Add all tasks here
+            };
 
-    var dailySchedules = _context.DailySchedules
-        .Include(ds => ds.Task)
-        .ToList();
-
-    var model = new BudgetWithTasksViewModel
-    {
-        TodayTasks = todayTasks,
-        DailySchedules = dailySchedules,
-        Budgets = new List<Budget>(), // Empty if not needed
-        CurrentWeekTasks = new List<TaskItem>()
-    };
-
-    return View(model); // Ensure the ToDo/Index view expects BudgetWithTasksViewModel
-}
-
-
-
-
+            return View(model); // Ensure the ToDo/Index view expects BudgetWithTasksViewModel
+        }
 
         // GET: Daily tasks
-        public IActionResult DailyList()
+        public async Task<IActionResult> DailyList()
         {
-            var dailyTasks = _context.ToDoItems
-                .Where(t => t.IsDaily)
-                .ToList();
+            var dailyTasks = await _toDoService.GetDailyTasksAsync();
             return View(dailyTasks);
         }
 
@@ -58,99 +46,60 @@ public IActionResult Index()
             return View();
         }
 
-[HttpPost]
-public IActionResult Create(ToDoItem task)
-{
-    // Debugging: Print all received values
-    Console.WriteLine("=== Form Submission Debug ===");
-    Console.WriteLine($"Name: {task.Name}");
-    Console.WriteLine($"DueDate: {task.DueDate}");
-    Console.WriteLine($"IsDaily: {task.IsDaily}");
-    Console.WriteLine($"IsTodayOnly: {task.IsTodayOnly}");
-
-    if (ModelState.IsValid)
-    {
-        _context.ToDoItems.Add(task);
-        _context.SaveChanges();
-        Console.WriteLine("Task saved successfully!");
-        return RedirectToAction(nameof(Index));
-    }
-
-    Console.WriteLine("ModelState is not valid. Errors:");
-    foreach (var modelStateKey in ModelState.Keys)
-    {
-        var value = ModelState[modelStateKey];
-        foreach (var error in value.Errors)
-        {
-            Console.WriteLine($"Error in {modelStateKey}: {error.ErrorMessage}");
-        }
-    }
-
-    return View(task);
-}
-
-
-        // POST: Mark as completed
         [HttpPost]
-        public IActionResult MarkComplete(int id)
+        public async Task<IActionResult> Create(ToDoItem task)
         {
-            var task = _context.ToDoItems.Find(id);
-            if (task != null)
+            // Log received values
+            Console.WriteLine($"Name: {task.Name}, DueDate: {task.DueDate}, IsDaily: {task.IsDaily}, IsTodayOnly: {task.IsTodayOnly}");
+
+            if (ModelState.IsValid)
             {
-                task.IsCompleted = true;
-                _context.SaveChanges();
+                await _toDoService.CreateTaskAsync(task);
+                return RedirectToAction(nameof(Index));
             }
+
+            // Log model state errors
+            foreach (var key in ModelState.Keys)
+            {
+                var state = ModelState[key];
+                foreach (var error in state.Errors)
+                {
+                    Console.WriteLine($"Error in {key}: {error.ErrorMessage}");
+                }
+            }
+
+            return View(task);
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> MarkComplete(int id)
+        {
+            await _toDoService.MarkTaskAsCompleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var task = _context.ToDoItems.Find(id);
-            if (task != null)
-            {
-                _context.ToDoItems.Remove(task);
-                _context.SaveChanges();
-            }
-
-            // Redirect back to the Index page
+            await _toDoService.DeleteTaskAsync(id);
             return RedirectToAction(nameof(Index));
         }
-[HttpPost]
-public IActionResult AssignTaskToTime(int taskId, int hour)
-{
-    var task = _context.ToDoItems.Find(taskId);
 
-    if (task != null)
-    {
-        // Check if there's already a task scheduled for this hour
-        var existingSchedule = _context.DailySchedules
-            .FirstOrDefault(ds => ds.Hour == hour);
-
-        if (existingSchedule != null)
+        [HttpPost]
+        public async Task<IActionResult> AssignTaskToTime(int taskId, int hour)
         {
-            existingSchedule.TaskId = taskId; // Update existing schedule
+            await _toDoService.AssignTaskToTimeAsync(taskId, hour);
+            return RedirectToAction("Index", "Budget");
         }
-        else
+        
+        public async Task<List<ToDoItem>> GetAllTasksAsync()
         {
-            var newSchedule = new DailySchedule
-            {
-                TaskId = taskId,
-                Hour = hour
-            };
-            _context.DailySchedules.Add(newSchedule); // Add new task assignment
+            // Use _toDoService or _context as appropriate
+            return await _toDoService.GetAllTasksAsync(); // Use the service
         }
-
-        _context.SaveChanges();
-    }
-
-    // Redirect back to Budget Index, ensure controller name is correct
-    return RedirectToAction("Index", "Budget");
-}
-
 
 
     }
-
-    
 }

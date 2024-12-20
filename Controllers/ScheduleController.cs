@@ -1,70 +1,29 @@
 using Microsoft.AspNetCore.Mvc;
+using BudgetTracker.Interfaces;
 using BudgetTracker.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using BudgetTracker.Data;
-using BudgetTracker.Extensions;
-
 
 namespace BudgetTracker.Controllers
 {
     public class ScheduleController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IScheduleService _scheduleService;
 
-        public ScheduleController(ApplicationDbContext context)
+        public ScheduleController(IScheduleService scheduleService)
         {
-            _context = context;
+            _scheduleService = scheduleService;
         }
-    public IActionResult Index()
-    {
-        var currentDate = DateTime.Now;
 
-        // Get tasks for the current week
-        var currentWeekTasks = _context.Tasks
-            .Where(t => t.Date >= currentDate.StartOfWeek() && t.Date <= currentDate.EndOfWeek())
-            .ToList();
-
-        // Get tasks for the upcoming week
-        var upcomingWeekTasks = _context.Tasks
-            .Where(t => t.Date > currentDate.EndOfWeek() && t.Date <= currentDate.AddDays(14).EndOfWeek())
-            .ToList();
-
-        // Get tasks beyond the next two weeks
-        var farthestTasks = _context.Tasks
-            .Where(t => t.Date > currentDate.AddDays(14).EndOfWeek())
-            .ToList();
-
-        // Pass data to the view
-        var model = new ScheduleViewModel
+        public async Task<IActionResult> Index()
         {
-            CurrentWeekTasks = currentWeekTasks,
-            UpcomingWeekTasks = upcomingWeekTasks,
-            FarthestTasks = farthestTasks // Fixed
-        };
-
-        return View(model);
-    }
-
+            var schedule = await _scheduleService.GetScheduleAsync();
+            return View(schedule);
+        }
 
         [HttpPost]
-        public IActionResult AddTask(string Name, DateTime Date)
+        public async Task<IActionResult> AddTask(string name, DateTime date)
         {
-            if (!string.IsNullOrEmpty(Name) && Date != default)
-            {
-                var newTask = new TaskItem
-                {
-                    Name = Name,
-                    Date = Date
-                };
-
-                _context.Tasks.Add(newTask);
-                _context.SaveChanges();
-            }
-
+            await _scheduleService.AddTaskAsync(name, date);
             return RedirectToAction(nameof(Index));
         }
     }
-    }
-
+}

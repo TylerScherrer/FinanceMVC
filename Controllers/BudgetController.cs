@@ -1,159 +1,111 @@
-using BudgetTracker.Data;
+using BudgetTracker.Interfaces;
 using BudgetTracker.Models;
+using BudgetTracker.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using BudgetTracker.Extensions;
-
 
 namespace BudgetTracker.Controllers
 {
     public class BudgetController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IBudgetService _budgetService;
+        private readonly IScheduleService _scheduleService;
 
-        public BudgetController(ApplicationDbContext context)
+        public BudgetController(IBudgetService budgetService, IScheduleService scheduleService)
         {
-            _context = context;
+            _budgetService = budgetService;
+            _scheduleService = scheduleService;
         }
-
-        public IActionResult Index()
+        
+        public async Task<IActionResult> Index()
         {
-            var currentDate = DateTime.Now;
+            var budgets = await _budgetService.GetAllBudgetsAsync();
 
-            // Fetch all budgets
-            var budgets = _context.Budgets
-                .Include(b => b.Categories) // Load related categories
-                .ToList();
-
-                // Update Remaining Amount dynamically
-            var pendingTasks = _context.ToDoItems
-                .Where(t => !t.IsCompleted) // Only pending tasks
-                .ToList();
-                
             // Fetch tasks for the current week
-            var currentWeekTasks = _context.Tasks
-                .Where(t => t.Date >= currentDate.StartOfWeek() && t.Date <= currentDate.EndOfWeek())
-                .ToList();
-            
-                // Fetch To-Do tasks for today
-            var todayTasks = _context.ToDoItems
-                .Where(t => t.IsDaily || t.DueDate.Date == currentDate.Date)
-                .ToList();
+            var tasksForWeek = await _scheduleService.GetTasksForCurrentWeekAsync();
 
-                // Fetch daily schedules
-            var dailySchedules = _context.DailySchedules
-                .Include(ds => ds.Task)
-                .ToList();
-
-                // Fetch all tasks
-            var allTasks = _context.ToDoItems.ToList();
-
-            // Combine into ViewModel
-            var model = new BudgetWithTasksViewModel
+            // Populate the view model
+            var viewModel = new BudgetWithTasksViewModel
             {
                 Budgets = budgets,
-                CurrentWeekTasks = currentWeekTasks,
-                TodayTasks = todayTasks, // Add today's To-Do tasks
-                 AllTasks = allTasks ?? new List<ToDoItem>(), // Ensure AllTasks is initialized
-                DailySchedules = dailySchedules
+                CurrentWeekTasks = tasksForWeek,
+                TodayTasks = new List<ToDoItem>(), // Add logic if needed
+                DailySchedules = new List<DailySchedule>() // Add logic if needed
             };
 
-            return View(model); // Ensure the view receives BudgetWithTasksViewModel
+            return View(viewModel);
         }
 
 
-        // GET: Create a new budget
+
+        public async Task<IActionResult> Details(int id)
+        {
+            try
+            {
+                var budget = await _budgetService.GetBudgetDetailsAsync(id);
+                return View(budget);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-                
         [HttpPost]
-public IActionResult Create(Category category)
-{
-    if (ModelState.IsValid)
-    {
-        // Fetch the budget
-        var budget = _context.Budgets
-                             .Include(b => b.Categories) // Include categories to calculate RemainingAmount
-                             .FirstOrDefault(b => b.Id == category.BudgetId);
-
-        if (budget == null)
+        public async Task<IActionResult> Create(Budget budget)
         {
-            return NotFound("Budget not found.");
-        }
+            if (!ModelState.IsValid)
+                return View(budget);
 
-        // Validate allocated amount
-        if (budget.RemainingAmount < category.AllocatedAmount)
-        {
-            ModelState.AddModelError("", "Allocated amount exceeds the remaining budget.");
-            return View(category);
-        }
-
-        // Add the new category
-        _context.Categories.Add(category);
-        _context.SaveChanges();
-
-        return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
-    }
-
-    return View(category);
-}
-
-
-
-
-
-        // GET: View details of a specific budget
-        public IActionResult Details(int id)
-        {
-            var budget = _context.Budgets.FirstOrDefault(b => b.Id == id);
-            if (budget == null) return NotFound();
-
-            return View(budget);
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            var budget = _context.Budgets.FirstOrDefault(b => b.Id == id);
-            if (budget == null) return NotFound();
-            return View(budget);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Budget budget)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Budgets.Update(budget);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(budget);
-        }
-
-
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            // Find the budget by ID
-            var budget = _context.Budgets.Find(id);
-
-            // Check if the budget exists
-            if (budget != null)
-            {
-                _context.Budgets.Remove(budget);
-                _context.SaveChanges();
-            }
-
-            // Redirect back to the Budget list (Index page)
+            await _budgetService.CreateBudgetAsync(budget);
             return RedirectToAction(nameof(Index));
         }
 
-        
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                var budget = await _budgetService.GetBudgetDetailsAsync(id);
+                return View(budget);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(Budget budget)
+        {
+            if (!ModelState.IsValid)
+                return View(budget);
+
+            try
+            {
+                await _budgetService.UpdateBudgetAsync(budget);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var success = await _budgetService.DeleteBudgetAsync(id);
+
+            if (!success)
+                return NotFound("Budget not found.");
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

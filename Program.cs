@@ -1,10 +1,20 @@
 using BudgetTracker.Data;
+using BudgetTracker.Interfaces;
+using BudgetTracker.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IBudgetService, BudgetService>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
+builder.Services.AddScoped<IToDoService, ToDoService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
+
+
+
 
 // Register the database context with SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

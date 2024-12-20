@@ -1,4 +1,4 @@
-using BudgetTracker.Data;
+using BudgetTracker.Interfaces;
 using BudgetTracker.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,11 +6,11 @@ namespace BudgetTracker.Controllers
 {
     public class TransactionController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ITransactionService _transactionService;
 
-        public TransactionController(ApplicationDbContext context)
+        public TransactionController(ITransactionService transactionService)
         {
-            _context = context;
+            _transactionService = transactionService;
         }
 
         [HttpGet]
@@ -24,49 +24,38 @@ namespace BudgetTracker.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Transaction transaction)
+        public async Task<IActionResult> Create(Transaction transaction)
         {
             if (ModelState.IsValid)
             {
-                // Fetch the category associated with the transaction
-                var category = _context.Categories.FirstOrDefault(c => c.Id == transaction.CategoryId);
-
-                if (category == null)
+                try
                 {
-                    return NotFound("Category not found.");
+                    await _transactionService.CreateTransactionAsync(transaction);
+                    return RedirectToAction("Details", "Category", new { id = transaction.CategoryId });
                 }
-
-                // Ensure the transaction amount does not exceed the remaining category amount
-                if (category.AllocatedAmount < transaction.Amount)
+                catch (InvalidOperationException ex)
                 {
-                    ModelState.AddModelError("", "Transaction amount exceeds the available category amount.");
-                    return View(transaction);
+                    ModelState.AddModelError("", ex.Message);
                 }
-
-                // Subtract the transaction amount from the category
-                category.AllocatedAmount -= transaction.Amount;
-
-                // Save the new transaction
-                _context.Transactions.Add(transaction);
-                _context.SaveChanges();
-
-                return RedirectToAction("Details", "Category", new { id = transaction.CategoryId });
             }
 
             return View(transaction);
         }
-    [HttpPost]
-    public IActionResult Delete(int id)
-    {
-        var transaction = _context.Transactions.Find(id);
-        if (transaction != null)
-        {
-            _context.Transactions.Remove(transaction);
-            _context.SaveChanges();
-        }
-        return RedirectToAction("Details", "Category", new { id = transaction.CategoryId }); 
-        // Redirect back to the Category Details
-    }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _transactionService.DeleteTransactionAsync(id);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+
+            // Redirect back to the Category Details
+            return RedirectToAction("Details", "Category", new { id = id });
+        }
     }
 }
