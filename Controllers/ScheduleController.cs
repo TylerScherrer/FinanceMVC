@@ -25,5 +25,13 @@ namespace BudgetTracker.Controllers
             await _scheduleService.AddTaskAsync(name, date);
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteScheduledTask(int id)
+        {
+            await _scheduleService.DeleteTaskAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

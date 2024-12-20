@@ -3,37 +3,46 @@ using BudgetTracker.Models;
 using BudgetTracker.Services;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace BudgetTracker.Controllers
 {
     public class BudgetController : Controller
     {
         private readonly IBudgetService _budgetService;
         private readonly IScheduleService _scheduleService;
+        private readonly IToDoService _toDoService; // Add this line
 
-        public BudgetController(IBudgetService budgetService, IScheduleService scheduleService)
+        public BudgetController(IBudgetService budgetService, IScheduleService scheduleService, IToDoService toDoService)
         {
             _budgetService = budgetService;
             _scheduleService = scheduleService;
+            _toDoService = toDoService; 
         }
+
         
+        // In BudgetController
         public async Task<IActionResult> Index()
         {
             var budgets = await _budgetService.GetAllBudgetsAsync();
-
-            // Fetch tasks for the current week
             var tasksForWeek = await _scheduleService.GetTasksForCurrentWeekAsync();
 
-            // Populate the view model
+            // Fetch today's tasks and daily schedules
+            // Note: You'll need an instance of IToDoService or pass it into the constructor as well.
+            var todayTasks = await _toDoService.GetTodayTasksAsync();
+            var dailySchedules = await _toDoService.GetDailySchedulesAsync();
+
             var viewModel = new BudgetWithTasksViewModel
             {
                 Budgets = budgets,
                 CurrentWeekTasks = tasksForWeek,
-                TodayTasks = new List<ToDoItem>(), // Add logic if needed
-                DailySchedules = new List<DailySchedule>() // Add logic if needed
+                TodayTasks = todayTasks,
+                DailySchedules = dailySchedules
             };
 
             return View(viewModel);
         }
+
+
 
 
 
@@ -62,9 +71,12 @@ namespace BudgetTracker.Controllers
             if (!ModelState.IsValid)
                 return View(budget);
 
+            budget.DateCreated = DateTime.Now; // Set the current date and time here
+
             await _budgetService.CreateBudgetAsync(budget);
             return RedirectToAction(nameof(Index));
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -107,5 +119,13 @@ namespace BudgetTracker.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteScheduledTask(int id)
+        {
+            await _scheduleService.DeleteTaskAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

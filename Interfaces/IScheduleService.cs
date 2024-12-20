@@ -1,4 +1,5 @@
 using BudgetTracker.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetTracker.Interfaces
 {
@@ -7,5 +8,7 @@ namespace BudgetTracker.Interfaces
          Task<List<TaskItem>> GetTasksForCurrentWeekAsync();
         Task<ScheduleViewModel> GetScheduleAsync();
         Task AddTaskAsync(string name, DateTime date);
+
+        Task DeleteTaskAsync(int id);
     }
 }
