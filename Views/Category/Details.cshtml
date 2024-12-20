@@ -1,47 +1,65 @@
 @model BudgetTracker.Models.Category
 
-<h1>Category Details</h1>
+<div class="container py-4" style="background: #f8f9fa;">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Category Details</h1>
+        <p class="text-muted">View and manage your category's transactions and allocation.</p>
+    </div>
 
-<div class="card mb-3">
-    <div class="card-body">
-        <h3 class="card-title">@Model.Name</h3>
-        <p><strong>Allocated Amount:</strong> @Model.AllocatedAmount</p>
-        <p><strong>Budget:</strong> @Model.Budget.Name</p>
-        <p><strong>Remaining Amount:</strong> @Model.AllocatedAmount</p>
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h4 class="fw-bold mb-3 text-warning"><i class="fas fa-folder-open me-2"></i>@Model.Name</h4>
+            <div class="mb-4">
+                <p><strong>Allocated Amount:</strong> @Model.AllocatedAmount.ToString("C")</p>
+                <p><strong>Budget:</strong> @Model.Budget.Name</p>
+                <!-- If you want to show actual remaining calculation, ensure logic is in Model or Controller -->
+                <p><strong>Remaining Amount:</strong> @Model.AllocatedAmount.ToString("C")</p>
+            </div>
+            
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <a class="btn btn-outline-primary" href="@Url.Action("Create", "Transaction", new { categoryId = Model.Id })">
+                    <i class="fas fa-plus me-1"></i>Add Transaction
+                </a>
+                
+                <form asp-action="Delete" asp-controller="Category" method="post" class="d-inline">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fas fa-trash-alt me-1"></i>Delete Category
+                    </button>
+                </form>
+            </div>
 
+            @if (Model.Transactions != null && Model.Transactions.Any())
+            {
+                <h5 class="fw-bold mb-3 text-info"><i class="fas fa-receipt me-2"></i>Transactions</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle table-sm">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var transaction in Model.Transactions)
+                            {
+                                <tr>
+                                    <td>@transaction.Description</td>
+                                    <td>@transaction.Amount.ToString("C")</td>
+                                    <td>@transaction.Date.ToShortDateString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-light border text-center mt-4">
+                    No transactions available for this category.
+                </div>
+            }
+        </div>
     </div>
 </div>
-
-<a class="btn btn-primary mb-3" href="@Url.Action("Create", "Transaction", new { categoryId = Model.Id })">Add Transaction</a>
-<!-- Delete Category Button -->
-<form asp-action="Delete" asp-controller="Category" method="post" style="display:inline;">
-    <input type="hidden" name="id" value="@Model.Id" />
-    <button type="submit" class="btn btn-danger mb-3">Delete Category</button>
-</form>
-@if (Model.Transactions != null && Model.Transactions.Any())
-{
-    <h2>Transactions</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var transaction in Model.Transactions)
-            {
-                <tr>
-                    <td>@transaction.Description</td>
-                    <td>@transaction.Amount</td>
-                    <td>@transaction.Date.ToShortDateString()</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No transactions available.</p>
-}

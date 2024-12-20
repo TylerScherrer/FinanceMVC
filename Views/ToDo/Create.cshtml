@@ -1,23 +1,51 @@
 @model BudgetTracker.Models.ToDoItem
 
-<h2>Add Task</h2>
+<div class="container py-4" style="background: #f8f9fa;">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Add Task</h1>
+        <p class="text-muted">Create a new task and define its schedule preferences.</p>
+    </div>
 
-<form method="post" asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h4 class="fw-bold mb-3 text-primary"><i class="fas fa-plus-circle me-2"></i>New Task Details</h4>
+                    <form method="post" asp-action="Create" class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="Name" class="form-label fw-semibold">Task Name</label>
+                            <input asp-for="Name" class="form-control form-control-lg" placeholder="e.g. Buy groceries" />
+                        </div>
+                        
+                        <div class="col-12">
+                            <label asp-for="DueDate" class="form-label fw-semibold">Due Date</label>
+                            <input asp-for="DueDate" type="date" class="form-control" />
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input asp-for="IsDaily" type="checkbox" class="form-check-input" />
+                                <label asp-for="IsDaily" class="form-check-label fw-semibold">Add as Daily Task</label>
+                            </div>
+                            <small class="text-muted">If checked, this task will repeat every day.</small>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input asp-for="IsTodayOnly" type="checkbox" class="form-check-input" />
+                                <label asp-for="IsTodayOnly" class="form-check-label fw-semibold">Add for Today Only</label>
+                            </div>
+                            <small class="text-muted">If checked, this task will only appear today.</small>
+                        </div>
+                        
+                        <div class="col-12 d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-check me-1"></i>Save Task
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="DueDate">Due Date</label>
-        <input asp-for="DueDate" type="date" class="form-control" />
-    </div>
-    <div class="form-check">
-        <input asp-for="IsDaily" type="checkbox" class="form-check-input" />
-        <label asp-for="IsDaily" class="form-check-label">Add as Daily Task</label>
-    </div>
-    <div class="form-check">
-        <input asp-for="IsTodayOnly" type="checkbox" class="form-check-input" />
-        <label asp-for="IsTodayOnly" class="form-check-label">Add for Today Only</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+</div>

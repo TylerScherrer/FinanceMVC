@@ -1,67 +1,121 @@
 @model BudgetTracker.Models.ScheduleViewModel
 
-<h2>Schedule</h2>
-
-<!-- Form to Add New Task -->
-<div class="row mb-4">
-    <div class="col-md-6">
-        <form method="post" asp-action="AddTask" asp-controller="Schedule">
-            <div class="form-group">
-                <label for="Name">Task Name</label>
-                <input type="text" class="form-control" name="Name" id="Name" required />
-            </div>
-            <div class="form-group">
-                <label for="Date">Date</label>
-                <input type="date" class="form-control" name="Date" id="Date" required />
-            </div>
-            <button type="submit" class="btn btn-primary mt-2">Add Task</button>
-        </form>
-    </div>
-</div>
-
-
-
-<!-- Current Week Tasks -->
-<div class="row">
-    <div class="col-md-6">
-        <h4>Tasks for This Week</h4>
-        <ul class="list-group">
-            @foreach (var task in Model.CurrentWeekTasks)
-            {
-                <li class="list-group-item">
-                    <strong>@task.Name</strong> - @task.Date.ToShortDateString()
-                </li>
-            }
-        </ul>
+<div class="container py-4" style="background:#f8f9fa;">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Schedule</h1>
+        <p class="text-muted">Plan your tasks for the week and beyond.</p>
     </div>
 
-
-
-    <!-- Upcoming Week Tasks -->
-    <div class="col-md-6">
-        <h4>Upcoming Tasks</h4>
-        <ul class="list-group">
-            @foreach (var task in Model.UpcomingWeekTasks)
-            {
-                <li class="list-group-item">
-                    <strong>@task.Name</strong> - @task.Date.ToShortDateString()
-                </li>
-            }
-        </ul>
+    <!-- Form to Add New Task -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h4 class="fw-bold mb-3 text-primary"><i class="fas fa-plus-circle me-2"></i>Add a New Task</h4>
+            <form method="post" asp-action="AddTask" asp-controller="Schedule" class="row g-3">
+                <div class="col-md-6">
+                    <label for="Name" class="form-label fw-semibold">Task Name</label>
+                    <input type="text" class="form-control" name="Name" id="Name" placeholder="e.g. Meeting with client" required />
+                </div>
+                <div class="col-md-6">
+                    <label for="Date" class="form-label fw-semibold">Date</label>
+                    <input type="date" class="form-control" name="Date" id="Date" required />
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i>Add Task
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-        <!-- New Section: Future Tasks -->
-        <div class="row">
-            <div class="col-md-6">
-                <h4>Future Tasks</h4>
-                <ul class="list-group">
-                    @foreach (var task in Model.FarthestTasks)
+    <div class="row g-4">
+        <!-- Current Week Tasks -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3 text-success"><i class="fas fa-calendar-week me-2"></i>Tasks for This Week</h5>
+                    @if (Model.CurrentWeekTasks.Any())
                     {
-                        <li class="list-group-item">
-                            <strong>@task.Name</strong> - @task.Date.ToShortDateString()
-                        </li>
+                        <ul class="list-group">
+                            @foreach (var task in Model.CurrentWeekTasks)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@task.Name</strong> 
+                                        <small class="text-muted">@task.Date.ToShortDateString()</small>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
                     }
-                </ul>
+                    else
+                    {
+                        <div class="alert alert-light border text-center">
+                            No tasks for this week
+                        </div>
+                    }
+                </div>
             </div>
-        </div>   
+        </div>
+
+        <!-- Upcoming Week Tasks -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3 text-info"><i class="fas fa-calendar-alt me-2"></i>Upcoming Tasks</h5>
+                    @if (Model.UpcomingWeekTasks.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var task in Model.UpcomingWeekTasks)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@task.Name</strong> 
+                                        <small class="text-muted">@task.Date.ToShortDateString()</small>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="alert alert-light border text-center">
+                            No upcoming tasks
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Future Tasks Section -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3 text-secondary"><i class="fas fa-calendar-plus me-2"></i>Future Tasks</h5>
+                    @if (Model.FarthestTasks.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var task in Model.FarthestTasks)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@task.Name</strong> 
+                                        <small class="text-muted">@task.Date.ToShortDateString()</small>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="alert alert-light border text-center">
+                            No future tasks
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
