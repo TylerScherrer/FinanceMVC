@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\budgettracker\\BudgetTracker.csproj": {}
+    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\BudgetTracker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\budgettracker\\BudgetTracker.csproj": {
+    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\BudgetTracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\budgettracker\\BudgetTracker.csproj",
+        "projectUniqueName": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\BudgetTracker.csproj",
         "projectName": "BudgetTracker",
-        "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\budgettracker\\BudgetTracker.csproj",
+        "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\BudgetTracker.csproj",
         "packagesPath": "C:\\Users\\Tyler\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\budgettracker\\obj\\",
+        "outputPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Tyler\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -53,6 +53,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.72, )"
             }
           },
           "imports": [

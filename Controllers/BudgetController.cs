@@ -48,6 +48,11 @@ namespace BudgetTracker.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
+
+            if (id <= 0)
+            {
+                return NotFound(); // Handle invalid IDs explicitly
+            }
             try
             {
                 var budget = await _budgetService.GetBudgetDetailsAsync(id);
@@ -65,17 +70,28 @@ namespace BudgetTracker.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Budget budget)
-        {
-            if (!ModelState.IsValid)
-                return View(budget);
+[HttpPost]
+public async Task<IActionResult> Create(Budget budget)
+{
+    if (!ModelState.IsValid)
+    {
+        return View(budget);
+    }
 
-            budget.DateCreated = DateTime.Now; // Set the current date and time here
+    try
+    {
+        budget.DateCreated = DateTime.Now;
+        await _budgetService.CreateBudgetAsync(budget);
+        return RedirectToAction(nameof(Index));
+    }
+    catch (Exception ex)
+    {
+        ModelState.AddModelError(string.Empty, ex.Message); // Correctly add the exception message
+        return View(budget);
+    }
+}
 
-            await _budgetService.CreateBudgetAsync(budget);
-            return RedirectToAction(nameof(Index));
-        }
+
 
 
         [HttpGet]

@@ -16,7 +16,6 @@ public class Category
       public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 
 
-
     [Required]
     public int BudgetId { get; set; } // Foreign key linking to Budget
 
