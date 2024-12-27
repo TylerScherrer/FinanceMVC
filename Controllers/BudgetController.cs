@@ -47,27 +47,38 @@ namespace BudgetTracker.Controllers
 
 
 
+public async Task<IActionResult> Details(int id)
+{
+    if (id <= 0)
+    {
+        return NotFound("Invalid ID provided."); // Explicitly handle invalid IDs
+    }
 
-        public async Task<IActionResult> Details(int id)
+    try
+    {
+        var budget = await _budgetService.GetBudgetDetailsAsync(id);
+
+        if (budget == null)
         {
-            if (id <= 0)
-            {
-                return NotFound(); // Handle invalid IDs explicitly
-            }
-            try
-            {
-                var budget = await _budgetService.GetBudgetDetailsAsync(id);
-                
-                // Convert to List explicitly
-                budget.RecentTransactions = (await _transactionService.GetRecentTransactionsAsync()).ToList();
-
-                return View(budget);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            return NotFound("Budget not found."); // Handle case where no budget exists
         }
+
+        // Safely fetch recent transactions and assign them to the budget
+        budget.RecentTransactions = (await _transactionService.GetRecentTransactionsAsync()).ToList();
+
+        return View(budget);
+    }
+    catch (InvalidOperationException ex)
+    {
+        return NotFound($"An error occurred: {ex.Message}"); // Specific exception
+    }
+    catch (Exception ex)
+    {
+        // Handle generic exceptions
+        return NotFound("An unexpected error occurred while fetching budget details.");
+    }
+}
+
 
 
         [HttpGet]
