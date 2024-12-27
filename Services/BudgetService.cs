@@ -33,28 +33,40 @@ namespace BudgetTracker.Services
 
             return budget;
         }
-
         public async Task<Budget> CreateBudgetAsync(Budget budget)
         {
+            if (budget == null)
+            {
+                throw new ArgumentNullException(nameof(budget), "Budget cannot be null.");
+            }
+
+            if (budget.TotalAmount < 0)
+            {
+                throw new ArgumentException("TotalAmount cannot be negative.", nameof(budget.TotalAmount));
+            }
+
             _context.Budgets.Add(budget);
             await _context.SaveChangesAsync();
             return budget;
         }
 
+
         public async Task<Budget> UpdateBudgetAsync(Budget budget)
         {
             var existingBudget = await _context.Budgets.FindAsync(budget.Id);
             if (existingBudget == null)
+            {
                 throw new InvalidOperationException("Budget not found.");
+            }
 
+            // Optionally, handle concurrency if required
             existingBudget.Name = budget.Name;
             existingBudget.TotalAmount = budget.TotalAmount;
-            // Update other fields as needed...
 
-            _context.Budgets.Update(existingBudget);
             await _context.SaveChangesAsync();
             return existingBudget;
         }
+
 
         public async Task<bool> DeleteBudgetAsync(int id)
         {
