@@ -13,7 +13,12 @@ namespace BudgetTracker.Services
         {
             _context = context;
         }
-
+        public async Task<IEnumerable<Transaction>> GetTransactionsByCategoryAsync(int categoryId)
+        {
+            return await _context.Transactions
+                .Where(t => t.CategoryId == categoryId)
+                .ToListAsync();
+        }
         public async Task<Transaction> CreateTransactionAsync(Transaction transaction)
         {
             var category = await _context.Categories

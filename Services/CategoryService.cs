@@ -25,7 +25,8 @@ namespace BudgetTracker.Services
 
             if (budget.RemainingAmount < category.AllocatedAmount)
                 throw new InvalidOperationException("Allocated amount exceeds the remaining budget.");
-
+                
+            category.InitialAllocatedAmount = category.AllocatedAmount; // Set the original amount
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 

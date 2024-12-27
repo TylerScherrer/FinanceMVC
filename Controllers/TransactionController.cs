@@ -57,5 +57,21 @@ namespace BudgetTracker.Controllers
             // Redirect back to the Category Details
             return RedirectToAction("Details", "Category", new { id = id });
         }
+        [HttpGet]
+        public async Task<IActionResult> Details(int categoryId)
+        {
+            var transactions = await _transactionService.GetTransactionsByCategoryAsync(categoryId);
+
+            if (transactions == null)
+            {
+                return NotFound();
+            }
+
+            // Pass the transactions and category ID to the view
+            ViewBag.CategoryId = categoryId;
+            return View(transactions);
+        }
+
+        
     }
 }

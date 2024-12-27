@@ -25,6 +25,7 @@ namespace BudgetTracker.Services
         {
             var budget = await _context.Budgets
                 .Include(b => b.Categories)
+                    .ThenInclude(c => c.Transactions) // Include Transactions
                 .FirstOrDefaultAsync(b => b.Id == id);
 
             if (budget == null)

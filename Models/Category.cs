@@ -21,6 +21,8 @@ public class Category
 
         // Navigation property (optional, EF Core resolves this using BudgetId)
     public Budget? Budget { get; set; }
+
+    public decimal InitialAllocatedAmount { get; set; } // This holds the original amount
 }
 
 }
