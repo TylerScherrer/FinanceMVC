@@ -339,6 +339,21 @@
                                     </form>
                                 }
                             </td>
+                             <td>
+                                @if (scheduledTask != null)
+                                {
+                                    <form method="post" 
+                                        asp-action="UnassignTask" 
+                                        asp-controller="ToDo" 
+                                        class="d-inline">
+                                        <input type="hidden" name="taskId" value="@scheduledTask.Task.Id" />
+                                        <input type="hidden" name="hour" value="@hour" />
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            Unassign
+                                        </button>
+                                    </form>
+                                }
+                            </td>
                         </tr>
                     }
                 </tbody>

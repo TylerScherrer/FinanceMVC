@@ -97,6 +97,21 @@ namespace BudgetTracker.Services
         {
             return await _context.ToDoItems.ToListAsync(); // Fetch all tasks from the database
         }
+public async Task UnassignTaskAsync(int taskId, int hour)
+{
+    var schedule = await _context.DailySchedules
+        .FirstOrDefaultAsync(ds => ds.TaskId == taskId && ds.Hour == hour);
+
+    if (schedule != null)
+    {
+        _context.DailySchedules.Remove(schedule); // Remove the assignment
+        await _context.SaveChangesAsync();
+    }
+    else
+    {
+        throw new InvalidOperationException("Task not found or not assigned.");
+    }
+}
 
     }
 }

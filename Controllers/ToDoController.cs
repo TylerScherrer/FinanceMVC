@@ -99,6 +99,20 @@ namespace BudgetTracker.Controllers
             // Use _toDoService or _context as appropriate
             return await _toDoService.GetAllTasksAsync(); // Use the service
         }
+[HttpPost]
+public async Task<IActionResult> UnassignTask(int taskId, int hour)
+{
+    try
+    {
+        await _toDoService.UnassignTaskAsync(taskId, hour);
+        return RedirectToAction(nameof(Index)); // Redirect back to the same page
+    }
+    catch (Exception ex)
+    {
+        ModelState.AddModelError("", ex.Message);
+        return RedirectToAction(nameof(Index)); // Optionally add error handling UI
+    }
+}
 
 
     }

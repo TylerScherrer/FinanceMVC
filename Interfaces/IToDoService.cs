@@ -12,6 +12,7 @@ namespace BudgetTracker.Interfaces
         Task DeleteTaskAsync(int id);
         Task AssignTaskToTimeAsync(int taskId, int hour);
         Task<List<ToDoItem>> GetAllTasksAsync();
+Task UnassignTaskAsync(int taskId, int hour);
 
     }
 }
