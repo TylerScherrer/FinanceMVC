@@ -8,6 +8,8 @@
         <p><strong>Total Amount:</strong> @Model.TotalAmount.ToString("C")</p>
         <p><strong>Date Created:</strong> @Model.DateCreated.ToShortDateString()</p>
         <p><strong>Remaining Amount:</strong> @Model.RemainingAmount.ToString("C")</p>
+
+
     </div>
 </div>
 
@@ -31,7 +33,7 @@
                 <tr>
                     <td>@category.Name</td>
                     <td>@category.AllocatedAmount.ToString("C")</td>
-                    <td>@(category.AllocatedAmount - (category.Transactions?.Sum(t => t.Amount) ?? 0)).ToString("C")</td>
+                    <td>@((category.AllocatedAmount - (category.Transactions?.Sum(t => t.Amount) ?? 0)).ToString("C"))</td>
 
                     <td>
                         <a class="btn btn-info" href="@Url.Action("Details", "Category", new { id = category.Id })">View</a>
