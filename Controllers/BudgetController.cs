@@ -11,12 +11,14 @@ namespace BudgetTracker.Controllers
         private readonly IBudgetService _budgetService;
         private readonly IScheduleService _scheduleService;
         private readonly IToDoService _toDoService; // Add this line
+        private readonly ITransactionService _transactionService;
 
-        public BudgetController(IBudgetService budgetService, IScheduleService scheduleService, IToDoService toDoService)
+        public BudgetController(IBudgetService budgetService, IScheduleService scheduleService, IToDoService toDoService, ITransactionService transactionService)
         {
             _budgetService = budgetService;
             _scheduleService = scheduleService;
             _toDoService = toDoService; 
+            _transactionService = transactionService;
         }
 
         
@@ -48,7 +50,6 @@ namespace BudgetTracker.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-
             if (id <= 0)
             {
                 return NotFound(); // Handle invalid IDs explicitly
@@ -56,6 +57,10 @@ namespace BudgetTracker.Controllers
             try
             {
                 var budget = await _budgetService.GetBudgetDetailsAsync(id);
+                
+                // Convert to List explicitly
+                budget.RecentTransactions = (await _transactionService.GetRecentTransactionsAsync()).ToList();
+
                 return View(budget);
             }
             catch (InvalidOperationException ex)
@@ -63,6 +68,7 @@ namespace BudgetTracker.Controllers
                 return NotFound(ex.Message);
             }
         }
+
 
         [HttpGet]
         public IActionResult Create()
@@ -142,6 +148,13 @@ public async Task<IActionResult> Create(Budget budget)
             await _scheduleService.DeleteTaskAsync(id);
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> RecentTransactions()
+        {
+            var recentTransactions = await _transactionService.GetRecentTransactionsAsync();
+            return PartialView("_RecentTransactions", recentTransactions);
+        }
+
 
     }
 }

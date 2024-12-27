@@ -7,5 +7,6 @@ namespace BudgetTracker.Interfaces
         Task<IEnumerable<Transaction>> GetTransactionsByCategoryAsync(int categoryId);
         Task<Transaction> CreateTransactionAsync(Transaction transaction);
         Task DeleteTransactionAsync(int transactionId);
+        Task<IEnumerable<Transaction>> GetRecentTransactionsAsync();
     }
 }

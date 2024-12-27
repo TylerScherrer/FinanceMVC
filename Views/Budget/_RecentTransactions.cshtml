@@ -1,0 +1,23 @@
+@model List<BudgetTracker.Models.Transaction>
+
+<div class="list-group">
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var transaction in Model)
+        {
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>@transaction.Description</strong>
+                    <small class="text-muted d-block">@transaction.Date.ToShortDateString()</small>
+                </div>
+                <span class="text-danger fw-bold">@transaction.Amount.ToString("C")</span>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="text-center text-muted">
+            No recent transactions available.
+        </div>
+    }
+</div>

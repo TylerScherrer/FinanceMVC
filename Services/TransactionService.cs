@@ -55,5 +55,20 @@ namespace BudgetTracker.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<List<Transaction>> GetRecentTransactionsAsync(int count = 5)
+        {
+            return await _context.Transactions
+                .OrderByDescending(t => t.Date)
+                .Take(count)
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<Transaction>> GetRecentTransactionsAsync()
+        {
+            return await _context.Transactions
+                .OrderByDescending(t => t.Date) // Order transactions by date, most recent first
+                .Take(5) // Limit to the 5 most recent transactions
+                .ToListAsync();
+        }
     }
 }
