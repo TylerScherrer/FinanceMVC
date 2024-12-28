@@ -81,32 +81,52 @@ public async Task<IActionResult> Details(int id)
 
 
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
+[HttpGet]
+public IActionResult Create()
+{
+    var budget = new Budget();
+    return View(budget); // Pass the correct model
+}
+
+
 
 [HttpPost]
 public async Task<IActionResult> Create(Budget budget)
 {
+    Console.WriteLine("Entering Create POST action."); // Debug: Method entry
+    Console.WriteLine($"Received Budget Name: {budget.Name}");
+    Console.WriteLine($"Received Budget Amount: {budget.TotalAmount}");
+
     if (!ModelState.IsValid)
     {
+        Console.WriteLine("ModelState is invalid.");
+        foreach (var error in ModelState)
+        {
+            Console.WriteLine($"Key: {error.Key}");
+            foreach (var stateError in error.Value.Errors)
+            {
+                Console.WriteLine($"Error: {stateError.ErrorMessage}");
+            }
+        }
         return View(budget);
     }
 
     try
     {
         budget.DateCreated = DateTime.Now;
+        Console.WriteLine("Attempting to create a new budget in the database.");
         await _budgetService.CreateBudgetAsync(budget);
+        Console.WriteLine("Budget successfully created.");
         return RedirectToAction(nameof(Index));
     }
     catch (Exception ex)
     {
-        ModelState.AddModelError(string.Empty, ex.Message); // Correctly add the exception message
+        Console.WriteLine($"Exception occurred: {ex.Message}");
+        ModelState.AddModelError(string.Empty, ex.Message);
         return View(budget);
     }
 }
+
 
 
 
