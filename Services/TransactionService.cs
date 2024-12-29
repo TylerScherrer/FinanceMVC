@@ -22,6 +22,7 @@ namespace BudgetTracker.Services
         public async Task<Transaction> CreateTransactionAsync(Transaction transaction)
         {
             var category = await _context.Categories
+                .Include(c => c.Transactions) // Include transactions
                 .FirstOrDefaultAsync(c => c.Id == transaction.CategoryId);
 
             if (category == null)
@@ -29,21 +30,24 @@ namespace BudgetTracker.Services
                 throw new InvalidOperationException("Category not found.");
             }
 
-            // Ensure the transaction amount does not exceed the remaining category amount
+            // Ensure the transaction amount does not exceed the allocated amount
             if (category.AllocatedAmount < transaction.Amount)
             {
-                throw new InvalidOperationException("Transaction amount exceeds the available category amount.");
+                throw new InvalidOperationException("Transaction amount exceeds the allocated category amount.");
             }
 
-            // Subtract the transaction amount from the category
+            // Add the transaction
+            category.Transactions.Add(transaction);
+
+            // Update the allocated amount to reflect the transaction
             category.AllocatedAmount -= transaction.Amount;
 
-            // Save the new transaction
-            _context.Transactions.Add(transaction);
+            // Save changes
             await _context.SaveChangesAsync();
 
             return transaction;
         }
+
 
         public async Task DeleteTransactionAsync(int transactionId)
         {

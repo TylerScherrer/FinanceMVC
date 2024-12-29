@@ -13,7 +13,10 @@ public class Budget
 
     public ICollection<Category> Categories { get; set; } = new List<Category>();
 
-    public decimal RemainingAmount => TotalAmount - (Categories?.Sum(c => c.AllocatedAmount) ?? 0);
+    public decimal TotalAllocated => Categories?.Sum(c => c.AllocatedAmount) ?? 0;
+    public decimal TotalAllocatedInitial => Categories?.Sum(c => c.InitialAllocatedAmount) ?? 0;
+    public decimal TotalSpent => Categories?.Sum(c => c.Transactions.Sum(t => t.Amount)) ?? 0;
+    public decimal RemainingAmount => TotalAmount - TotalAllocatedInitial;
 
     [NotMapped]
     public List<Transaction>? RecentTransactions { get; set; }

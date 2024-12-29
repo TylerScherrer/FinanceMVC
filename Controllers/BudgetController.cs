@@ -60,11 +60,8 @@ public async Task<IActionResult> Details(int id)
 
         if (budget == null)
         {
-            return NotFound("Budget not found."); // Handle case where no budget exists
+            return NotFound();
         }
-
-        // Safely fetch recent transactions and assign them to the budget
-        budget.RecentTransactions = (await _transactionService.GetRecentTransactionsAsync()).ToList();
 
         return View(budget);
     }

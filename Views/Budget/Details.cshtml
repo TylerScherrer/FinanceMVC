@@ -22,15 +22,18 @@
             </div>
             
             <div class="mb-3">
-                <div class="text-muted">
-                    <strong>Total Amount:</strong> @Model.TotalAmount.ToString("C")
-                </div>
-                <div class="text-muted">
-                    <strong>Remaining Amount:</strong>
-                    <span class="fw-bold text-success">
-                        @Model.RemainingAmount.ToString("C")
-                    </span>
-                </div>
+            <div class="text-muted">
+                <strong>Total Budget:</strong> @Model.TotalAmount.ToString("C")
+            </div>
+            <div class="text-muted">
+                <strong>Total Allocated:</strong> @Model.TotalAllocatedInitial.ToString("C")
+            </div>
+            <div class="text-muted">
+                <strong>Remaining Amount:</strong> <span class="fw-bold text-success">@Model.RemainingAmount.ToString("C")</span>
+            </div>
+
+
+
             </div>
 
             <!-- Add Category Button -->
