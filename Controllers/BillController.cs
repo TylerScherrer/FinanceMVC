@@ -55,24 +55,18 @@ namespace BudgetTracker.Controllers
 [HttpPost]
 public async Task<IActionResult> Create(Bill bill)
 {
-    Console.WriteLine("Entering Create POST action.");
-    Console.WriteLine($"Received data: Name={bill.Name}, Amount={bill.Amount}, DueDate={bill.DueDate}, BudgetId={bill.BudgetId}");
-
     if (!ModelState.IsValid)
     {
-        Console.WriteLine("ModelState is invalid.");
-        foreach (var error in ModelState)
-        {
-            Console.WriteLine($"Key: {error.Key}, Errors: {string.Join(", ", error.Value.Errors.Select(e => e.ErrorMessage))}");
-        }
+        // Return to the same page with validation messages if the model is invalid
         return View(bill);
     }
 
     try
     {
         await _billService.CreateBillAsync(bill);
-        Console.WriteLine("Bill successfully created.");
-        return RedirectToAction("Index", new { budgetId = bill.BudgetId });
+
+        // Redirect to the "ViewBills" page for the same budget
+        return RedirectToAction("ViewBills", new { budgetId = bill.BudgetId });
     }
     catch (Exception ex)
     {
@@ -85,43 +79,63 @@ public async Task<IActionResult> Create(Bill bill)
 
 
 
+
         // POST: Bills/Delete
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, int budgetId)
+[HttpPost]
+public async Task<IActionResult> Delete(int id, int budgetId)
+{
+    try
+    {
+        var success = await _billService.DeleteBillAsync(id);
+        if (!success)
         {
-            try
-            {
-                var success = await _billService.DeleteBillAsync(id);
-                if (!success)
-                {
-                    ModelState.AddModelError("", "Bill not found or could not be deleted.");
-                }
-
-                return RedirectToAction("Index", new { budgetId });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error deleting bill: {ex.Message}");
-                return RedirectToAction("Error", "Home");
-            }
+            TempData["Error"] = "Unable to delete the bill.";
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ViewBills(int budgetId)
-        {
-            try
-            {
-                var bills = await _billService.GetBillsAsync(budgetId);
-                ViewBag.BudgetId = budgetId;
-                return View(bills); // Return a view with the bills list
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error fetching bills: {ex.Message}");
-                return RedirectToAction("Error", "Home");
-            }
-        }
+        // Redirect back to the correct budget's bills page
+        return RedirectToAction("ViewBills", new { budgetId });
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error deleting bill: {ex.Message}");
+        TempData["Error"] = "An error occurred while deleting the bill.";
+        return RedirectToAction("ViewBills", new { budgetId });
+    }
+}
+
+
+            [HttpGet]public async Task<IActionResult> ViewBills(int budgetId)
+{
+    if (budgetId == 0)
+    {
+        TempData["Error"] = "Invalid budget ID.";
+        return RedirectToAction("Index", "Budget");
+    }
+
+    var bills = await _billService.GetBillsAsync(budgetId);
+    ViewBag.BudgetId = budgetId;
+    return View(bills);
+}
+
+
+
+
+[HttpPost]
+public async Task<IActionResult> MarkAsPaid(int id, int budgetId)
+{
+    var success = await _billService.MarkAsPaidAsync(id);
+
+    if (!success)
+    {
+        TempData["Error"] = "Unable to mark the bill as paid.";
+    }
+
+    return RedirectToAction("ViewBills", new { budgetId });
+}
+
+
+
+
 
     }
 }

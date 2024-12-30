@@ -1,52 +1,43 @@
-@model List<BudgetTracker.Models.Bill>
-
-@{
-    ViewBag.Title = "Bills";
-}
+@model IEnumerable<BudgetTracker.Models.Bill>
 
 <div class="container">
-    <h1 class="text-center">Bills for Budget</h1>
-    <a asp-action="Create" asp-route-budgetId="@ViewBag.BudgetId" class="btn btn-primary mb-3">
-        <i class="fas fa-plus-circle"></i> Add Bill
-    </a>
-    @if (Model != null && Model.Any())
-    {
-        <table class="table table-bordered">
-            <thead class="table-light">
+    <h1>Bills for Budget</h1>
+    <a asp-action="Create" asp-route-budgetId="@ViewBag.BudgetId" class="btn btn-primary">Add Bill</a>
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+                <th>Is Paid</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bill in Model)
+            {
                 <tr>
-                    <th>Name</th>
-                    <th>Amount</th>
-                    <th>Due Date</th>
-                    <th>Is Paid</th>
-                    <th>Actions</th>
+                    <td>@bill.Name</td>
+                    <td>@bill.Amount.ToString("C")</td>
+                    <td>@bill.DueDate.ToShortDateString()</td>
+                    <td>@(bill.IsPaid ? "Yes" : "No")</td>
+                    <td>
+                    <form asp-action="MarkAsPaid" asp-controller="Bill" method="post">
+                        <input type="hidden" name="budgetId" value="@ViewBag.BudgetId" />
+                        <input type="hidden" name="id" value="@bill.Id" />
+                        <button type="submit" class="btn btn-success btn-sm">Mark as Paid</button>
+                    </form>
+
+                        <a asp-action="Edit" asp-route-id="@bill.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <form asp-action="Delete" asp-controller="Bill" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@bill.Id" />
+                        <input type="hidden" name="budgetId" value="@ViewBag.BudgetId" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var bill in Model)
-                {
-                    <tr>
-                        <td>@bill.Name</td>
-                        <td>@bill.Amount.ToString("C")</td> <!-- Fixed here -->
-                        <td>@bill.DueDate.ToShortDateString()</td>
-                        <td>@(bill.IsPaid ? "Yes" : "No")</td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@bill.Id" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                            <form asp-action="Delete" method="post" asp-route-id="@bill.Id" class="d-inline">
-                                <input type="hidden" name="budgetId" value="@ViewBag.BudgetId" />
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <div class="alert alert-info">No bills found for this budget.</div>
-    }
+            }
+        </tbody>
+    </table>
 </div>

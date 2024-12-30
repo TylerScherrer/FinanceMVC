@@ -16,7 +16,9 @@ namespace BudgetTracker.Interfaces
         /// </summary>
         /// <param name="bill">The bill to create.</param>
         /// <returns>The created bill.</returns>
-        Task<Bill> CreateBillAsync(Bill bill);
+        Task CreateBillAsync(Bill bill);
+
+
 
         /// <summary>
         /// Deletes a bill by its ID.
@@ -24,5 +26,8 @@ namespace BudgetTracker.Interfaces
         /// <param name="id">The ID of the bill to delete.</param>
         /// <returns>A boolean indicating whether the bill was successfully deleted.</returns>
         Task<bool> DeleteBillAsync(int id);
+        Task<bool> MarkAsPaidAsync(int id);
+        Task UpdateBillAsync(Bill bill); // Ensure this exists too
+        Task<Bill> GetBillByIdAsync(int id); // Add this method
     }
 }
