@@ -1,10 +1,11 @@
 @model IEnumerable<BudgetTracker.Models.Bill>
 
-<div class="container">
-    <h1>Bills for Budget</h1>
+<div class="container-fluid bg-dark text-light py-4">
+    <h1 class="fw-bold text-light">Bills for Budget</h1>
     <a asp-action="Create" asp-route-budgetId="@ViewBag.BudgetId" class="btn btn-primary">Add Bill</a>
-    <table class="table mt-3">
-        <thead>
+    
+    <table class="table table-dark table-bordered mt-3">
+        <thead class="table-secondary">
             <tr>
                 <th>Name</th>
                 <th>Amount</th>
@@ -20,21 +21,26 @@
                     <td>@bill.Name</td>
                     <td>@bill.Amount.ToString("C")</td>
                     <td>@bill.DueDate.ToShortDateString()</td>
-                    <td>@(bill.IsPaid ? "Yes" : "No")</td>
+                    <td class="@(bill.IsPaid ? "text-success" : "text-danger")">
+                        @(bill.IsPaid ? "Yes" : "No")
+                    </td>
                     <td>
-                    <form asp-action="MarkAsPaid" asp-controller="Bill" method="post">
-                        <input type="hidden" name="budgetId" value="@ViewBag.BudgetId" />
-                        <input type="hidden" name="id" value="@bill.Id" />
-                        <button type="submit" class="btn btn-success btn-sm">Mark as Paid</button>
-                    </form>
+                        <!-- Mark as Paid -->
+                        <form asp-action="MarkAsPaid" asp-controller="Bill" method="post" class="d-inline">
+                            <input type="hidden" name="budgetId" value="@ViewBag.BudgetId" />
+                            <input type="hidden" name="id" value="@bill.Id" />
+                            <button type="submit" class="btn btn-success btn-sm">Mark as Paid</button>
+                        </form>
 
+                        <!-- Edit -->
                         <a asp-action="Edit" asp-route-id="@bill.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <form asp-action="Delete" asp-controller="Bill" method="post" class="d-inline">
-                        <input type="hidden" name="id" value="@bill.Id" />
-                        <input type="hidden" name="budgetId" value="@ViewBag.BudgetId" />
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
 
+                        <!-- Delete -->
+                        <form asp-action="Delete" asp-controller="Bill" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@bill.Id" />
+                            <input type="hidden" name="budgetId" value="@ViewBag.BudgetId" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                     </td>
                 </tr>
             }

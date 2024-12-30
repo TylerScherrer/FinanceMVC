@@ -1,19 +1,18 @@
 @model BudgetTracker.Models.Category
 
-<div class="container py-4" style="background: #f8f9fa;">
+<div class="container py-4" style="background: #121212;">
     <div class="text-center mb-5">
-        <h1 class="fw-bold">Category Details</h1>
+        <h1 class="fw-bold text-light">Category Details</h1>
         <p class="text-muted">View and manage your category's transactions and allocation.</p>
     </div>
 
-    <div class="card border-0 shadow-sm mb-4">
+    <div class="card border-0 shadow-sm mb-4 glass-panel">
         <div class="card-body">
             <h4 class="fw-bold mb-3 text-warning"><i class="fas fa-folder-open me-2"></i>@Model.Name</h4>
             <div class="mb-4">
-                <p><strong>Allocated Amount:</strong> @Model.AllocatedAmount.ToString("C")</p>
-                <p><strong>Budget:</strong> @Model.Budget.Name</p>
-                <!-- If you want to show actual remaining calculation, ensure logic is in Model or Controller -->
-                <p><strong>Remaining Amount:</strong> @Model.AllocatedAmount.ToString("C")</p>
+                <p class="text-light"><strong>Allocated Amount:</strong> @Model.AllocatedAmount.ToString("C")</p>
+                <p class="text-light"><strong>Budget:</strong> @Model.Budget.Name</p>
+                <p class="text-light"><strong>Remaining Amount:</strong> @Model.AllocatedAmount.ToString("C")</p>
             </div>
             
             <div class="d-flex flex-wrap gap-2 mb-4">
@@ -31,13 +30,12 @@
                 </form>
             </div>
 
-
             @if (Model.Transactions != null && Model.Transactions.Any())
             {
                 <h5 class="fw-bold mb-3 text-info"><i class="fas fa-receipt me-2"></i>Transactions</h5>
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle table-sm">
-                        <thead class="table-light">
+                    <table class="table table-dark table-hover align-middle table-sm">
+                        <thead class="table-secondary">
                             <tr>
                                 <th>Description</th>
                                 <th>Amount</th>
@@ -59,7 +57,7 @@
             }
             else
             {
-                <div class="alert alert-light border text-center mt-4">
+                <div class="alert alert-secondary text-center mt-4">
                     No transactions available for this category.
                 </div>
             }

@@ -1,25 +1,25 @@
 @model BudgetTracker.Models.BudgetWithTasksViewModel
 @using System.Linq;
 
-<div class="container py-4" style="background:#f8f9fa;">
+<div class="container py-4" style="background: #121212;">
     <div class="text-center mb-5">
-        <h1 class="fw-bold">Tasks Overview</h1>
+        <h1 class="fw-bold text-light">Tasks Overview</h1>
         <p class="text-muted">Manage your tasks for today and all tasks at a glance.</p>
     </div>
 
     <!-- Today's Tasks -->
-    <div class="card border-0 shadow-sm mb-5">
+    <div class="card border-0 shadow-sm mb-5 glass-panel">
         <div class="card-body">
             <h4 class="fw-bold mb-3 text-info"><i class="fas fa-calendar-day me-2"></i>Today's Tasks</h4>
             <div class="d-flex justify-content-between mb-3">
-                <h6 class="fw-semibold">Tasks for Today</h6>
+                <h6 class="fw-semibold text-light">Tasks for Today</h6>
                 <a asp-action="Create" class="btn btn-sm btn-outline-primary">
                     <i class="fas fa-plus me-1"></i>Create New Task
                 </a>
             </div>
             <div class="table-responsive">
-                <table class="table align-middle table-sm">
-                    <thead class="table-light">
+                <table class="table table-dark align-middle table-sm">
+                    <thead class="table-secondary">
                         <tr>
                             <th>Task</th>
                             <th>Due Date</th>
@@ -62,12 +62,12 @@
     </div>
 
     <!-- All Tasks -->
-    <div class="card border-0 shadow-sm">
+    <div class="card border-0 shadow-sm glass-panel">
         <div class="card-body">
             <h4 class="fw-bold mb-3 text-secondary"><i class="fas fa-list-ul me-2"></i>All Tasks</h4>
             <div class="table-responsive">
-                <table class="table align-middle table-sm">
-                    <thead class="table-light">
+                <table class="table table-dark align-middle table-sm">
+                    <thead class="table-secondary">
                         <tr>
                             <th>Task</th>
                             <th>Due Date</th>
