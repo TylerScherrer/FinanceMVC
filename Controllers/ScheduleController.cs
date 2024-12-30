@@ -46,6 +46,16 @@ namespace BudgetTracker.Controllers
                 return BadRequest("An error occurred while deleting the task.");
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteScheduledTask(int id)
+        {
+            var success = await _scheduleService.DeleteTaskAsync(id);
+
+            if (!success)
+                return NotFound("Task not found.");
+
+            return RedirectToAction("Index", "Budget");
+        }
 
 
     }
