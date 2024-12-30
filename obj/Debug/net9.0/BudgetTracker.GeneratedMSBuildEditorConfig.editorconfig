@@ -28,6 +28,18 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
+[C:/Users/Tyler/OneDrive/Desktop/FinanceWebApp/BudgetTracker/Views/Bill/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsbFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Tyler/OneDrive/Desktop/FinanceWebApp/BudgetTracker/Views/Bill/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsbFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Tyler/OneDrive/Desktop/FinanceWebApp/BudgetTracker/Views/Bill/ViewBills.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsbFxWaWV3QmlsbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Tyler/OneDrive/Desktop/FinanceWebApp/BudgetTracker/Views/Budget/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVkZ2V0XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -21,6 +21,8 @@ public class Budget
     [NotMapped]
     public List<Transaction>? RecentTransactions { get; set; }
 
+    public ICollection<Bill> Bills { get; set; } = new List<Bill>(); // Added collection for Bills
+
 
 }
 

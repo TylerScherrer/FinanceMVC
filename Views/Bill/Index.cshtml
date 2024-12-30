@@ -1,0 +1,34 @@
+@model List<BudgetTracker.Models.Bill>
+@{
+    ViewBag.Title = "Manage Bills";
+}
+
+<h2>Bills</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Is Paid</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bill in Model)
+        {
+            <tr>
+                <td>@bill.Name</td>
+                <td>@bill.Amount.ToString("C")</td>
+                <td>@bill.DueDate.ToShortDateString()</td>
+                <td>@bill.IsPaid</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@bill.Id" asp-route-budgetId="@ViewBag.BudgetId" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Create" asp-route-budgetId="@ViewBag.BudgetId" class="btn btn-primary">Add Bill</a>

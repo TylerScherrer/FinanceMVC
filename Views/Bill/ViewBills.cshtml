@@ -1,0 +1,52 @@
+@model List<BudgetTracker.Models.Bill>
+
+@{
+    ViewBag.Title = "Bills";
+}
+
+<div class="container">
+    <h1 class="text-center">Bills for Budget</h1>
+    <a asp-action="Create" asp-route-budgetId="@ViewBag.BudgetId" class="btn btn-primary mb-3">
+        <i class="fas fa-plus-circle"></i> Add Bill
+    </a>
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                    <th>Is Paid</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var bill in Model)
+                {
+                    <tr>
+                        <td>@bill.Name</td>
+                        <td>@bill.Amount.ToString("C")</td> <!-- Fixed here -->
+                        <td>@bill.DueDate.ToShortDateString()</td>
+                        <td>@(bill.IsPaid ? "Yes" : "No")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@bill.Id" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <form asp-action="Delete" method="post" asp-route-id="@bill.Id" class="d-inline">
+                                <input type="hidden" name="budgetId" value="@ViewBag.BudgetId" />
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info">No bills found for this budget.</div>
+    }
+</div>
