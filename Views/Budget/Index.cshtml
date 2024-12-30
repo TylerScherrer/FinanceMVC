@@ -320,8 +320,9 @@
                                     {
                                         <li class="list-group-item bg-transparent border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
                                             <div>
-                                                <strong>@task.Name</strong>
-                                                <small class="text-muted">@task.Date.ToShortDateString()</small>
+                                                <span class="task-text">@task.Name</span>
+                    <br />
+                    <small class="task-date">@task.Date.ToShortDateString()</small>
                                             </div>
                                             <!-- Light Red 'Delete Task' -->
                                             <form asp-action="DeleteScheduledTask"
@@ -471,7 +472,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for (int hour = 9; hour <= 17; hour++)
+                                @for (int hour = 8; hour <= 20; hour++)
                                 {
                                     var scheduledTask = Model.DailySchedules?
                                         .FirstOrDefault(ds => ds.Hour == hour);
