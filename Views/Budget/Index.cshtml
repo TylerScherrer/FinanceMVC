@@ -491,9 +491,10 @@
                                             else
                                             {
                                                 <form method="post"
-                                                      asp-action="AssignTaskToTime"
-                                                      asp-controller="ToDo"
-                                                      class="row g-2 align-items-center">
+                                                    asp-action="AssignTaskToTime"
+                                                    asp-controller="ToDo"
+                                                    class="row g-2 align-items-center">
+                                                    <input type="hidden" name="hour" value="@hour" />
                                                     <div class="col-8">
                                                         <select name="taskId"
                                                                 class="form-select form-select-sm bg-dark text-light border-secondary">
@@ -511,6 +512,7 @@
                                                         </button>
                                                     </div>
                                                 </form>
+
                                             }
                                         </td>
                                         <td>
