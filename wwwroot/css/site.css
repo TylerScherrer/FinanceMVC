@@ -69,3 +69,99 @@ body {
 #organize-my-day-section {
   margin-top: 2rem; /* Create space above the section */
 }
+/* General Page Background */
+body, .container-fluid {
+  background-color: #1c1c1e !important; /* Dark gray background */
+  color: #f0f0f0; /* Light text */
+}
+
+/* Cards */
+.card {
+  background-color: #2c2c2e !important; /* Slightly lighter dark gray */
+  border: none;
+  border-radius: 8px;
+}
+
+.card-header {
+  background-color: #3c3c3e !important; /* Header background */
+  color: #f0f0f0;
+}
+
+/* Tables */
+.table {
+  background-color: #2c2c2e;
+  color: #f0f0f0;
+}
+
+.table thead {
+  background-color: #3c3c3e;
+  color: #f0f0f0;
+}
+
+.table tbody tr {
+  background-color: #2c2c2e;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #1c1c1e;
+}
+
+.table-bordered td, .table-bordered th {
+  border-color: #4c4c4e;
+}
+
+/* Buttons */
+.btn-outline-primary {
+  color: #6cb2eb;
+  border-color: #6cb2eb;
+}
+
+.btn-outline-primary:hover {
+  background-color: #6cb2eb;
+  color: #fff;
+}
+
+.btn-outline-warning {
+  color: #ffca28;
+  border-color: #ffca28;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffca28;
+  color: #fff;
+}
+
+.btn-outline-danger {
+  color: #f86c6b;
+  border-color: #f86c6b;
+}
+
+.btn-outline-danger:hover {
+  background-color: #f86c6b;
+  color: #fff;
+}
+
+.btn-outline-info {
+  color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.btn-outline-info:hover {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+/* Collapsible Rows */
+.collapse {
+  background-color: #2c2c2e;
+  color: #f0f0f0;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* Alerts */
+.alert {
+  background-color: #3c3c3e;
+  color: #f0f0f0;
+  border: none;
+}
