@@ -198,3 +198,9 @@ body, .container-fluid {
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
+/* Styling for the task date */
+.task-date {
+  color: #b3b3b3; /* Light gray for better contrast */
+  font-size: 0.85rem; /* Optional: Adjust font size for readability */
+  opacity: 1; /* Ensure full opacity */
+}
