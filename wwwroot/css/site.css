@@ -171,17 +171,7 @@ body, .container-fluid {
     color: #f8f9fa !important; /* White text */
 }
 
-/* Buttons should match the rest of the design */
-.btn {
-    color: #f8f9fa !important; /* White text */
-    background-color: transparent !important; /* Transparent background */
-    border-color: #6c757d !important; /* Match border to other elements */
-}
 
-.btn:hover {
-    background-color: #6c757d !important; /* Slight hover effect */
-    color: #ffffff !important; /* Ensure text stays visible */
-}
 /* Ensure sidebar-link styles are consistent */
 .sidebar-link {
   color: #ccc; /* Light gray */
