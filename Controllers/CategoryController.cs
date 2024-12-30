@@ -66,5 +66,69 @@ namespace BudgetTracker.Controllers
 
             return RedirectToAction("Index", "Budget");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var category = await _categoryService.GetCategoryDetailsAsync(id);
+
+            if (category == null)
+            {
+                return NotFound("Category not found.");
+            }
+
+            return View(category);
+        }
+
+[HttpPost]
+public async Task<IActionResult> Edit(Category category)
+{
+    Console.WriteLine("[DEBUG] Received Form Data:");
+    foreach (var key in Request.Form.Keys)
+    {
+        Console.WriteLine($"[DEBUG] Key: {key}, Value: {Request.Form[key]}");
+    }
+
+    Console.WriteLine($"[DEBUG] Bound Category Name: {category.Name}");
+    Console.WriteLine($"[DEBUG] Bound Initial Allocated Amount: {category.InitialAllocatedAmount}");
+    Console.WriteLine($"[DEBUG] Bound Allocated Amount: {category.AllocatedAmount}");
+
+    if (!ModelState.IsValid)
+    {
+        Console.WriteLine("[DEBUG] ModelState is invalid.");
+        foreach (var key in ModelState.Keys)
+        {
+            foreach (var error in ModelState[key].Errors)
+            {
+                Console.WriteLine($"[DEBUG] ModelState Error - Key: {key}, Error: {error.ErrorMessage}");
+            }
+        }
+        return View(category); // Return the view with the current category to fix input errors
+    }
+
+    try
+    {
+        // Update the category using the service
+        await _categoryService.UpdateCategoryAsync(category);
+        Console.WriteLine("[DEBUG] Category updated successfully.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[DEBUG] Exception occurred during update: {ex.Message}");
+        ModelState.AddModelError(string.Empty, "An error occurred while updating the category. Please try again.");
+        return View(category); // Return the view with an error message
+    }
+
+    // Redirect to the budget details after successful update
+    return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
+}
+
+
+
+
+
+
+
+
     }
 }

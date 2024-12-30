@@ -62,5 +62,30 @@ namespace BudgetTracker.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+public async Task UpdateCategoryAsync(Category category)
+{
+    Console.WriteLine($"[DEBUG] Updating Category ID: {category.Id}");
+    Console.WriteLine($"[DEBUG] Allocated Amount: {category.InitialAllocatedAmount}");
+
+    var existingCategory = await _context.Categories.FindAsync(category.Id);
+
+    if (existingCategory == null)
+    {
+        Console.WriteLine("[DEBUG] Category not found.");
+        throw new InvalidOperationException("Category not found.");
+    }
+
+    existingCategory.Name = category.Name;
+    existingCategory.InitialAllocatedAmount = category.InitialAllocatedAmount;
+    existingCategory.AllocatedAmount = category.InitialAllocatedAmount;
+
+    await _context.SaveChangesAsync();
+    Console.WriteLine("[DEBUG] Category updated successfully.");
+}
+
+
+
+
     }
 }

@@ -20,7 +20,9 @@
                 <a class="btn btn-outline-primary" href="@Url.Action("Create", "Transaction", new { categoryId = Model.Id })">
                     <i class="fas fa-plus me-1"></i>Add Transaction
                 </a>
-                
+                <a class="btn btn-outline-warning" href="@Url.Action("Edit", "Category", new { id = Model.Id })">
+                    <i class="fas fa-edit me-1"></i>Edit Category
+                </a>
                 <form asp-action="Delete" asp-controller="Category" method="post" class="d-inline">
                     <input type="hidden" name="id" value="@Model.Id" />
                     <button type="submit" class="btn btn-outline-danger">
@@ -28,6 +30,7 @@
                     </button>
                 </form>
             </div>
+
 
             @if (Model.Transactions != null && Model.Transactions.Any())
             {
