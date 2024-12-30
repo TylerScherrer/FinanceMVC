@@ -44,6 +44,10 @@
                                         <strong>@task.Name</strong> 
                                         <small class="text-muted">@task.Date.ToShortDateString()</small>
                                     </div>
+                                    <form method="post" asp-action="DeleteTask" asp-controller="Schedule" class="d-inline">
+                                        <input type="hidden" name="id" value="@task.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
                                 </li>
                             }
                         </ul>
@@ -73,6 +77,10 @@
                                         <strong>@task.Name</strong> 
                                         <small class="text-muted">@task.Date.ToShortDateString()</small>
                                     </div>
+                                    <form method="post" asp-action="DeleteTask" asp-controller="Schedule" class="d-inline">
+                                        <input type="hidden" name="id" value="@task.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
                                 </li>
                             }
                         </ul>
@@ -104,6 +112,10 @@
                                         <strong>@task.Name</strong> 
                                         <small class="text-muted">@task.Date.ToShortDateString()</small>
                                     </div>
+                                    <form method="post" asp-action="DeleteTask" asp-controller="Schedule" class="d-inline">
+                                        <input type="hidden" name="id" value="@task.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
                                 </li>
                             }
                         </ul>

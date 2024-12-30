@@ -70,16 +70,19 @@ namespace BudgetTracker.Services
                 .Where(t => t.Date >= startOfWeek && t.Date <= endOfWeek)
                 .ToListAsync();
         }
-        public async Task DeleteTaskAsync(int id)
+        public async Task<bool> DeleteTaskAsync(int id)
         {
-        var task = await _context.Tasks.FindAsync(id);
-        if (task != null)
-        {
+            var task = await _context.Tasks.FindAsync(id);
+            if (task == null)
+            {
+                return false; // Task not found
+            }
+
             _context.Tasks.Remove(task);
             await _context.SaveChangesAsync();
+            return true; // Task successfully deleted
         }
 
-        }
 
 
     }

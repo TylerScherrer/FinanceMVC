@@ -8,7 +8,8 @@ namespace BudgetTracker.Interfaces
          Task<List<TaskItem>> GetTasksForCurrentWeekAsync();
         Task<ScheduleViewModel> GetScheduleAsync();
         Task AddTaskAsync(string name, DateTime date);
+        Task<bool> DeleteTaskAsync(int id);
 
-        Task DeleteTaskAsync(int id);
+       
     }
 }
