@@ -114,6 +114,25 @@ public async Task<IActionResult> UnassignTask(int taskId, int hour)
     }
 }
 
+[HttpPost]
+public async Task<IActionResult> MoveToToday(int taskId)
+{
+    try
+    {
+        await _toDoService.MoveTaskToTodayAsync(taskId);
+        return RedirectToAction("Index");
+    }
+    catch (Exception ex)
+    {
+        // Log or handle errors
+        Console.WriteLine($"Error moving task: {ex.Message}");
+        ModelState.AddModelError("", ex.Message);
+        return RedirectToAction("Index"); // Redirect with errors handled
+    }
+}
+
+
+
 
     }
 }

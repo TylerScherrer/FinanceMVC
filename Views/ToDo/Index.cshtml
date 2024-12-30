@@ -136,6 +136,15 @@
                                                 </button>
                                             </form>
                                         </td>
+                                            <td class="text-end">
+                                                <form method="post" asp-action="MoveToToday" asp-controller="ToDo" class="d-inline">
+                                                    <input type="hidden" name="taskId" value="@task.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                        <i class="fas fa-arrow-right me-1"></i>Move to Today's Tasks
+                                                    </button>
+                                                </form>
+                                            </td>
+
                                     </tr>
                                 }
                             }

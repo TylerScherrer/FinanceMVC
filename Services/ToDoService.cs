@@ -16,11 +16,11 @@ namespace BudgetTracker.Services
 
         public async Task<List<ToDoItem>> GetTodayTasksAsync()
         {
-            var today = DateTime.Now.Date;
             return await _context.ToDoItems
-                .Where(t => t.IsDaily || (t.IsTodayOnly && t.DueDate.Date == today))
-                .ToListAsync();
+                .Where(t => t.IsToday)
+                .ToListAsync(); // Ensure it includes tasks with IsToday = true
         }
+
 
 
         public async Task<List<ToDoItem>> GetDailyTasksAsync()
@@ -112,6 +112,23 @@ public async Task UnassignTaskAsync(int taskId, int hour)
         throw new InvalidOperationException("Task not found or not assigned.");
     }
 }
+public async Task MoveTaskToTodayAsync(int taskId)
+{
+    Console.WriteLine($"MoveTaskToTodayAsync invoked with TaskId: {taskId}");
+    var task = await _context.ToDoItems.FindAsync(taskId); // Correct entity
+    if (task != null)
+    {
+        task.IsToday = true;
+        await _context.SaveChangesAsync();
+        Console.WriteLine($"Task {taskId} moved to today's tasks.");
+    }
+    else
+    {
+        Console.WriteLine($"Task {taskId} not found.");
+    }
+}
+
+
 
     }
 }

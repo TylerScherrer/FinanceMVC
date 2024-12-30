@@ -15,5 +15,7 @@ namespace BudgetTracker.Models
         public bool IsCompleted { get; set; } = false; // Task status
         public bool IsDaily { get; set; } = false;    // Recurring daily tasks
         public bool IsTodayOnly { get; set; } = false; // Tasks assigned only for today
+
+        public bool IsToday { get; set; } // Add this property if it doesn't already exist
     }
 }
