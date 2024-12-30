@@ -62,6 +62,11 @@ public async Task<IActionResult> Details(int id)
         {
             return NotFound();
         }
+        budget.RecentTransactions = budget.Categories
+            .SelectMany(c => c.Transactions)
+            .OrderByDescending(t => t.Date)
+            .Take(5) // Limit to the most recent 5 transactions
+            .ToList();
 
         return View(budget);
     }
