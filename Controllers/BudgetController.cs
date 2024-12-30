@@ -12,13 +12,16 @@ namespace BudgetTracker.Controllers
         private readonly IScheduleService _scheduleService;
         private readonly IToDoService _toDoService; // Add this line
         private readonly ITransactionService _transactionService;
+        private readonly IBillService _billService;
 
-        public BudgetController(IBudgetService budgetService, IScheduleService scheduleService, IToDoService toDoService, ITransactionService transactionService)
+
+        public BudgetController(IBudgetService budgetService, IScheduleService scheduleService, IToDoService toDoService, ITransactionService transactionService,IBillService billService)
         {
             _budgetService = budgetService;
             _scheduleService = scheduleService;
             _toDoService = toDoService; 
             _transactionService = transactionService;
+            _billService = billService; // Assign the dependency to the private field
         }
 
         
@@ -29,20 +32,26 @@ namespace BudgetTracker.Controllers
             var tasksForWeek = await _scheduleService.GetTasksForCurrentWeekAsync();
 
             // Fetch today's tasks and daily schedules
-            // Note: You'll need an instance of IToDoService or pass it into the constructor as well.
             var todayTasks = await _toDoService.GetTodayTasksAsync();
             var dailySchedules = await _toDoService.GetDailySchedulesAsync();
+
+            // Fetch bills for the current month
+            var currentMonth = DateTime.Now.Month;
+            var currentYear = DateTime.Now.Year;
+            var monthlyBills = await _billService.GetBillsForMonthAsync(currentMonth, currentYear);
 
             var viewModel = new BudgetWithTasksViewModel
             {
                 Budgets = budgets,
                 CurrentWeekTasks = tasksForWeek,
                 TodayTasks = todayTasks,
-                DailySchedules = dailySchedules
+                DailySchedules = dailySchedules,
+                MonthlyBills = monthlyBills // Add bills for the month
             };
 
             return View(viewModel);
         }
+
 
 
 

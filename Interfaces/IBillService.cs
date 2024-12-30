@@ -29,5 +29,7 @@ namespace BudgetTracker.Interfaces
         Task<bool> MarkAsPaidAsync(int id);
         Task UpdateBillAsync(Bill bill); // Ensure this exists too
         Task<Bill> GetBillByIdAsync(int id); // Add this method
+        Task<List<Bill>> GetBillsForMonthAsync(int month, int year);
+
     }
 }

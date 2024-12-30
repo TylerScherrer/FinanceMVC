@@ -69,6 +69,12 @@ namespace BudgetTracker.Services
 
             return true; // Return true indicating success
         }
+public async Task<List<Bill>> GetBillsForMonthAsync(int month, int year)
+{
+    return await _context.Bills
+        .Where(b => b.DueDate.Month == month && b.DueDate.Year == year)
+        .ToListAsync();
+}
 
     }
 }

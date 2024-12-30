@@ -26,6 +26,6 @@ namespace BudgetTracker.Models
         /// A list of all tasks.
         /// </summary>
         public List<ToDoItem> AllTasks { get; set; } = new List<ToDoItem>();
-
+        public List<Bill> MonthlyBills { get; set; }
     }
 }

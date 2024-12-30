@@ -1,6 +1,8 @@
 @using System.Linq
 @using Microsoft.EntityFrameworkCore
 @model BudgetTracker.Models.BudgetWithTasksViewModel
+@using BudgetTracker.Models;
+
 
 <!-- Make sure you have Font Awesome or a similar icon library included in your _Layout.cshtml -->
 <!-- Example:
@@ -226,6 +228,41 @@
                     </ul>
                 </div>
             </div>
+<h4 class="fw-bold mb-3">
+    <i class="fas fa-file-invoice-dollar text-dark me-2"></i>Bills for the Month
+</h4>
+@if (Model.MonthlyBills != null && Model.MonthlyBills.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                    <th>Is Paid</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var bill in Model.MonthlyBills)
+                {
+                    <tr>
+                        <td>@bill.Name</td>
+                        <td>@bill.Amount.ToString("C")</td>
+                        <td>@bill.DueDate.ToShortDateString()</td>
+                        <td>@(bill.IsPaid ? "Yes" : "No")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-light border text-center mt-3" role="alert">
+        No bills available for the current month.
+    </div>
+}
 
             <!-- Today's Tasks -->
             <div class="card border-0 shadow-sm">
