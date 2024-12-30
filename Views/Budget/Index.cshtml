@@ -199,60 +199,50 @@
                                                         Created: @budget.DateCreated.ToShortDateString()
                                                     </small>
                                                 </div>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-sm btn-outline-light dropdown-toggle"
-                                                            type="button"
-                                                            data-bs-toggle="dropdown">
-                                                        <i class="fas fa-ellipsis-h"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        @if (budget.Categories != null && budget.Categories.Any())
-                                                        {
-                                                            @foreach (var category in budget.Categories)
-                                                            {
-                                                                <li class="px-3 py-2">
-                                                                    <div class="d-flex flex-wrap gap-2">
-                                                                        <!-- Light Purple 'View' -->
-                                                                        <a class="btn btn-outline-purple btn-sm"
-                                                                           href="@Url.Action("Details", "Budget", new { id = budget.Id })">
-                                                                            <i class="fas fa-eye me-1"></i>View
-                                                                        </a>
-                                                                        <!-- Light Yellow 'Edit' -->
-                                                                        <a class="btn btn-outline-warning btn-sm"
-                                                                           href="@Url.Action("Edit", "Budget", new { id = budget.Id })">
-                                                                            <i class="fas fa-edit me-1"></i>Edit
-                                                                        </a>
-                                                                        <!-- Light Blue 'Add Category' -->
-                                                                        <a class="btn btn-outline-primary btn-sm"
-                                                                           href="@Url.Action("Create", "Category", new { budgetId = budget.Id })">
-                                                                            <i class="fas fa-folder-plus me-1"></i>Add Category
-                                                                        </a>
-                                                                        <!-- Light Aqua 'View Bills' -->
-                                                                        <a class="btn btn-outline-info btn-sm"
-                                                                           href="@Url.Action("ViewBills", "Bill", new { budgetId = budget.Id })">
-                                                                            <i class="fas fa-file-invoice-dollar me-1"></i>View Bills
-                                                                        </a>
-                                                                        <!-- Light Red 'Delete' -->
-                                                                        <button class="btn btn-outline-danger btn-sm delete-btn"
-                                                                                type="button"
-                                                                                data-id="@budget.Id"
-                                                                                data-name="@budget.Name"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#deleteBudgetModal">
-                                                                            <i class="fas fa-trash-alt me-1"></i>Delete
-                                                                        </button>
-                                                                    </div>
-                                                                </li>
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            <li class="dropdown-item-text text-muted">
-                                                                No categories available
-                                                            </li>
-                                                        }
-                                                    </ul>
-                                                </div>
+<div class="dropdown">
+    <button class="btn btn-sm btn-outline-light dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown">
+        <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <a class="btn btn-outline-purple btn-sm"
+               href="@Url.Action("Details", "Budget", new { id = budget.Id })">
+                <i class="fas fa-eye me-1"></i>View
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-outline-warning btn-sm"
+               href="@Url.Action("Edit", "Budget", new { id = budget.Id })">
+                <i class="fas fa-edit me-1"></i>Edit
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-outline-primary btn-sm"
+               href="@Url.Action("Create", "Category", new { budgetId = budget.Id })">
+                <i class="fas fa-folder-plus me-1"></i>Add Category
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-outline-info btn-sm"
+               href="@Url.Action("ViewBills", "Bill", new { budgetId = budget.Id })">
+                <i class="fas fa-file-invoice-dollar me-1"></i>View Bills
+            </a>
+        </li>
+        <li>
+            <button class="btn btn-outline-danger btn-sm delete-btn"
+                    type="button"
+                    data-id="@budget.Id"
+                    data-name="@budget.Name"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteBudgetModal">
+                <i class="fas fa-trash-alt me-1"></i>Delete
+            </button>
+        </li>
+    </ul>
+</div>
+
                                             </div>
 
                                             <!-- Budget amounts -->

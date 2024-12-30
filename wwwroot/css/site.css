@@ -29,3 +29,43 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 1050;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  max-height: 200px; /* Limit height to 200px */
+  overflow-y: auto; /* Add scrolling for overflow */
+}
+
+.dropdown-menu .dropdown-item {
+  color: #fff;
+  transition: background-color 0.2s ease-in-out;
+}
+.dropdown-menu .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.card {
+  position: relative;
+  overflow: visible;
+}
+
+/* Add spacing below "Your Budgets" cards */
+#budgets-section {
+  margin-bottom: 2rem; /* Adjust spacing as needed */
+}
+
+/* Ensure dropdown is always above other elements */
+.dropdown-menu .dropdown-item {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem; /* Adjust font size */
+}
+
+
+/* Add margin to "Organize My Day" */
+#organize-my-day-section {
+  margin-top: 2rem; /* Create space above the section */
+}
