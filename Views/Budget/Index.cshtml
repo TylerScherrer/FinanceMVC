@@ -96,37 +96,54 @@
 </style>
 
 <div class="d-flex flex-nowrap">
+
     <!-- Sidebar Navigation -->
-    <nav id="sidebar" class="d-none d-md-flex flex-column p-3 glass-panel">
-        <h3 class="fw-bold mb-4 text-light">
-            <i class="fas fa-coins me-2"></i>BudgetTracker
-        </h3>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item mb-2">
-                <a class="sidebar-link" asp-area="" asp-controller="Budget" asp-action="Index">
-                    <i class="fas fa-chart-line me-2"></i>Dashboard
-                </a>
-            </li>
-            <li class="nav-item mb-2">
-                <a class="sidebar-link" asp-area="" asp-controller="Schedule" asp-action="Index">
-                    <i class="fas fa-calendar-alt me-2"></i>Schedule
-                </a>
-            </li>
-            <li class="nav-item mb-2">
-                <a class="sidebar-link" asp-area="" asp-controller="ToDo" asp-action="Index">
-                    <i class="fas fa-tasks me-2"></i>To-Do List
-                </a>
-            </li>
-            <li class="nav-item mb-2">
-                <a class="sidebar-link" asp-area="" asp-controller="Home" asp-action="Privacy">
-                    <i class="fas fa-user-shield me-2"></i>Privacy
-                </a>
-            </li>
-        </ul>
-        <div class="mt-auto text-light small">
-            <p class="mb-0">&copy; 2024 BudgetTracker</p>
-        </div>
-    </nav>
+<nav id="sidebar" class="d-none d-md-flex flex-column p-3 glass-panel">
+    <h3 class="fw-bold mb-4 text-light">
+        <i class="fas fa-coins me-2"></i>BudgetTracker
+    </h3>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-2">
+            <a class="sidebar-link" asp-area="" asp-controller="Budget" asp-action="Index">
+                <i class="fas fa-chart-line me-2"></i>Dashboard
+            </a>
+        </li>
+        <li class="nav-item mb-2">
+            <a class="sidebar-link" asp-area="" asp-controller="Schedule" asp-action="Index">
+                <i class="fas fa-calendar-alt me-2"></i>Schedule
+            </a>
+        </li>
+        <li class="nav-item mb-2">
+            <a class="sidebar-link" asp-area="" asp-controller="ToDo" asp-action="Index">
+                <i class="fas fa-tasks me-2"></i>To-Do List
+            </a>
+        </li>
+        <li class="nav-item mb-2">
+            <a class="sidebar-link" asp-area="" asp-controller="Category" asp-action="Index">
+                <i class="fas fa-folder me-2"></i>Categories
+            </a>
+        </li>
+        <li class="nav-item mb-2">
+            <a class="sidebar-link" asp-area="" asp-controller="Bill" asp-action="Index">
+                <i class="fas fa-file-invoice-dollar me-2"></i>Bills
+            </a>
+        </li>
+        <li class="nav-item mb-2">
+            <a class="sidebar-link" asp-area="" asp-controller="Transaction" asp-action="Index">
+                <i class="fas fa-exchange-alt me-2"></i>Transactions
+            </a>
+        </li>
+        <li class="nav-item mb-2">
+            <a class="sidebar-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                <i class="fas fa-user-shield me-2"></i>Privacy
+            </a>
+        </li>
+    </ul>
+    <div class="mt-auto text-light small">
+        <p class="mb-0">&copy; 2024 BudgetTracker</p>
+    </div>
+</nav>
+
 
     <!-- Main Content Column -->
     <div class="flex-fill">

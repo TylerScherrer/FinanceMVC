@@ -165,3 +165,36 @@ body, .container-fluid {
   color: #f0f0f0;
   border: none;
 }
+/* Ensure background for cards matches the design */
+.card {
+    background-color: #121212 !important; /* Ensure it stays dark */
+    color: #f8f9fa !important; /* White text */
+}
+
+/* Buttons should match the rest of the design */
+.btn {
+    color: #f8f9fa !important; /* White text */
+    background-color: transparent !important; /* Transparent background */
+    border-color: #6c757d !important; /* Match border to other elements */
+}
+
+.btn:hover {
+    background-color: #6c757d !important; /* Slight hover effect */
+    color: #ffffff !important; /* Ensure text stays visible */
+}
+/* Ensure sidebar-link styles are consistent */
+.sidebar-link {
+  color: #ccc; /* Light gray */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sidebar-link:hover {
+  color: #fff; /* White on hover */
+}
+.glass-panel {
+  background: rgba(255, 255, 255, 0.07); /* Subtle transparency */
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
