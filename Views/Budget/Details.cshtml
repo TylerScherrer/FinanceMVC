@@ -4,7 +4,6 @@
     <!-- Hero Section -->
     <div class="text-center mb-5">
         <h1 class="fw-bold" style="font-size: 2.5rem;">@Model.Name</h1>
-        <p class="text-muted">View and manage your budget details.</p>
     </div>
 
     <!-- Budget Details Card -->
@@ -56,10 +55,10 @@
             @if (Model.Categories != null && Model.Categories.Any())
             {
                 <div class="table-responsive">
-                    <table class="table table-dark table-bordered align-middle">
+                    <table class="table table-dark align-middle">
                         <thead class="table-secondary">
                             <tr>
-                                <th>Name</th>
+                                <th class="fs-6">Name</th>
                                 <th>Allocated (Initial)</th>
                                 <th>Allocated (Current)</th>
                                 <th class="text-end">Actions</th>

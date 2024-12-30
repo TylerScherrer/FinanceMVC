@@ -202,3 +202,16 @@ body, .container-fluid {
   color: #cccccc; /* Light gray for contrast with white */
   font-style: italic;
 }
+/* Ensure highlighted text appears white */
+.text-highlight {
+  color: #fff !important; /* Set text color to white */
+  background-color: transparent !important; /* Remove any unwanted background */
+  text-decoration: none; /* Optional: remove underline for links if applicable */
+}
+.table-dark {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: none; /* Remove default borders */
+  font-size: 0.9rem; /* Adjust font size */
+  font-family: Arial, sans-serif; /* Change font family */
+}
