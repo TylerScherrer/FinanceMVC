@@ -31,10 +31,11 @@ namespace BudgetTracker.Data
                 .OnDelete(DeleteBehavior.Cascade); // Cascade delete if Budget is removed
 
             // Configure the relationship between Bill and Budget
+              // Configure Bill-Budget relationship
             modelBuilder.Entity<Bill>()
-                .HasOne(b => b.Budget) // A Bill is associated with one Budget
-                .WithMany(b => b.Bills) // A Budget can have many Bills
-                .HasForeignKey(b => b.BudgetId) // Foreign key is BudgetId
+                .HasOne(b => b.Budget) // Bill has one Budget
+                .WithMany(b => b.Bills) // Budget has many Bills
+                .HasForeignKey(b => b.BudgetId) // Foreign key
                 .OnDelete(DeleteBehavior.Cascade); // Cascade delete if Budget is removed
         }
     }

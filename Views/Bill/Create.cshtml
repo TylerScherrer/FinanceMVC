@@ -3,8 +3,9 @@
 <div class="container">
     <h1 class="text-center">Add Bill</h1>
     <form asp-action="Create" method="post">
+        <!-- Hidden field for BudgetId -->
         <input type="hidden" asp-for="BudgetId" />
-        
+
         <div class="mb-3">
             <label asp-for="Name" class="form-label">Name</label>
             <input asp-for="Name" class="form-control" />
@@ -13,7 +14,7 @@
 
         <div class="mb-3">
             <label asp-for="Amount" class="form-label">Amount</label>
-            <input asp-for="Amount" class="form-control" />
+            <input asp-for="Amount" type="number" step="0.01" class="form-control" />
             <span asp-validation-for="Amount" class="text-danger"></span>
         </div>
 

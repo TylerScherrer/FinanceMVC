@@ -42,7 +42,8 @@ namespace BudgetTracker.Controllers
         {
             try
             {
-                return View(new Bill { BudgetId = budgetId, DueDate = DateTime.Now });
+                Console.WriteLine($"Initializing Create form for BudgetId={budgetId}");
+                return View(new Bill { BudgetId = budgetId, DueDate = DateTime.Now }); // Pass BudgetId
             }
             catch (Exception ex)
             {
@@ -51,28 +52,38 @@ namespace BudgetTracker.Controllers
             }
         }
 
-        // POST: Bills/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Bill bill)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(bill);
-            }
+[HttpPost]
+public async Task<IActionResult> Create(Bill bill)
+{
+    Console.WriteLine("Entering Create POST action.");
+    Console.WriteLine($"Received data: Name={bill.Name}, Amount={bill.Amount}, DueDate={bill.DueDate}, BudgetId={bill.BudgetId}");
 
-            try
-            {
-                await _billService.CreateBillAsync(bill);
-                return RedirectToAction("Index", new { budgetId = bill.BudgetId });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error creating bill: {ex.Message}");
-                ModelState.AddModelError("", "An error occurred while creating the bill.");
-                return View(bill);
-            }
+    if (!ModelState.IsValid)
+    {
+        Console.WriteLine("ModelState is invalid.");
+        foreach (var error in ModelState)
+        {
+            Console.WriteLine($"Key: {error.Key}, Errors: {string.Join(", ", error.Value.Errors.Select(e => e.ErrorMessage))}");
         }
+        return View(bill);
+    }
+
+    try
+    {
+        await _billService.CreateBillAsync(bill);
+        Console.WriteLine("Bill successfully created.");
+        return RedirectToAction("Index", new { budgetId = bill.BudgetId });
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error creating bill: {ex.Message}");
+        ModelState.AddModelError("", "An error occurred while creating the bill.");
+        return View(bill);
+    }
+}
+
+
+
 
         // POST: Bills/Delete
         [HttpPost]
