@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bYd8GUzgMSYQoFf6ioN7j+wOfrz4lJkaG2umpYwrxOc=",
+  "Hash": "l2d/+oOEA+ZooYx0Vfm4fVP7UjISB2z6TaQeylBUU6U=",
   "Source": "BudgetTracker",
   "BasePath": "_content/BudgetTracker",
   "Mode": "Default",
@@ -458,12 +458,12 @@
       "OriginalItemSpec": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-23zd23fj28.gz",
+      "Identity": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-w5d1wdkv7n.gz",
       "SourceId": "BudgetTracker",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/BudgetTracker",
-      "RelativePath": "css/site#[.{fingerprint=23zd23fj28}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=w5d1wdkv7n}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -472,8 +472,8 @@
       "RelatedAsset": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "c9p7fu4jaw",
-      "Integrity": "YN1Vd9jxU8bLrHXOD6kT9epX9RUrC/YNMH00+aXh/KM=",
+      "Fingerprint": "49yl6pvt4q",
+      "Integrity": "qJrP/CMppqgK2G+5VvcwQPrxtbZ3BJUUDTdP0/FYS9U=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\wwwroot\\css\\site.css"
@@ -1417,8 +1417,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "23zd23fj28",
-      "Integrity": "Ii8Awl4uAhLUKEj9c5Y20vuiUMmJwTWYvpAaYF1W0uQ=",
+      "Fingerprint": "w5d1wdkv7n",
+      "Integrity": "5GxpTHpZekJbZpq2m+0w7zqVxHMa2qk3/skkrqVzGtw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -3324,13 +3324,13 @@
       ]
     },
     {
-      "Route": "css/site.23zd23fj28.css",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-23zd23fj28.gz",
+      "Route": "css/site.css",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-w5d1wdkv7n.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000648088140"
+          "Quality": "0.000576701269"
         }
       ],
       "ResponseHeaders": [
@@ -3340,19 +3340,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1542"
+          "Value": "1733"
         },
         {
           "Name": "ETag",
-          "Value": "\"YN1Vd9jxU8bLrHXOD6kT9epX9RUrC/YNMH00+aXh/KM=\""
+          "Value": "\"qJrP/CMppqgK2G+5VvcwQPrxtbZ3BJUUDTdP0/FYS9U=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 30 Dec 2024 08:05:55 GMT"
+          "Value": "Tue, 31 Dec 2024 00:31:14 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -3368,26 +3368,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"Ii8Awl4uAhLUKEj9c5Y20vuiUMmJwTWYvpAaYF1W0uQ=\""
+          "Value": "W/\"5GxpTHpZekJbZpq2m+0w7zqVxHMa2qk3/skkrqVzGtw=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "23zd23fj28"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-Ii8Awl4uAhLUKEj9c5Y20vuiUMmJwTWYvpAaYF1W0uQ="
+          "Value": "sha256-5GxpTHpZekJbZpq2m+0w7zqVxHMa2qk3/skkrqVzGtw="
         }
       ]
     },
     {
-      "Route": "css/site.23zd23fj28.css",
+      "Route": "css/site.css",
       "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3397,7 +3389,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4802"
+          "Value": "5566"
         },
         {
           "Name": "Content-Type",
@@ -3405,11 +3397,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Ii8Awl4uAhLUKEj9c5Y20vuiUMmJwTWYvpAaYF1W0uQ=\""
+          "Value": "\"5GxpTHpZekJbZpq2m+0w7zqVxHMa2qk3/skkrqVzGtw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 30 Dec 2024 08:05:55 GMT"
+          "Value": "Tue, 31 Dec 2024 00:31:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-5GxpTHpZekJbZpq2m+0w7zqVxHMa2qk3/skkrqVzGtw="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css.gz",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-w5d1wdkv7n.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1733"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qJrP/CMppqgK2G+5VvcwQPrxtbZ3BJUUDTdP0/FYS9U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 31 Dec 2024 00:31:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-qJrP/CMppqgK2G+5VvcwQPrxtbZ3BJUUDTdP0/FYS9U="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.w5d1wdkv7n.css",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-w5d1wdkv7n.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000576701269"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1733"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qJrP/CMppqgK2G+5VvcwQPrxtbZ3BJUUDTdP0/FYS9U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 31 Dec 2024 00:31:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"5GxpTHpZekJbZpq2m+0w7zqVxHMa2qk3/skkrqVzGtw=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "w5d1wdkv7n"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-5GxpTHpZekJbZpq2m+0w7zqVxHMa2qk3/skkrqVzGtw="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.w5d1wdkv7n.css",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5566"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5GxpTHpZekJbZpq2m+0w7zqVxHMa2qk3/skkrqVzGtw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 31 Dec 2024 00:31:14 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3419,7 +3556,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "23zd23fj28"
+          "Value": "w5d1wdkv7n"
         },
         {
           "Name": "label",
@@ -3427,13 +3564,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Ii8Awl4uAhLUKEj9c5Y20vuiUMmJwTWYvpAaYF1W0uQ="
+          "Value": "sha256-5GxpTHpZekJbZpq2m+0w7zqVxHMa2qk3/skkrqVzGtw="
         }
       ]
     },
     {
-      "Route": "css/site.23zd23fj28.css.gz",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-23zd23fj28.gz",
+      "Route": "css/site.w5d1wdkv7n.css.gz",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-w5d1wdkv7n.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3442,7 +3579,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1542"
+          "Value": "1733"
         },
         {
           "Name": "Content-Type",
@@ -3450,11 +3587,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"YN1Vd9jxU8bLrHXOD6kT9epX9RUrC/YNMH00+aXh/KM=\""
+          "Value": "\"qJrP/CMppqgK2G+5VvcwQPrxtbZ3BJUUDTdP0/FYS9U=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 30 Dec 2024 08:05:55 GMT"
+          "Value": "Tue, 31 Dec 2024 00:31:14 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3472,7 +3609,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "23zd23fj28"
+          "Value": "w5d1wdkv7n"
         },
         {
           "Name": "label",
@@ -3480,144 +3617,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-YN1Vd9jxU8bLrHXOD6kT9epX9RUrC/YNMH00+aXh/KM="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-23zd23fj28.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000648088140"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1542"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"YN1Vd9jxU8bLrHXOD6kT9epX9RUrC/YNMH00+aXh/KM=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 30 Dec 2024 08:05:55 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"Ii8Awl4uAhLUKEj9c5Y20vuiUMmJwTWYvpAaYF1W0uQ=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Ii8Awl4uAhLUKEj9c5Y20vuiUMmJwTWYvpAaYF1W0uQ="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "4802"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Ii8Awl4uAhLUKEj9c5Y20vuiUMmJwTWYvpAaYF1W0uQ=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 30 Dec 2024 08:05:55 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Ii8Awl4uAhLUKEj9c5Y20vuiUMmJwTWYvpAaYF1W0uQ="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css.gz",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-23zd23fj28.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1542"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"YN1Vd9jxU8bLrHXOD6kT9epX9RUrC/YNMH00+aXh/KM=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 30 Dec 2024 08:05:55 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-YN1Vd9jxU8bLrHXOD6kT9epX9RUrC/YNMH00+aXh/KM="
+          "Value": "sha256-qJrP/CMppqgK2G+5VvcwQPrxtbZ3BJUUDTdP0/FYS9U="
         }
       ]
     },

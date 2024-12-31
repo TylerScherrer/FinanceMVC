@@ -105,7 +105,7 @@ public async Task<IActionResult> UnassignTask(int taskId, int hour)
     try
     {
         await _toDoService.UnassignTaskAsync(taskId, hour);
-        return RedirectToAction(nameof(Index)); // Redirect back to the same page
+        return RedirectToAction("Index", "Budget"); // Redirect back to the same page
     }
     catch (Exception ex)
     {

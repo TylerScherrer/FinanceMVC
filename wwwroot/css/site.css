@@ -215,3 +215,29 @@ body, .container-fluid {
   font-size: 0.9rem; /* Adjust font size */
   font-family: Arial, sans-serif; /* Change font family */
 }
+input::placeholder {
+  color: white !important;
+  opacity: 1; /* Makes placeholder fully visible */
+}
+/* General styling for all input[type="date"] */
+form input[type="date"] {
+  color: #fff !important; /* Ensure text is white */
+  background-color: transparent !important; /* Ensure background is transparent */
+  border: 1px solid lightgray !important; /* Ensure border is visible */
+}
+
+
+/* For placeholder text */
+input[type="date"]::placeholder {
+  color: #fff !important; /* Ensure placeholder is white */
+}
+
+/* For calendar picker icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Makes the calendar icon white */
+}
+
+
+.card .text-muted {
+  color: #ffffff !important; /* Set color to white */
+}
