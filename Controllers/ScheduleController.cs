@@ -19,12 +19,14 @@ namespace BudgetTracker.Controllers
             return View(schedule);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddTask(string name, DateTime date)
-        {
-            await _scheduleService.AddTaskAsync(name, date);
-            return RedirectToAction(nameof(Index));
-        }
+[HttpPost]
+public async Task<IActionResult> AddTask(string Name, DateTime Date, TimeSpan Time)
+{
+    await _scheduleService.AddTaskAsync(Name, Date, Time);
+    return RedirectToAction(nameof(Index));
+}
+
+
 
         [HttpPost]
         public async Task<IActionResult> DeleteTask(int id)

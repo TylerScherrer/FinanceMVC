@@ -83,6 +83,18 @@ namespace BudgetTracker.Services
             return true; // Task successfully deleted
         }
 
+public async Task AddTaskAsync(string name, DateTime date, TimeSpan time)
+{
+    var newTask = new TaskItem
+    {
+        Name = name,
+        Date = date,
+        Time = time
+    };
+
+    _context.Tasks.Add(newTask);
+    await _context.SaveChangesAsync();
+}
 
 
     }

@@ -1,4 +1,6 @@
 @model BudgetTracker.Models.ScheduleViewModel
+@using BudgetTracker.Helpers
+
 
 <div class="d-flex flex-nowrap">
 
@@ -33,12 +35,8 @@
     <div class="flex-fill p-4" style="background: #121212;">
         <!-- Hero Section -->
         <div class="hero-section text-light mb-4">
-            <div class="hero-section-content">
-                <h1 class="display-5 fw-bold">My Financial Schedule</h1>
-                <p class="lead mb-0">
-                    Organize your tasks and stay on top of your weekly and daily commitments.
-                </p>
-            </div>
+            <h1 class="display-5 fw-bold">My Financial Schedule</h1>
+            <p class="lead mb-0">Organize your tasks and stay on top of your weekly and daily commitments.</p>
         </div>
 
         <!-- Content -->
@@ -53,28 +51,17 @@
                                 <i class="fas fa-plus-circle me-2"></i>Add a New Task
                             </h4>
                             <form method="post" asp-action="AddTask" asp-controller="Schedule" class="row g-2">
-                                <div class="col-md-5">
-                                    <input type="text"
-                                           name="Name"
-                                            class="form-control bg-transparent text-light border-light"
-                                            style="color: white; placeholder-text-color: white;"
-                                           placeholder="Task Name"
-                                           required />
+                                <div class="col-md-4">
+                                    <input type="text" name="Name" class="form-control bg-transparent text-light border-light" placeholder="Task Name" required />
                                 </div>
-                                <div class="col-md-5">
-                                    <input type="date"
-                                        name="Date"
-                                        class="form-control bg-transparent text-light border-light"
-                                        style="color: white !important; background-color: transparent !important; border-color: lightgray !important;"
-                                        required />
+                                <div class="col-md-4">
+                                    <input type="date" name="Date" class="form-control bg-transparent text-light border-light" required />
                                 </div>
-
-
-
+                                <div class="col-md-2">
+                                    <input type="time" name="Time" class="form-control bg-transparent text-light border-light" required />
+                                </div>
                                 <div class="col-md-2 d-grid">
-                                    <button type="submit" class="btn btn-outline-primary fw-semibold">
-                                        Add
-                                    </button>
+                                    <button type="submit" class="btn btn-outline-primary fw-semibold">Add</button>
                                 </div>
                             </form>
                         </div>
@@ -93,14 +80,15 @@
                                     <div class="card glass-panel h-100 text-light">
                                         <div class="card-body d-flex flex-column">
                                             <h5 class="fw-bold">@task.Name</h5>
-                                            <div class="text-muted mb-3">
-                                                Date: @task.Date.ToShortDateString()
-                                            </div>
+                                            <p class="text-muted">Date: @task.Date.ToShortDateString()</p>
+                                            <p class="text-muted">Time: @BudgetTracker.Helpers.TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</p>
+
+
+
+
                                             <form method="post" asp-action="DeleteTask" asp-controller="Schedule">
                                                 <input type="hidden" name="id" value="@task.Id" />
-                                                <button type="submit" class="btn btn-outline-danger btn-sm">
-                                                    Delete
-                                                </button>
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
                                             </form>
                                         </div>
                                     </div>
@@ -110,9 +98,7 @@
                     }
                     else
                     {
-                        <div class="alert alert-secondary text-center">
-                            No tasks available for this week.
-                        </div>
+                        <div class="alert alert-secondary text-center">No tasks available for this week.</div>
                     }
                 </div>
 
@@ -131,7 +117,9 @@
                                     {
                                         <li class="list-group-item bg-transparent text-light border-bottom">
                                             <strong>@task.Name</strong>
-                                            <small class="task-date">Date: 1/17/2025</small>
+                                            <p class="text-muted">Date: @task.Date.ToShortDateString()</p>
+                                            <p class="text-muted">Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</p>
+
 
                                         </li>
                                     }
@@ -139,9 +127,7 @@
                             }
                             else
                             {
-                                <div class="alert alert-secondary text-center">
-                                    No upcoming tasks.
-                                </div>
+                                <div class="alert alert-secondary text-center">No upcoming tasks.</div>
                             }
                         </div>
                     </div>
@@ -159,18 +145,17 @@
                                     {
                                         <li class="list-group-item bg-transparent text-light border-bottom">
                                             <strong>@task.Name</strong>
-                                            <small class="text-muted d-block">
-                                                Date: @task.Date.ToShortDateString()
-                                            </small>
+                                            <p class="text-muted">Date: @task.Date.ToShortDateString()</p>
+                                            <p class="text-muted">Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</p>
+
+
                                         </li>
                                     }
                                 </ul>
                             }
                             else
                             {
-                                <div class="alert alert-secondary text-center">
-                                    No future tasks.
-                                </div>
+                                <div class="alert alert-secondary text-center">No future tasks.</div>
                             }
                         </div>
                     </div>

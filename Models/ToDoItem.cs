@@ -17,5 +17,7 @@ namespace BudgetTracker.Models
         public bool IsTodayOnly { get; set; } = false; // Tasks assigned only for today
 
         public bool IsToday { get; set; } // Add this property if it doesn't already exist
+
+        
     }
 }

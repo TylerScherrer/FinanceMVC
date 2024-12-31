@@ -10,6 +10,6 @@ namespace BudgetTracker.Interfaces
         Task AddTaskAsync(string name, DateTime date);
         Task<bool> DeleteTaskAsync(int id);
 
-       
+       Task AddTaskAsync(string name, DateTime date, TimeSpan time); // Include time parameter
     }
 }
