@@ -1,6 +1,8 @@
 @model IEnumerable<BudgetTracker.Models.Bill>
 
 <div class="container-fluid bg-dark text-light py-4">
+
+    
     <h1 class="fw-bold text-light">Bills for Budget</h1>
     <a asp-action="Create" asp-route-budgetId="@ViewBag.BudgetId" class="btn btn-primary">Add Bill</a>
     
@@ -46,4 +48,5 @@
             }
         </tbody>
     </table>
+    
 </div>
