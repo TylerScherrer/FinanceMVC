@@ -11,30 +11,6 @@
 -->
 
 <style>
-    /* Glassmorphism panel: semi-transparent, blurred background */
-    .glass-panel {
-        background: rgba(255, 255, 255, 0.07);
-        backdrop-filter: blur(8px);
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    /* Sidebar */
-    #sidebar {
-        min-height: 100vh;
-        width: 250px;
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-    }
-
-    .sidebar-link {
-        color: #ccc;
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-    .sidebar-link:hover {
-        color: #fff;
-    }
 
     /* Hero gradient */
     .hero-section {
@@ -98,31 +74,32 @@
 <div class="d-flex flex-nowrap">
 
     <!-- Sidebar Navigation -->
-<nav id="sidebar" class="d-none d-md-flex flex-column p-3 glass-panel">
-    <h3 class="fw-bold mb-4 text-light">
+<nav id="sidebar" class="d-flex flex-column p-3 custom-sidebar">
+    <h3 class="fw-bold mb-4 text-center sidebar-title">
         <i class="fas fa-coins me-2"></i>BudgetTracker
     </h3>
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item mb-2">
-            <a class="sidebar-link" asp-area="" asp-controller="Budget" asp-action="Index">
+    <ul class="nav flex-column sidebar-links">
+        <li class="nav-item">
+            <a class="nav-link active" asp-area="" asp-controller="Budget" asp-action="Index">
                 <i class="fas fa-chart-line me-2"></i>Dashboard
             </a>
         </li>
-        <li class="nav-item mb-2">
-            <a class="sidebar-link" asp-area="" asp-controller="Schedule" asp-action="Index">
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Schedule" asp-action="Index">
                 <i class="fas fa-calendar-alt me-2"></i>Schedule
             </a>
         </li>
-        <li class="nav-item mb-2">
-            <a class="sidebar-link" asp-area="" asp-controller="ToDo" asp-action="Index">
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="ToDo" asp-action="Index">
                 <i class="fas fa-tasks me-2"></i>To-Do List
             </a>
         </li>
     </ul>
-    <div class="mt-auto text-light small">
-        <p class="mb-0">&copy; 2024 BudgetTracker</p>
+    <div class="mt-auto text-center text-light footer-text">
+        &copy; 2024 BudgetTracker
     </div>
 </nav>
+
 
 
     <!-- Main Content Column -->
