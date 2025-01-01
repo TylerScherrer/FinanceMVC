@@ -73,32 +73,7 @@
 
 <div class="d-flex flex-nowrap">
 
-    <!-- Sidebar Navigation -->
-<nav id="sidebar" class="d-flex flex-column p-3 custom-sidebar">
-    <h3 class="fw-bold mb-4 text-center sidebar-title">
-        <i class="fas fa-coins me-2"></i>Organizer
-    </h3>
-    <ul class="nav flex-column sidebar-links">
-        <li class="nav-item">
-            <a class="nav-link active" asp-area="" asp-controller="Budget" asp-action="Index">
-                <i class="fas fa-chart-line me-2"></i>Dashboard
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-controller="Schedule" asp-action="Index">
-                <i class="fas fa-calendar-alt me-2"></i>My Schedule
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-controller="ToDo" asp-action="Index">
-                <i class="fas fa-tasks me-2"></i>My Tasks
-            </a>
-        </li>
-    </ul>
-    <div class="mt-auto text-center text-light footer-text">
-        &copy; 2024 BudgetTracker
-    </div>
-</nav>
+
 
 
 
@@ -146,7 +121,7 @@
                                 </div>
                                 <div class="col-md-2 d-grid">
                                     <!-- Light Blue 'Add' -->
-                                    <button type="submit" class="btn btn-outline-primary fw-semibold">
+                                    <button type="submit" class="btn custom-create-btn fw-semibold">
                                         Add
                                     </button>
                                 </div>
@@ -181,31 +156,31 @@
     </button>
     <ul class="dropdown-menu dropdown-menu-end">
         <li>
-            <a class="btn btn-outline-purple btn-sm"
+            <a class="btn custom-view-btn  btn-sm"
                href="@Url.Action("Details", "Budget", new { id = budget.Id })">
-                <i class="fas fa-eye me-1"></i>View
+                <i class="fas fa-eye me-4"></i>View
             </a>
         </li>
         <li>
-            <a class="btn btn-outline-warning btn-sm"
+            <a class="btn custom-edit-btn  btn-sm"
                href="@Url.Action("Edit", "Budget", new { id = budget.Id })">
                 <i class="fas fa-edit me-1"></i>Edit
             </a>
         </li>
         <li>
-            <a class="btn btn-outline-primary btn-sm"
+            <a class="btn custom-create-btn  btn-sm"
                href="@Url.Action("Create", "Category", new { budgetId = budget.Id })">
                 <i class="fas fa-folder-plus me-1"></i>Add Category
             </a>
         </li>
         <li>
-            <a class="btn btn-outline-info btn-sm"
+            <a class="btn custom-view-btn  btn-sm"
                href="@Url.Action("ViewBills", "Bill", new { budgetId = budget.Id })">
                 <i class="fas fa-file-invoice-dollar me-1"></i>View Bills
             </a>
         </li>
         <li>
-            <button class="btn btn-outline-danger btn-sm delete-btn"
+            <button class="btn custom-delete-btn  btn-sm delete-btn"
                     type="button"
                     data-id="@budget.Id"
                     data-name="@budget.Name"
@@ -235,22 +210,22 @@
                                             <!-- Budget actions -->
                                             <div class="mt-auto d-flex flex-wrap gap-2">
                                                 <!-- Light Purple 'View' -->
-                                                <a class="btn btn-outline-purple btn-sm"
+                                                <a class="btn custom-view-btn  btn-sm"
                                                    href="@Url.Action("Details", "Budget", new { id = budget.Id })">
                                                     <i class="fas fa-eye me-1"></i>View
                                                 </a>
                                                 <!-- Light Yellow 'Edit' -->
-                                                <a class="btn btn-outline-warning btn-sm"
+                                                <a class="btn custom-edit-btn  btn-sm"
                                                    href="@Url.Action("Edit", "Budget", new { id = budget.Id })">
                                                     <i class="fas fa-edit me-1"></i>Edit
                                                 </a>
                                                 <!-- Light Blue 'Add Category' -->
-                                                <a class="btn btn-outline-primary btn-sm"
+                                                <a class="btn custom-create-btn  btn-sm"
                                                    href="@Url.Action("Create", "Category", new { budgetId = budget.Id })">
                                                     <i class="fas fa-folder-plus me-1"></i>Add Category
                                                 </a>
                                                 <!-- Light Red 'Delete' -->
-                                                <button class="btn btn-outline-danger btn-sm delete-btn"
+                                                <button class="btn custom-delete-btn  btn-sm delete-btn"
                                                         type="button"
                                                         data-id="@budget.Id"
                                                         data-name="@budget.Name"
@@ -285,7 +260,7 @@
                             <div class="d-flex justify-content-between mb-3">
                                 <div class="fw-semibold">Tasks</div>
                                 <!-- Light Blue 'Add Task' -->
-                                <a class="btn btn-sm btn-outline-primary"
+                                <a class="btn btn-sm custom-create-btn"
                                    href="@Url.Action("Index", "Schedule")">
                                     <i class="fas fa-plus me-1"></i>Add Task
                                 </a>
@@ -308,7 +283,7 @@
                                                   class="d-inline">
                                                 <input type="hidden" name="id" value="@task.Id" />
                                                 <button type="submit"
-                                                        class="btn btn-sm btn-outline-danger"
+                                                        class="btn btn-sm custom-delete-btn"
                                                         title="Delete Task">
                                                     <i class="fas fa-trash me-1"></i>Delete
                                                 </button>
@@ -396,7 +371,7 @@
                                                               asp-route-id="@task.Id"
                                                               class="d-inline">
                                                             <button type="submit"
-                                                                    class="btn btn-outline-primary btn-sm"
+                                                                    class="btn custom-complete-btn btn-sm"
                                                                     title="Mark Complete">
                                                                 <i class="fas fa-check me-0">Complete</i>
                                                             </button>
@@ -408,7 +383,7 @@
                                                               asp-route-id="@task.Id"
                                                               class="d-inline">
                                                             <button type="submit"
-                                                                    class="btn btn-outline-danger btn-sm"
+                                                                    class="btn custom-delete-btn btn-sm"
                                                                     title="Delete Task">
                                                                 <i class="fas fa-trash me-0">Delete</i>
                                                             </button>
