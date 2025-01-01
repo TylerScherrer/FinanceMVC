@@ -481,6 +481,26 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .custom-create-btn:active {
   transform: translateY(0);
 }
+.custom-bills-btn {
+  background: linear-gradient(135deg, #069e39c7, rgb(14, 221, 14));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 5px 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.custom-bills-btn:hover {
+  box-shadow: 0 4px 15px rgba(135deg, #069e39c7, rgb(14, 221, 14));
+  transform: translateY(-3px);
+}
+
+.custom-bills-btn:active {
+  transform: translateY(0);
+}
 .custom-view-btn {
   background: linear-gradient(135deg, #9a02ffc7, rgb(51, 1, 75));
   color: #fff;
