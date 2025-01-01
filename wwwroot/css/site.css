@@ -300,3 +300,262 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-size: 0.9rem;
   color: #aaaaaa; /* Subtle gray */
 }
+.task-name {
+  color: #4dff91; /* Change to your desired color (e.g., yellow) */
+  font-weight: bold; /* Ensure bold styling */
+  font-size: 1.2rem; /* Adjust font size if needed */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Add a subtle shadow */
+}
+
+
+.custom-delete-btn {
+  background-color: #600296; /* Green */
+  background-color: transparent;
+  box-shadow: 0 0 10px #600296; /* Subtle green glow */
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff; /* Default text color */
+  border-radius: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-delete-btn:hover {
+  background-color: #600296; /* Red background on hover */
+  color: #fff; /* White text on hover */
+  box-shadow: 0 4px 8px #600296; /* Add subtle shadow on hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.custom-delete-btn:active {
+  transform: scale(0.95); /* Slightly shrink the button on click */
+  box-shadow: 0 2px 4px #600296; /* Dim the shadow */
+}
+
+
+.custom-complete-btn {
+  background-color: #28a745; /* Green */
+  background-color: transparent;
+  box-shadow: 0 0 10px rgba(40, 167, 69, 0.5); /* Subtle green glow */
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff; /* Default text color */
+  border-radius: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-complete-btn:hover {
+  background-color: #28a745; /* Red background on hover */
+  color: #fff; /* White text on hover */
+  box-shadow: 0 4px 8px #28a745; /* Add subtle shadow on hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.custom-complete-btn:active {
+  transform: scale(0.95); /* Slightly shrink the button on click */
+  box-shadow: 0 2px 4px #28a745; /* Dim the shadow */
+}
+
+
+.custom-move-btn {
+  background-color: #2808dae3; /* Green */
+  background-color: transparent;
+  box-shadow: 0 0 10px #2808dae3; /* Subtle green glow */
+  display: inline-block;
+  padding: 3px 7px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff; /* Default text color */
+  border-radius: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-move-btn:hover {
+  background-color: #2808dae3; /* Red background on hover */
+  color: #fff; /* White text on hover */
+  box-shadow: 0 4px 8px #2808dae3; /* Add subtle shadow on hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.custom-move-btn:active {
+  transform: scale(0.95); /* Slightly shrink the button on click */
+  box-shadow: 0 2px 4px rgba(255, 77, 77, 0.4); /* Dim the shadow */
+}
+
+.custom-create-btn {
+  background-color: #0634ffe3; /* Green */
+  background-color: transparent;
+  box-shadow: 0 0 10px #0634ffe3; /* Subtle green glow */
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff; /* Default text color */
+  border-radius: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-create-btn:hover {
+  background-color: #0634ffe3; /* Red background on hover */
+  color: #fff; /* White text on hover */
+  box-shadow: 0 4px 8px #0634ffe3; /* Add subtle shadow on hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.custom-create-btn:active {
+  transform: scale(0.95); /* Slightly shrink the button on click */
+  box-shadow: 0 2px 4px #0634ffe3; /* Dim the shadow */
+}
+
+/* Style for the card container */
+.upcoming-tasks-card {
+  background: linear-gradient(135deg, #2c2c2c, #1a1a1a); /* Subtle dark gradient */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Soft border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Add a shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+}
+
+
+
+/* Style for the card header */
+/* Specific styles for upcoming tasks header */
+.upcoming-tasks-header {
+  color: #4dff91 !important; /* Change the color to green (or any desired color) */
+  font-weight: bold;
+  text-shadow: none; /* Remove any shadow causing a blue tint */
+  border-bottom: 2px solid#4dff91; /* Divider line */
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+
+
+/* Style for the list items */
+.upcoming-tasks-list {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+.upcoming-tasks-item {
+  background-color: transparent; /* Transparent background */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Soft divider */
+  padding: 10px 15px; /* Add padding for spacing */
+  color: #4dff91; /* Light gray text */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.upcoming-tasks-item:hover {
+  background-color: rgba(0, 188, 212, 0.1); /* Highlighted background on hover */
+  color: #fff; /* White text on hover */
+}
+
+/* Style for the task name */
+.task-name {
+  font-weight: bold; /* Make task name bold */
+  color: #4dff91; /* White color for task name */
+}
+
+/* Style for the task date and time */
+.task-details {
+  font-size: 0.9rem; /* Slightly smaller font size */
+  color: #aaa; /* Muted gray for date and time */
+}
+.custom-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff; /* Default text color */
+  border-radius: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Style for completed tasks */
+.custom-badge-completed {
+  background-color: #28a745; /* Green */
+  background-color: transparent;
+  box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Subtle green glow */
+}
+
+/* Style for pending tasks */
+.custom-badge-pending {
+  color: #3c3abd; /* Yellow */
+  background-color: transparent;
+  color: #ffffff; /* Dark text for contrast */
+  box-shadow: 0 0 8px #3c3abd; /* Subtle yellow glow */
+}
+
+/* Hover effect for badges */
+.custom-badge:hover {
+  transform: scale(1.1); /* Slightly increase size */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Glow effect */
+}
+/* Style for table rows */
+.table tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle line between rows */
+}
+
+/* Style for table header */
+.table thead th {
+  color: #f8f9fa; /* Lighter text for headers */
+  font-family: 'Roboto', sans-serif;
+
+  font-size: 1.1rem; /* Slightly larger text */
+  font-weight: bold;
+  text-transform: uppercase; /* Make header text uppercase */
+  letter-spacing: 0.5px; /* Slight spacing for elegance */
+  background-color: #343a40; /* Dark background for contrast */
+  border-bottom: 2px solid #495057; /* Bold separator for header */
+  padding: 10px;
+}
+
+/* Style for table cells */
+.table td {
+  color: #d1d1d1; /* Soft white text */
+  font-family: 'Roboto', sans-serif;
+
+  font-size: 1rem; /* Standard text size */
+  font-weight: 500; /* Medium weight */
+  padding: 12px 10px; /* Add padding for readability */
+  transition: all 0.3s ease-in-out; /* Smooth transitions for hover effects */
+}
+
+/* Add hover effect to rows */
+.table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.1); /* Slight background change on hover */
+  color: #fff; /* Brighten text color */
+}
+
+/* Add a subtle shadow effect to text */
+.table td, .table thead th {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Soft shadow */
+}
+
+/* Style for task names */
+.table td:first-child {
+  font-weight: bold; /* Highlight task names */
+  color: #4dff91; /* Soft green for task names */
+  font-size: 1.05rem; /* Slightly larger text */
+}
+
+/* Add focus effect for active row */
+.table tr:focus-within td {
+  background-color: rgba(77, 255, 145, 0.1); /* Highlight active row */
+  color: #4dff91; /* Green text for active row */
+  outline: none; /* Remove default outline */
+}

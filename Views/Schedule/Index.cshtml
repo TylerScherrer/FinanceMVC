@@ -46,9 +46,10 @@
                     <!-- Add Task Section -->
                     <div class="card glass-panel mb-4 text-light">
                         <div class="card-body">
-                            <h4 class="fw-bold mb-3 text-primary">
+                            <h4 class="fw-bold mb-3 text-white">
                                 <i class="fas fa-plus-circle me-2"></i>Add a New Task
                             </h4>
+
                             <form method="post" asp-action="AddTask" asp-controller="Schedule" class="row g-2">
                                 <div class="col-md-4">
                                     <input type="text" name="Name" class="form-control bg-transparent text-light border-light" placeholder="Task Name" required />
@@ -87,7 +88,7 @@
 
                                             <form method="post" asp-action="DeleteTask" asp-controller="Schedule">
                                                 <input type="hidden" name="id" value="@task.Id" />
-                                                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                                <button type="submit" class="custom-delete-btn">Delete</button>
                                             </form>
                                         </div>
                                     </div>
@@ -104,32 +105,33 @@
                 <!-- Right Column -->
                 <div class="col-lg-4">
                     <!-- Upcoming Tasks -->
-                    <div class="card glass-panel mb-4">
-                        <div class="card-body text-light">
-                            <h5 class="fw-bold mb-3 text-info">
-                                <i class="fas fa-calendar-alt me-2"></i>Upcoming Tasks
-                            </h5>
-                            @if (Model.UpcomingWeekTasks.Any())
-                            {
-                                <ul class="list-group list-group-flush">
-                                    @foreach (var task in Model.UpcomingWeekTasks)
-                                    {
-                                        <li class="list-group-item bg-transparent text-light border-bottom">
-                                            <strong>@task.Name</strong>
-                                            <p class="text-muted">Date: @task.Date.ToShortDateString()</p>
-                                            <p class="text-muted">Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</p>
+<div class="card glass-panel mb-4 upcoming-tasks-card">
+    <div class="card-body text-light">
+        <h5 class="fw-bold mb-3 text-info upcoming-tasks-header">
+            <i class="fas fa-calendar-alt me-2"></i>Upcoming Tasks
+        </h5>
+        @if (Model.UpcomingWeekTasks.Any())
+        {
+            <ul class="upcoming-tasks-list">
+                @foreach (var task in Model.UpcomingWeekTasks)
+                {
+                    <li class="upcoming-tasks-item">
+                        <strong class="task-name">@task.Name</strong>
+                        <p class="task-details">
+                            Date: @task.Date.ToShortDateString()<br />
+                            Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)
+                        </p>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted text-center">No upcoming tasks.</p>
+        }
+    </div>
+</div>
 
-
-                                        </li>
-                                    }
-                                </ul>
-                            }
-                            else
-                            {
-                                <div class="alert alert-secondary text-center">No upcoming tasks.</div>
-                            }
-                        </div>
-                    </div>
 
                     <!-- Future Tasks -->
                     <div class="card glass-panel text-light">
