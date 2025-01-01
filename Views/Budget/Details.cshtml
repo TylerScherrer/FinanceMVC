@@ -29,7 +29,7 @@
                     </div>
 
                     <!-- Add Category Button -->
-                    <a class="btn btn-outline-primary btn-sm" 
+                    <a class="btn custom-create-btn btn-sm" 
                        href="@Url.Action("Create", "Category", new { budgetId = Model.Id })">
                         <i class="fas fa-folder-plus me-1"></i>Add Category
                     </a>
@@ -63,11 +63,11 @@
                                             <td>@category.InitialAllocatedAmount.ToString("C")</td>
                                             <td>@category.AllocatedAmount.ToString("C")</td>
                                             <td class="text-end">
-                                                <a class="btn btn-sm btn-outline-primary me-2" 
+                                                <a class="btn btn-sm custom-create-btn me-0" 
                                                    href="@Url.Action("Details", "Category", new { id = category.Id })">
                                                     <i class="fas fa-eye me-1"></i>View
                                                 </a>
-                                                <a class="btn btn-sm btn-outline-warning me-2" 
+                                                <a class="btn btn-sm custom-edit-btn me-0" 
                                                    href="@Url.Action("Edit", "Category", new { id = category.Id })">
                                                     <i class="fas fa-edit me-1"></i>Edit
                                                 </a>
@@ -77,11 +77,11 @@
                                                       class="d-inline">
                                                     <input type="hidden" name="id" value="@category.Id" />
                                                     <button type="submit" 
-                                                            class="btn btn-sm btn-outline-danger">
+                                                            class="btn btn-sm custom-delete-btn me-0">
                                                         <i class="fas fa-trash me-1"></i>Delete
                                                     </button>
                                                 </form>
-                                                <button class="btn btn-sm btn-outline-info ms-2" 
+                                                <button class="btn btn-sm custom-bills-btn ms-0" 
                                                         type="button" 
                                                         data-bs-toggle="collapse" 
                                                         data-bs-target="#transactions-@category.Id">
