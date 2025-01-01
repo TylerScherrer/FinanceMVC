@@ -309,113 +309,97 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
 .custom-delete-btn {
-  background-color: #600296; /* Green */
-  background-color: transparent;
-  box-shadow: 0 0 10px #600296; /* Subtle green glow */
-  display: inline-block;
-  padding: 3px 10px;
+  background: linear-gradient(135deg, #fc03039f, rgba(104, 0, 17, 0.822));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 5px 8px;
   font-size: 0.9rem;
   font-weight: bold;
-  color: #fff; /* Default text color */
-  border-radius: 12px;
-  text-align: center;
   text-transform: uppercase;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .custom-delete-btn:hover {
-  background-color: #600296; /* Red background on hover */
-  color: #fff; /* White text on hover */
-  box-shadow: 0 4px 8px #600296; /* Add subtle shadow on hover */
-  transform: scale(1.05); /* Slightly enlarge the button on hover */
+  box-shadow: 0 4px 15px rgba(105, 0, 0, 0.6);
+  transform: translateY(-3px);
 }
 
 .custom-delete-btn:active {
-  transform: scale(0.95); /* Slightly shrink the button on click */
-  box-shadow: 0 2px 4px #600296; /* Dim the shadow */
+  transform: translateY(0);
 }
 
 
 .custom-complete-btn {
-  background-color: #28a745; /* Green */
-  background-color: transparent;
-  box-shadow: 0 0 10px rgba(40, 167, 69, 0.5); /* Subtle green glow */
-  display: inline-block;
-  padding: 3px 10px;
+  background: linear-gradient(135deg, #0990ff, rgb(18, 0, 177));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 5px 8px;
   font-size: 0.9rem;
   font-weight: bold;
-  color: #fff; /* Default text color */
-  border-radius: 12px;
-  text-align: center;
   text-transform: uppercase;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .custom-complete-btn:hover {
-  background-color: #28a745; /* Red background on hover */
-  color: #fff; /* White text on hover */
-  box-shadow: 0 4px 8px #28a745; /* Add subtle shadow on hover */
-  transform: scale(1.05); /* Slightly enlarge the button on hover */
+  box-shadow: 0 4px 15px rgba(1, 0, 46, 0.6);
+  transform: translateY(-3px);
 }
 
 .custom-complete-btn:active {
-  transform: scale(0.95); /* Slightly shrink the button on click */
-  box-shadow: 0 2px 4px #28a745; /* Dim the shadow */
+  transform: translateY(0);
 }
+
+
+
+
+
+
+
+
 
 
 .custom-move-btn {
-  background-color: #2808dae3; /* Green */
-  background-color: transparent;
-  box-shadow: 0 0 10px #2808dae3; /* Subtle green glow */
-  display: inline-block;
-  padding: 3px 7px;
+  background: linear-gradient(135deg, #bf4fff, rgba(173, 2, 159, 0.473));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 5px 8px;
   font-size: 0.9rem;
   font-weight: bold;
-  color: #fff; /* Default text color */
-  border-radius: 12px;
-  text-align: center;
   text-transform: uppercase;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .custom-move-btn:hover {
-  background-color: #2808dae3; /* Red background on hover */
-  color: #fff; /* White text on hover */
-  box-shadow: 0 4px 8px #2808dae3; /* Add subtle shadow on hover */
-  transform: scale(1.05); /* Slightly enlarge the button on hover */
+  box-shadow: 0 4px 15px rgba(133, 0, 111, 0.6);
+  transform: translateY(-3px);
 }
 
 .custom-move-btn:active {
-  transform: scale(0.95); /* Slightly shrink the button on click */
-  box-shadow: 0 2px 4px rgba(255, 77, 77, 0.4); /* Dim the shadow */
+  transform: translateY(0);
 }
 
 .custom-create-btn {
-  background-color: #0634ffe3; /* Green */
-  background-color: transparent;
-  box-shadow: 0 0 10px #0634ffe3; /* Subtle green glow */
-  display: inline-block;
-  padding: 3px 10px;
+  background: linear-gradient(135deg, #023dffc7, rgb(5, 111, 250));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 5px 8px;
   font-size: 0.9rem;
   font-weight: bold;
-  color: #fff; /* Default text color */
-  border-radius: 12px;
-  text-align: center;
   text-transform: uppercase;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .custom-create-btn:hover {
-  background-color: #0634ffe3; /* Red background on hover */
-  color: #fff; /* White text on hover */
-  box-shadow: 0 4px 8px #0634ffe3; /* Add subtle shadow on hover */
-  transform: scale(1.05); /* Slightly enlarge the button on hover */
+  box-shadow: 0 4px 15px rgba(135deg, #012fc9c7, rgb(5, 111, 250));
+  transform: translateY(-3px);
 }
 
 .custom-create-btn:active {
-  transform: scale(0.95); /* Slightly shrink the button on click */
-  box-shadow: 0 2px 4px #0634ffe3; /* Dim the shadow */
+  transform: translateY(0);
 }
 
 /* Style for the card container */
@@ -489,15 +473,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .custom-badge-completed {
   background-color: #28a745; /* Green */
   background-color: transparent;
-  box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Subtle green glow */
+  box-shadow: 0 0 8px rgb(0, 255, 60); /* Subtle green glow */
 }
 
 /* Style for pending tasks */
 .custom-badge-pending {
-  color: #3c3abd; /* Yellow */
+  color: #e5ff00; /* Yellow */
   background-color: transparent;
   color: #ffffff; /* Dark text for contrast */
-  box-shadow: 0 0 8px #3c3abd; /* Subtle yellow glow */
+  box-shadow: 0 0 8px #e5ff00; /* Subtle yellow glow */
 }
 
 /* Hover effect for badges */
@@ -507,7 +491,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 /* Style for table rows */
 .table tr {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle line between rows */
+  border-bottom: 1px solid rgb(255, 255, 255); /* Subtle line between rows */
 }
 
 /* Style for table header */
@@ -549,7 +533,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Style for task names */
 .table td:first-child {
   font-weight: bold; /* Highlight task names */
-  color: #4dff91; /* Soft green for task names */
+  color: #ffffff; /* Soft green for task names */
   font-size: 1.05rem; /* Slightly larger text */
 }
 
@@ -564,3 +548,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-weight: bold;
   margin-bottom: 20px; /* Maintain consistent spacing */
 }
+
+.text-header {
+color: #4dff91
+}
+
+.text-white{
+  color: white
+  }
+
+.text-blue{
+    color: rgb(0, 107, 247)
+    }

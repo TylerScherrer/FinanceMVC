@@ -35,8 +35,10 @@
         <!-- Hero Section -->
         <div class="hero-section text-light mb-4">
             <h1 class="display-5 fw-bold">My Financial Schedule</h1>
+            
             <p class="lead mb-0">Organize your tasks and stay on top of your weekly and daily commitments.</p>
         </div>
+       
 
         <!-- Content -->
         <div class="container-fluid px-4">
@@ -46,7 +48,7 @@
                     <!-- Add Task Section -->
                     <div class="card glass-panel mb-4 text-light">
                         <div class="card-body">
-                            <h4 class="fw-bold mb-3 text-white">
+                            <h4 class="fw-bold mb-3 text-header">
                                 <i class="fas fa-plus-circle me-2"></i>Add a New Task
                             </h4>
 
@@ -61,14 +63,14 @@
                                     <input type="time" name="Time" class="form-control bg-transparent text-light border-light" required />
                                 </div>
                                 <div class="col-md-2 d-grid">
-                                    <button type="submit" class="btn btn-outline-primary fw-semibold">Add</button>
+                                    <button type="submit" class="custom-create-btn">Add</button>
                                 </div>
                             </form>
                         </div>
                     </div>
 
                     <!-- Current Tasks Section -->
-                    <h4 class="fw-bold mb-3 text-light">
+                    <h4 class="fw-bold mb-3 text-header">
                         <i class="fas fa-tasks me-2 text-warning"></i>Tasks for This Week
                     </h4>
                     @if (Model.CurrentWeekTasks.Any())
