@@ -87,12 +87,37 @@ namespace BudgetTracker.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AssignTaskToTime(int taskId, int hour)
-        {
-            await _toDoService.AssignTaskToTimeAsync(taskId, hour);
-            return RedirectToAction("Index", "Budget");
-        }
+[HttpPost]
+public async Task<IActionResult> AssignTaskToTime(int taskId, int hour)
+{
+    // Validate input
+    if (taskId <= 0 || hour < 0 || hour > 23)
+    {
+        TempData["ErrorMessage"] = "Invalid task or hour specified.";
+        return RedirectToAction("Index", "Budget");
+    }
+
+    try
+    {
+        // Attempt to assign the task
+        await _toDoService.AssignTaskToTimeAsync(taskId, hour);
+
+        // Success feedback
+        TempData["SuccessMessage"] = "Task successfully assigned to the selected time.";
+    }
+    catch (Exception ex)
+    {
+        // Log the exception (if a logger is available)
+        // _logger.LogError(ex, "Error assigning task to time");
+
+        // Error feedback
+        TempData["ErrorMessage"] = "An error occurred while assigning the task. Please try again.";
+    }
+
+    // Redirect back to the same page
+    return RedirectToAction("Index", "Budget");
+}
+
         
         public async Task<List<ToDoItem>> GetAllTasksAsync()
         {
@@ -102,17 +127,33 @@ namespace BudgetTracker.Controllers
 [HttpPost]
 public async Task<IActionResult> UnassignTask(int taskId, int hour)
 {
+    if (taskId <= 0 || hour < 0 || hour > 23)
+    {
+        ModelState.AddModelError("", "Invalid task or hour specified.");
+        return RedirectToAction("Index", "Budget");
+    }
+
     try
     {
+        // Attempt to unassign the task
         await _toDoService.UnassignTaskAsync(taskId, hour);
-        return RedirectToAction("Index", "Budget"); // Redirect back to the same page
+
+        // Optionally, show a success message
+        TempData["SuccessMessage"] = "Task successfully unassigned.";
     }
     catch (Exception ex)
     {
-        ModelState.AddModelError("", ex.Message);
-        return RedirectToAction(nameof(Index)); // Optionally add error handling UI
+        // Log exception (use a logger if configured)
+        // _logger.LogError(ex, "Error unassigning task");
+
+        // Add error feedback for the UI
+        TempData["ErrorMessage"] = "An error occurred while unassigning the task.";
     }
+
+    // Redirect back to the appropriate page
+    return RedirectToAction("Index", "Budget");
 }
+
 
 [HttpPost]
 public async Task<IActionResult> MoveToToday(int taskId)

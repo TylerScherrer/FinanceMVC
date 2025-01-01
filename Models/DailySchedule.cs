@@ -13,5 +13,7 @@ namespace BudgetTracker.Models
         public int Hour { get; set; } // Time slot (e.g., 9, 10, etc.)
 
         public ToDoItem Task { get; set; } // Navigation Property
+
+        public int Minute { get; set; } // New property for minutes
     }
 }
