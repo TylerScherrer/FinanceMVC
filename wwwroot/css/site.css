@@ -680,8 +680,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* Add focus effect for active row */
 .table tr:focus-within td {
-  background-color: rgba(77, 255, 145, 0.1); /* Highlight active row */
-  color: #4dff91; /* Green text for active row */
+  background-color: #023dffc7; /* Highlight active row */
+  color: #ffffff; /* Green text for active row */
   outline: none; /* Remove default outline */
 }
 .large-header {
@@ -691,7 +691,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .text-header {
-color: #4dff91
+color: white
 }
 
 .text-white{
