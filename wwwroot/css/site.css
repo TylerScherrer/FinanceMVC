@@ -559,3 +559,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: #4dff91; /* Green text for active row */
   outline: none; /* Remove default outline */
 }
+.large-header {
+  font-size: 2rem; /* Adjust the size as needed */
+  font-weight: bold;
+  margin-bottom: 20px; /* Maintain consistent spacing */
+}

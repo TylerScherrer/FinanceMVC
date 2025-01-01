@@ -40,9 +40,12 @@
         </div>
 
         <!-- Today's Tasks -->
-        <div class="card border-0 shadow-sm mb-5 glass-panel">
+        <div class="card border-5 shadow-sm mb-8 glass-panel">
             <div class="card-body">
-                <h4 class="fw-bold mb-3 text-info"><i class="fas fa-calendar-day me-2"></i>Today's Tasks</h4>
+                <h4 class="fw-bold mb-8 text-info large-header">
+                    <i class="fas fa-calendar-day me-0"></i>Today's Tasks
+                </h4>
+
                 <div class="d-flex justify-content-between mb-3">
                     <h6 class="fw-semibold text-light">Tasks for Today</h6>
                     <a asp-action="Create" class="custom-create-btn">
@@ -66,13 +69,13 @@
                                     <td class="text-light">@task.Name</td>
                                     <td class="text-muted">@task.DueDate.ToShortDateString()</td>
                                     <td>
-                                        <span class="badge @(task.IsCompleted ? "bg-success" : "bg-warning")">
-                                            @(task.IsCompleted ? "Completed" : "Pending")
-                                        </span>
+                                            <span class="custom-badge @(task.IsCompleted ? "custom-badge-completed" : "custom-badge-pending")">
+                                                @(task.IsCompleted ? "Completed" : "Pending")
+                                            </span>
                                     </td>
                                     <td class="text-end">
                                         <form method="post" asp-action="MarkComplete" asp-route-id="@task.Id" class="d-inline">
-                                            <button type="submit" class="btn btn-outline-success btn-sm">
+                                            <button type="submit" class="custom-complete-btn">
                                                 <i class="fas fa-check me-1"></i>Complete
                                             </button>
                                         </form>
