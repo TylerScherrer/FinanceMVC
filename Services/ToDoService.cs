@@ -128,7 +128,20 @@ public async Task MoveTaskToTodayAsync(int taskId)
     }
 }
 
+        public async Task<List<ToDoItem>> GetTasksForDateAsync(DateTime date)
+        {
+            return await _context.ToDoItems
+                .Where(t => t.DueDate.Date == date.Date)
+                .ToListAsync();
+        }
 
+        public async Task<List<DailySchedule>> GetSchedulesForDateAsync(DateTime date)
+        {
+            return await _context.DailySchedules
+                .Include(ds => ds.Task)
+                .Where(ds => ds.Task.DueDate.Date == date.Date)
+                .ToListAsync();
+        }
 
     }
 }

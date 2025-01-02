@@ -7,11 +7,10 @@
   In your _Layout or global <head>:
   1) <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
   2) <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  3) Ensure body/html has minimal margin/padding with a gradient background
+  3) Make sure body/html is set to a dark background with minimal margin/padding
 -->
 
 <style>
-
     /* Hero gradient */
     .hero-section {
         background: linear-gradient(135deg, #343a40 0%, #232526 100%);
@@ -41,43 +40,72 @@
     }
     .btn-outline-purple:hover {
         background-color: #d0bfff;
-        color: #fff; /* changed from black to white */
+        color: #fff; 
     }
 
-    /* OVERRIDES to force text to be white or light on dark backgrounds */
-
-    /* 1) Force any .text-dark to be white */
+    /* Force text to be white or light on dark backgrounds */
     .text-dark {
         color: #fff !important;
     }
-
-    /* 2) Make .text-muted a light gray instead of dark/black */
     .text-muted {
         color: #b3b3b3 !important;
     }
-
-    /* 3) Force placeholders to be light */
     ::-webkit-input-placeholder {
         color: #ccc !important;
-        opacity: 1;
     }
     :-ms-input-placeholder {
         color: #ccc !important;
-        opacity: 1;
     }
     ::placeholder {
         color: #ccc !important;
-        opacity: 1;
+    }
+
+    /* Example custom button classes */
+    .custom-create-btn    { color: #0d6efd; border-color: #0d6efd; }
+    .custom-create-btn:hover {
+        background-color: #0d6efd;
+        color: #fff;
+    }
+    .custom-view-btn      { color: #d0bfff; border-color: #d0bfff; }
+    .custom-view-btn:hover {
+        background-color: #d0bfff;
+        color: #fff;
+    }
+    .custom-edit-btn      { color: #ffc107; border-color: #ffc107; }
+    .custom-edit-btn:hover {
+        background-color: #ffc107;
+        color: #000;
+    }
+    .custom-bills-btn     { color: #0dcaf0; border-color: #0dcaf0; }
+    .custom-bills-btn:hover {
+        background-color: #0dcaf0;
+        color: #000;
+    }
+    .custom-delete-btn    { color: #dc3545; border-color: #dc3545; }
+    .custom-delete-btn:hover {
+        background-color: #dc3545;
+        color: #fff;
+    }
+    .custom-complete-btn  { color: #198754; border-color: #198754; }
+    .custom-complete-btn:hover {
+        background-color: #198754;
+        color: #fff;
+    }
+
+    /* Semi-transparent glass effect */
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(8px);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
     }
 </style>
 
+<!-- Main Layout -->
 <div class="d-flex flex-nowrap">
+    <!-- (Optional) Sidebar goes here if you have one. Otherwise remove. -->
+    <!-- <nav id="sidebar" ...>Sidebar Code</nav> -->
 
-
-
-
-
-    <!-- Main Content Column -->
     <div class="flex-fill">
         <!-- Hero Section -->
         <div class="hero-section text-light mb-4">
@@ -89,16 +117,16 @@
             </div>
         </div>
 
-        <!-- Content Container -->
+        <!-- Main Row -->
         <div class="container-fluid px-4">
             <div class="row g-3">
-                <!-- Left Column: Budget Management -->
+                <!-- LEFT COLUMN (col-lg-8): Budgets, Today's Tasks, Today's Schedule -->
                 <div class="col-lg-8">
-                    <!-- Create New Budget Section -->
+                    <!-- Create New Budget -->
                     <div class="card glass-panel mb-4 text-light">
                         <div class="card-body">
                             <h4 class="fw-bold mb-3">
-                                <i class="fas fa-plus-circle text-info me-2"></i>Create New Budget
+                                <i class="fas fa-plus-circle text-info me-2 "></i>Create New Budget
                             </h4>
                             <form asp-action="Create"
                                   asp-controller="Budget"
@@ -120,8 +148,7 @@
                                            required />
                                 </div>
                                 <div class="col-md-2 d-grid">
-                                    <!-- Light Blue 'Add' -->
-                                    <button type="submit" class="btn custom-create-btn fw-semibold">
+                                    <button type="submit" class="btn custom-create-btn fw-semibold text-white">
                                         Add Budget
                                     </button>
                                 </div>
@@ -129,7 +156,7 @@
                         </div>
                     </div>
 
-                    <!-- Budgets as Cards -->
+                    <!-- Budgets Section -->
                     <h4 class="fw-bold mb-3 text-light">
                         <i class="fas fa-wallet me-2 text-warning"></i>Your Budgets
                     </h4>
@@ -148,11 +175,8 @@
                                                         Created: @budget.DateCreated.ToShortDateString()
                                                     </small>
                                                 </div>
-
-
                                             </div>
 
-                                            <!-- Budget amounts -->
                                             <div class="mb-3">
                                                 <div class="text-muted">
                                                     Total: @budget.TotalAmount.ToString("C")
@@ -165,29 +189,24 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Budget actions -->
                                             <div class="mt-auto d-flex flex-wrap gap-2">
-                                                <!-- Light Purple 'View' -->
-                                                <a class="btn custom-view-btn  btn-sm"
+                                                <a class="btn custom-view-btn btn-sm text-white"
                                                    href="@Url.Action("Details", "Budget", new { id = budget.Id })">
                                                     <i class="fas fa-eye me-1"></i>View
                                                 </a>
-                                                <!-- Light Yellow 'Edit' -->
-                                                <a class="btn custom-edit-btn  btn-sm"
+                                                <a class="btn custom-edit-btn btn-sm text-white"
                                                    href="@Url.Action("Edit", "Budget", new { id = budget.Id })">
                                                     <i class="fas fa-edit me-1"></i>Edit
                                                 </a>
-                                                <!-- Light Blue 'Add Category' -->
-                                                <a class="btn custom-create-btn  btn-sm"
+                                                <a class="btn custom-create-btn btn-sm text-white"
                                                    href="@Url.Action("Create", "Category", new { budgetId = budget.Id })">
                                                     <i class="fas fa-folder-plus me-1"></i>Add Category
                                                 </a>
-                                                            <a class="btn custom-bills-btn  btn-sm"
-                                                href="@Url.Action("ViewBills", "Bill", new { budgetId = budget.Id })">
+                                                <a class="btn custom-bills-btn btn-sm text-white "
+                                                   href="@Url.Action("ViewBills", "Bill", new { budgetId = budget.Id })">
                                                     <i class="fas fa-file-invoice-dollar me-1"></i>View Bills
                                                 </a>
-                                                <!-- Light Red 'Delete' -->
-                                                <button class="btn custom-delete-btn  btn-sm delete-btn"
+                                                <button class="btn custom-delete-btn btn-sm delete-btn text-white"
                                                         type="button"
                                                         data-id="@budget.Id"
                                                         data-name="@budget.Name"
@@ -204,104 +223,13 @@
                     }
                     else
                     {
-                        <!-- "No budgets available" is also a light color, as .alert-secondary is on dark -->
                         <div class="alert alert-secondary text-center mt-3" role="alert">
                             No budgets available. Create one above to get started.
                         </div>
                     }
-                </div>
-
-                <!-- Right Column: Tasks & Schedule -->
-                <div class="col-lg-4">
-                    <!-- Upcoming Tasks for This Week -->
-                    <div class="card glass-panel mb-4">
-                        <div class="card-body text-light">
-                            <h5 class="fw-bold mb-3 text-white">
-                                <i class="fas fa-calendar-week me-2"></i>Upcoming Tasks This Week
-                            </h5>
-                            <div class="d-flex justify-content-between mb-3">
-                                <div class="fw-semibold">Tasks</div>
-                                <!-- Light Blue 'Add Task' -->
-                                <a class="btn btn-sm custom-create-btn"
-                                   href="@Url.Action("Index", "Schedule")">
-                                    <i class="fas fa-plus me-1"></i>Add Task
-                                </a>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                @if (Model.CurrentWeekTasks != null && Model.CurrentWeekTasks.Any())
-                                {
-                                    @foreach (var task in Model.CurrentWeekTasks)
-                                    {
-                                        <li class="list-group-item bg-transparent border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <span class="task-text">@task.Name</span>
-                    <br />
-                    <small class="task-date">@task.Date.ToShortDateString()</small>
-                                            </div>
-                                            <!-- Light Red 'Delete Task' -->
-                                            <form asp-action="DeleteScheduledTask"
-                                                  asp-controller="Schedule"
-                                                  method="post"
-                                                  class="d-inline">
-                                                <input type="hidden" name="id" value="@task.Id" />
-                                                <button type="submit"
-                                                        class="btn btn-sm custom-delete-btn"
-                                                        title="Delete Task">
-                                                    <i class="fas fa-trash me-1"></i>Delete
-                                                </button>
-                                            </form>
-                                        </li>
-                                    }
-                                }
-                                else
-                                {
-                                    <li class="list-group-item bg-transparent text-muted">
-                                        No tasks for this week
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Bills for the Month -->
-                    <h5 class="fw-bold mb-3 text-light">
-                        <i class="fas fa-file-invoice-dollar me-2 text-info"></i>Bills for the Month
-                    </h5>
-                    @if (Model.MonthlyBills != null && Model.MonthlyBills.Any())
-                    {
-                        <div class="table-responsive mb-3 glass-panel text-light p-3">
-                            <table class="table table-sm table-dark table-bordered border-secondary align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Amount</th>
-                                        <th>Due Date</th>
-                                        <th>Is Paid</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var bill in Model.MonthlyBills)
-                                    {
-                                        <tr>
-                                            <td>@bill.Name</td>
-                                            <td>@bill.Amount.ToString("C")</td>
-                                            <td>@bill.DueDate.ToShortDateString()</td>
-                                            <td>@(bill.IsPaid ? "Yes" : "No")</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="alert alert-secondary text-center mb-3" role="alert">
-                            No bills available for the current month.
-                        </div>
-                    }
 
                     <!-- Today's Tasks -->
-                    <div class="card glass-panel text-light">
+                    <div class="card glass-panel text-light mt-5">
                         <div class="card-body">
                             <h5 class="fw-bold mb-3 text-white">
                                 <i class="fas fa-check-square me-2"></i>Today's Tasks
@@ -326,28 +254,28 @@
                                                     <td>@task.DueDate.ToShortDateString()</td>
                                                     <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
                                                     <td class="text-end">
-                                                        <!-- Light Green 'Mark Complete' -->
+                                                        <!-- Mark Complete -->
                                                         <form method="post"
                                                               asp-action="MarkComplete"
                                                               asp-controller="ToDo"
                                                               asp-route-id="@task.Id"
                                                               class="d-inline">
                                                             <button type="submit"
-                                                                    class="btn custom-complete-btn btn-sm"
+                                                                    class="btn custom-complete-btn btn-sm text-white"
                                                                     title="Mark Complete">
-                                                                <i class="fas fa-check me-0">Complete</i>
+                                                                <i class="fas fa-check me-0"></i>Complete
                                                             </button>
                                                         </form>
-                                                        <!-- Light Red 'Delete Task' -->
+                                                        <!-- Delete Task -->
                                                         <form method="post"
                                                               asp-action="Delete"
                                                               asp-controller="ToDo"
                                                               asp-route-id="@task.Id"
                                                               class="d-inline">
                                                             <button type="submit"
-                                                                    class="btn custom-delete-btn btn-sm"
+                                                                    class="btn custom-delete-btn btn-sm text-white"
                                                                     title="Delete Task">
-                                                                <i class="fas fa-trash me-0">Delete</i>
+                                                                <i class="fas fa-trash me-0"></i>Delete
                                                             </button>
                                                         </form>
                                                     </td>
@@ -367,92 +295,147 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-           <div class="container-fluid bg-dark text-light py-4">
-    <h1 class="fw-bold text-center mb-4">Organize My Day</h1>
-
-    <div class="card glass-panel text-light">
-        <div class="card-body">
-            <h5 class="fw-bold mb-3 text-white">
-                <i class="fas fa-clock me-2"></i>Plan Your Day
-            </h5>
-            <div class="table-responsive">
-                <table class="table table-dark table-bordered border-secondary align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th style="width:15%">Time</th>
-                            <th>Task</th>
-                            <th style="width:10%">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int hour = 8; hour <= 20; hour++) // Loop from 8:00 AM to 8:00 PM
-                        {
-                            for (int minute = 0; minute <= 30; minute += 30) // Handle 0 and 30 minutes
-                            {
-                                var timeLabel = minute == 0
-                                    ? $"{(hour <= 12 ? hour : hour - 12)}:00 {(hour < 12 ? "a.m." : "p.m.")}"
-                                    : $"{(hour <= 12 ? hour : hour - 12)}:30 {(hour < 12 ? "a.m." : "p.m.")}";
-
-                                var scheduledTask = Model.DailySchedules?
-                                    .FirstOrDefault(ds => ds.Hour == hour && ds.Minute == minute);
-
-                                <tr>
-                                    <td class="fw-semibold">@timeLabel</td>
-                                    <td>
-                                        @if (scheduledTask != null)
+                    <!-- Today's Schedule -->
+                    <div class="card glass-panel text-light mt-4">
+                        <div class="card-body">
+                            <h5 class="fw-bold mb-3 text-white">
+                                <i class="fas fa-clock me-2"></i>Today's Schedule
+                            </h5>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-dark table-bordered border-secondary align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Task</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.DailySchedules != null && Model.DailySchedules.Any())
                                         {
-                                            <span class="fw-bold text-white">@scheduledTask.Task.Name</span>
+                                            @foreach (var schedule in Model.DailySchedules.Where(s => s.Task != null))
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @($"{(schedule.Hour <= 12 ? schedule.Hour : schedule.Hour - 12)}:{(schedule.Minute == 0 ? "00" : "30")} {(schedule.Hour < 12 ? "a.m." : "p.m.")}")
+                                                    </td>
+                                                    <td>@schedule.Task.Name</td>
+                                                </tr>
+                                            }
                                         }
                                         else
                                         {
-<form method="post" asp-action="AssignTaskToTime" asp-controller="ToDo" class="row g-2 align-items-center">
-    <input type="hidden" name="hour" value="@hour" />
-    <input type="hidden" name="minute" value="@minute" />
-    <div class="col-8">
-        <select name="taskId" class="form-select form-select-sm bg-dark text-light border-secondary">
-            <option value="">-- Select Task --</option>
-            @foreach (var task in Model.TodayTasks)
-            {
-                <option value="@task.Id">@task.Name</option>
-            }
-        </select>
-    </div>
-    <div class="col-4 d-grid">
-        <button type="submit" class="btn btn-sm custom-create-btn fw-semibold">Assign</button>
-    </div>
-</form>
-
+                                            <tr>
+                                                <td colspan="2" class="text-center text-muted">
+                                                    No tasks have been assigned for today.
+                                                </td>
+                                            </tr>
                                         }
-                                    </td>
-                                    <td>
-                                        @if (scheduledTask != null)
-                                        {
-                                            <form method="post"
-                                                  asp-action="UnassignTask"
-                                                  asp-controller="ToDo"
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- END LEFT COLUMN -->
+
+                <!-- RIGHT COLUMN (col-lg-4): Upcoming Tasks & Bills -->
+                <div class="col-lg-4 d-flex flex-column gap-4">
+                    <!-- Upcoming Tasks This Week -->
+                    <div class="card glass-panel text-light">
+                        <div class="card-body">
+                            <h5 class="fw-bold mb-3 text-white">
+                                <i class="fas fa-calendar-week me-2"></i>Upcoming Tasks This Week
+                            </h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <div class="fw-semibold">Tasks</div>
+                                <a class="btn btn-sm custom-create-btn text-white"
+                                   href="@Url.Action("Index", "Schedule")">
+                                    <i class="fas fa-plus me-1 text-white"></i>Add Task
+                                </a>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                @if (Model.CurrentWeekTasks != null && Model.CurrentWeekTasks.Any())
+                                {
+                                    @foreach (var task in Model.CurrentWeekTasks)
+                                    {
+                                        <li class="list-group-item bg-transparent border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <span class="task-text">@task.Name</span>
+                                                <br />
+                                                <small class="task-date">@task.Date.ToShortDateString()</small>
+                                            </div>
+                                            <form asp-action="DeleteScheduledTask"
+                                                  asp-controller="Schedule"
+                                                  method="post"
                                                   class="d-inline">
-                                                <input type="hidden" name="taskId" value="@scheduledTask.Task.Id" />
-                                                <input type="hidden" name="hour" value="@hour" />
-                                                <input type="hidden" name="minute" value="@minute" />
-                                                <button type="submit" class="btn btn-sm custom-delete-btn ">
-                                                    Unassign
+                                                <input type="hidden" name="id" value="@task.Id" />
+                                                <button type="submit"
+                                                        class="btn btn-sm custom-delete-btn text-white"
+                                                        title="Delete Task">
+                                                    <i class="fas fa-trash me-1 text-white"></i>Delete
                                                 </button>
                                             </form>
-                                        }
-                                    </td>
-                                </tr>
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li class="list-group-item bg-transparent text-muted">
+                                        No tasks for this week
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Bills for the Month -->
+                    <div class="card glass-panel text-light">
+                        <div class="card-body p-3">
+                            <h5 class="fw-bold mb-3 text-white">
+                                <i class="fas fa-file-invoice-dollar me-2 text-info"></i>Bills for the Month
+                            </h5>
+                            @if (Model.MonthlyBills != null && Model.MonthlyBills.Any())
+                            {
+                                <div class="table-responsive mb-2">
+                                    <table class="table table-sm table-dark table-bordered border-secondary align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Amount</th>
+                                                <th>Due Date</th>
+                                                <th>Is Paid</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var bill in Model.MonthlyBills)
+                                            {
+                                                <tr>
+                                                    <td>@bill.Name</td>
+                                                    <td>@bill.Amount.ToString("C")</td>
+                                                    <td>@bill.DueDate.ToShortDateString()</td>
+                                                    <td>@(bill.IsPaid ? "Yes" : "No")</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
                             }
-                        }
-                    </tbody>
-                </table>
+                            else
+                            {
+                                <div class="alert alert-secondary text-center mb-0" role="alert">
+                                    No bills available for the current month.
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!-- END RIGHT COLUMN -->
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- Single Delete Budget Modal (shared by all budgets) -->
 <div class="modal fade" id="deleteBudgetModal" tabindex="-1" aria-hidden="true">
@@ -484,7 +467,7 @@
     </div>
 </div>
 
-<!-- JavaScript to dynamically fill the Delete Budget Modal -->
+<!-- JS to dynamically fill the Delete Budget Modal -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const deleteButtons = document.querySelectorAll(".delete-btn");

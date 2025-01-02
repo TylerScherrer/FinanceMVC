@@ -15,5 +15,8 @@ namespace BudgetTracker.Interfaces
 Task UnassignTaskAsync(int taskId, int hour);
 Task MoveTaskToTodayAsync(int taskId);
 
+        Task<List<ToDoItem>> GetTasksForDateAsync(DateTime date);
+        Task<List<DailySchedule>> GetSchedulesForDateAsync(DateTime date);
+
     }
 }
