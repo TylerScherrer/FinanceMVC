@@ -27,5 +27,7 @@ namespace BudgetTracker.Models
         /// </summary>
         public List<ToDoItem> AllTasks { get; set; } = new List<ToDoItem>();
         public List<Bill> MonthlyBills { get; set; }
+
+        public DateTime SelectedDate { get; set; } // New property for selected date
     }
 }

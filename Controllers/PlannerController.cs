@@ -22,22 +22,20 @@ public async Task<IActionResult> Index(DateTime? date)
 {
     var selectedDate = date ?? DateTime.Today;
 
-    // Fetch tasks and schedules for the selected date
     var tasks = await _toDoService.GetTasksForDateAsync(selectedDate);
-    var schedules = await _context.DailySchedules
-        .Include(ds => ds.Task)
-        .Where(ds => ds.Task.DueDate.Date == selectedDate.Date)
-        .ToListAsync();
+    var schedules = await _toDoService.GetSchedulesForDateAsync(selectedDate);
 
     var model = new BudgetWithTasksViewModel
     {
-        TodayTasks = tasks,
-        DailySchedules = schedules,
+        TodayTasks = tasks ?? new List<ToDoItem>(), // Ensure it's not null
+        DailySchedules = schedules ?? new List<DailySchedule>(), // Ensure it's not null
+        SelectedDate = selectedDate
     };
 
-    ViewBag.SelectedDate = selectedDate.ToString("yyyy-MM-dd"); // Pass the selected date to the view
     return View(model);
 }
+
+
 
 
 

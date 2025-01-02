@@ -2,8 +2,10 @@
 @using System.Linq;
 
 <div class="container-fluid bg-dark text-light py-4">
-    <h1 class="fw-bold text-center mb-4">Organize My Day</h1>
-    <h2 class="text-center">Schedule for @ViewBag.SelectedDate</h2>
+<h1 class="fw-bold text-center mb-4">Organize My Day</h1>
+<h3 class="text-center">Schedule for @Model.SelectedDate.ToString("yyyy-MM-dd")</h3>
+
+
 
     <div id="calendar"></div>
 
@@ -33,9 +35,11 @@ function generateCalendar(year, month) {
 }
 
 function selectDate(year, month, day) {
-    const selectedDate = new Date(year, month, day).toISOString().split('T')[0]; // Format: YYYY-MM-DD
-    window.location.href = `/Planner/Index?date=${selectedDate}`; // Redirect to Planner with the selected date
+    const selectedDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    window.location.href = `/Planner?date=${selectedDate}`;
 }
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const today = new Date();
@@ -78,25 +82,23 @@ document.addEventListener('DOMContentLoaded', function () {
                                     else
                                     {
 <form method="post" asp-action="AssignTaskToTime" asp-controller="ToDo" class="row g-2 align-items-center">
-    <input type="hidden" name="date" value="@ViewBag.SelectedDate" />
     <input type="hidden" name="hour" value="@hour" />
-                                            <div class="col-8">
-                                                <select name="taskId"
-                                                        class="form-select form-select-sm bg-dark text-light border-secondary">
-                                                    <option value="">-- Select Task --</option>
-                                                    @foreach (var task in Model.TodayTasks)
-                                                    {
-                                                        <option value="@task.Id">@task.Name</option>
-                                                    }
-                                                </select>
-                                            </div>
-                                            <div class="col-4 d-grid">
-                                                <button type="submit"
-                                                        class="btn btn-sm custom-create-btn fw-semibold">
-                                                    Assign
-                                                </button>
-                                            </div>
-                                        </form>
+    <input type="hidden" name="selectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+    
+    <div class="col-8">
+        <select name="taskId" class="form-select form-select-sm bg-dark text-light border-secondary">
+            <option value="">-- Select Task --</option>
+            @foreach (var task in Model.TodayTasks)
+            {
+                <option value="@task.Id">@task.Name</option>
+            }
+        </select>
+    </div>
+    <div class="col-4 d-grid">
+        <button type="submit" class="btn btn-sm custom-create-btn fw-semibold">Assign</button>
+    </div>
+</form>
+
                                     }
                                 </td>
                                 <td>
