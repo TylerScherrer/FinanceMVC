@@ -85,7 +85,7 @@
 <div class="card glass-panel mb-4 upcoming-tasks-card">
     <div class="card-body text-white">
         <h5 class="fw-bold mb-3 text-white upcoming-tasks-header">
-            <i class="fas fa-calendar-alt me-2"></i>Upcoming Tasks
+            <i class="fas fa-calendar-alt me-2 "></i>Upcoming Tasks
         </h5>
         @if (Model.UpcomingWeekTasks.Any())
         {
@@ -93,8 +93,8 @@
                 @foreach (var task in Model.UpcomingWeekTasks)
                 {
                     <li class="upcoming-tasks-item">
-                        <strong class="task-name">@task.Name</strong>
-                        <p class="task-details">
+                        <strong class="task-name text-white">@task.Name</strong>
+                        <p class="task-details text-white">
                             Date: @task.Date.ToShortDateString()<br />
                             Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)
                         </p>
@@ -108,6 +108,7 @@
         }
     </div>
 </div>
+
 
 
                     <!-- Future Tasks -->

@@ -557,10 +557,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Style for the card header */
 /* Specific styles for upcoming tasks header */
 .upcoming-tasks-header {
-  color: #4dff91 !important; /* Change the color to green (or any desired color) */
+  color: white !important; /* Change the color to green (or any desired color) */
   font-weight: bold;
   text-shadow: none; /* Remove any shadow causing a blue tint */
-  border-bottom: 2px solid#4dff91; /* Divider line */
+  border-bottom: 2px solid#ffffff; /* Divider line */
   padding-bottom: 10px;
   margin-bottom: 15px;
 }
