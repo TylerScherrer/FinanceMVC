@@ -3242,11 +3242,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\budgettracker\\BudgetTracker.csproj",
+      "projectUniqueName": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\BudgetTracker.csproj",
       "projectName": "BudgetTracker",
-      "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\budgettracker\\BudgetTracker.csproj",
+      "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\BudgetTracker.csproj",
       "packagesPath": "C:\\Users\\Tyler\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\budgettracker\\obj\\",
+      "outputPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Tyler\\AppData\\Roaming\\NuGet\\NuGet.Config"

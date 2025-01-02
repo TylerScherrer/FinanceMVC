@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zYeP9N+C6Ts=",
+  "dgSpecHash": "QQeMSyEfHnE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceWebApp\\BudgetTracker\\BudgetTracker.csproj",
+  "projectFilePath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\BudgetTracker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tyler\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\Tyler\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
