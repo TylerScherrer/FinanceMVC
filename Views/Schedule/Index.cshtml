@@ -97,7 +97,13 @@
                         <p class="task-details text-white">
                             Date: @task.Date.ToShortDateString()<br />
                             Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)
+                            
+                                            <form method="post" asp-action="DeleteTask" asp-controller="Schedule">
+                                                <input type="hidden" name="id" value="@task.Id" />
+                                                <button type="submit" class="custom-delete-btn">Delete</button>
+                                            </form>
                         </p>
+                        
                     </li>
                 }
             </ul>
