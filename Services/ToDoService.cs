@@ -67,10 +67,11 @@ namespace BudgetTracker.Services
             }
         }
 
-public async Task AssignTaskToTimeAsync(int taskId, int hour)
+public async Task AssignTaskToTimeAsync(int taskId, int hour, DateTime date)
 {
-    Console.WriteLine($"AssignTaskToTimeAsync called with TaskId: {taskId}, Hour: {hour}");
+    Console.WriteLine($"AssignTaskToTimeAsync called with TaskId: {taskId}, Hour: {hour}, Date: {date.ToShortDateString()}");
 
+    // Fetch the task
     var task = await _context.ToDoItems.FindAsync(taskId);
     if (task == null)
     {
@@ -78,18 +79,22 @@ public async Task AssignTaskToTimeAsync(int taskId, int hour)
         throw new Exception("Task not found.");
     }
 
+    // Create a new schedule entry
     var schedule = new DailySchedule
     {
         TaskId = taskId,
-        Hour = hour
+        Hour = hour,
+        Date = date.Date // Normalize to ensure only the date is stored
     };
 
-    Console.WriteLine($"Adding task to schedule: TaskId: {schedule.TaskId}, Hour: {schedule.Hour}");
+    Console.WriteLine($"Adding task to schedule: TaskId: {schedule.TaskId}, Hour: {schedule.Hour}, Date: {schedule.Date}");
     _context.DailySchedules.Add(schedule);
 
+    // Save changes
     await _context.SaveChangesAsync();
-    Console.WriteLine($"TaskId: {taskId} successfully assigned to Hour: {hour}");
+    Console.WriteLine($"TaskId: {taskId} successfully assigned to Hour: {hour} on Date: {schedule.Date.ToShortDateString()}");
 }
+
 
 
         public async Task<List<ToDoItem>> GetAllTasksAsync()

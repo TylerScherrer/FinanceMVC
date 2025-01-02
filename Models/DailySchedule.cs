@@ -15,5 +15,7 @@ namespace BudgetTracker.Models
         public ToDoItem Task { get; set; } // Navigation Property
 
         public int Minute { get; set; } // New property for minutes
+
+         public DateTime Date { get; set; } // New property
     }
 }

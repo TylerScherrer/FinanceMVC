@@ -3,38 +3,45 @@
 
 <div class="container-fluid bg-dark text-light py-4">
     <h1 class="fw-bold text-center mb-4">Organize My Day</h1>
+    <h2 class="text-center">Schedule for @ViewBag.SelectedDate</h2>
 
     <div id="calendar"></div>
 
     <script>
-        function generateCalendar(year, month) {
-            const calendar = document.getElementById('calendar');
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
+function generateCalendar(year, month) {
+    const calendar = document.getElementById('calendar');
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-            let calendarHTML = '<table class="table table-bordered">';
-            calendarHTML += '<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>';
-            calendarHTML += '<tbody><tr>';
+    let calendarHTML = '<table class="table table-bordered">';
+    calendarHTML += '<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>';
+    calendarHTML += '<tbody><tr>';
 
-            for (let i = 0; i < firstDay; i++) {
-                calendarHTML += '<td></td>';
-            }
+    for (let i = 0; i < firstDay; i++) {
+        calendarHTML += '<td></td>';
+    }
 
-            for (let day = 1; day <= daysInMonth; day++) {
-                if ((firstDay + day - 1) % 7 === 0) {
-                    calendarHTML += '</tr><tr>';
-                }
-                calendarHTML += `<td>${day}</td>`;
-            }
-
-            calendarHTML += '</tr></tbody></table>';
-            calendar.innerHTML = calendarHTML;
+    for (let day = 1; day <= daysInMonth; day++) {
+        if ((firstDay + day - 1) % 7 === 0) {
+            calendarHTML += '</tr><tr>';
         }
+        calendarHTML += `<td class='clickable' onclick='selectDate(${year}, ${month}, ${day})'>${day}</td>`;
+    }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const today = new Date();
-            generateCalendar(today.getFullYear(), today.getMonth());
-        });
+    calendarHTML += '</tr></tbody></table>';
+    calendar.innerHTML = calendarHTML;
+}
+
+function selectDate(year, month, day) {
+    const selectedDate = new Date(year, month, day).toISOString().split('T')[0]; // Format: YYYY-MM-DD
+    window.location.href = `/Planner/Index?date=${selectedDate}`; // Redirect to Planner with the selected date
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const today = new Date();
+    generateCalendar(today.getFullYear(), today.getMonth());
+});
+
     </script>
 
     <div class="card glass-panel mt-5 text-light">
@@ -70,11 +77,9 @@
                                     }
                                     else
                                     {
-                                        <form method="post"
-                                              asp-action="AssignTaskToTime"
-                                              asp-controller="ToDo"
-                                              class="row g-2 align-items-center">
-                                            <input type="hidden" name="hour" value="@hour" />
+<form method="post" asp-action="AssignTaskToTime" asp-controller="ToDo" class="row g-2 align-items-center">
+    <input type="hidden" name="date" value="@ViewBag.SelectedDate" />
+    <input type="hidden" name="hour" value="@hour" />
                                             <div class="col-8">
                                                 <select name="taskId"
                                                         class="form-select form-select-sm bg-dark text-light border-secondary">
