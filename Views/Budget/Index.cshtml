@@ -308,6 +308,7 @@
                                         <tr>
                                             <th>Time</th>
                                             <th>Task</th>
+                                            <th>Status</th> <!-- Add Status column -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -320,13 +321,14 @@
                                                         @($"{(schedule.Hour <= 12 ? schedule.Hour : schedule.Hour - 12)}:{(schedule.Minute == 0 ? "00" : "30")} {(schedule.Hour < 12 ? "a.m." : "p.m.")}")
                                                     </td>
                                                     <td>@schedule.Task.Name</td>
+                                                     <td>@(schedule.Task.IsCompleted ? "Completed" : "Pending")</td> <!-- Add Status -->
                                                 </tr>
                                             }
                                         }
                                         else
                                         {
                                             <tr>
-                                                <td colspan="2" class="text-center text-muted">
+                                                <td colspan="3" class="text-center text-muted">
                                                     No tasks have been assigned for today.
                                                 </td>
                                             </tr>
