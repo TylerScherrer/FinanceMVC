@@ -18,20 +18,28 @@ namespace BudgetTracker.Controllers
             _toDoService = toDoService;
         }
 
-        public async Task<IActionResult> Index(DateTime? date)
-        {
-            var selectedDate = date ?? DateTime.Today;
+public async Task<IActionResult> Index(DateTime? date)
+{
+    var selectedDate = date ?? DateTime.Today;
 
-            // Fetch data using services or context
-            var tasks = await _toDoService.GetTasksForDateAsync(selectedDate);
+    // Fetch tasks for the selected date
+    var tasks = await _toDoService.GetTasksForDateAsync(selectedDate);
 
-            var model = new BudgetWithTasksViewModel
-            {
-                TodayTasks = tasks
-            };
+    // Fetch daily schedules for the selected date
+    var schedules = await _context.DailySchedules
+        .Include(ds => ds.Task) // Eager load the Task entity
+        .Where(ds => ds.Task.DueDate.Date == selectedDate.Date)
+        .ToListAsync();
 
-            return View(model);
-        }
+    var model = new BudgetWithTasksViewModel
+    {
+        TodayTasks = tasks,
+        DailySchedules = schedules
+    };
+
+    return View(model);
+}
+
 
 public async Task<List<ToDoItem>> GetTasksForDateAsync(DateTime date)
 {

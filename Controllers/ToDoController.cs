@@ -87,36 +87,43 @@ namespace BudgetTracker.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-[HttpPost]
 public async Task<IActionResult> AssignTaskToTime(int taskId, int hour)
 {
+    Console.WriteLine($"AssignTaskToTime called with TaskId: {taskId}, Hour: {hour}");
+
     // Validate input
     if (taskId <= 0 || hour < 0 || hour > 23)
     {
+        Console.WriteLine("Validation failed. Invalid TaskId or Hour.");
         TempData["ErrorMessage"] = "Invalid task or hour specified.";
-        return RedirectToAction("Index", "Budget");
+        return RedirectToAction("Index", "Planner");
     }
 
     try
     {
+        // Log task assignment attempt
+        Console.WriteLine($"Attempting to assign TaskId: {taskId} to Hour: {hour}");
+
         // Attempt to assign the task
         await _toDoService.AssignTaskToTimeAsync(taskId, hour);
 
         // Success feedback
+        Console.WriteLine($"TaskId: {taskId} successfully assigned to Hour: {hour}");
         TempData["SuccessMessage"] = "Task successfully assigned to the selected time.";
     }
     catch (Exception ex)
     {
-        // Log the exception (if a logger is available)
-        // _logger.LogError(ex, "Error assigning task to time");
+        // Log the exception details
+        Console.WriteLine($"Error occurred while assigning TaskId: {taskId} to Hour: {hour}. Exception: {ex.Message}");
 
         // Error feedback
         TempData["ErrorMessage"] = "An error occurred while assigning the task. Please try again.";
     }
 
     // Redirect back to the same page
-    return RedirectToAction("Index", "Budget");
+    return RedirectToAction("Index", "Planner");
 }
+
 
         
         public async Task<List<ToDoItem>> GetAllTasksAsync()
@@ -130,7 +137,7 @@ public async Task<IActionResult> UnassignTask(int taskId, int hour)
     if (taskId <= 0 || hour < 0 || hour > 23)
     {
         ModelState.AddModelError("", "Invalid task or hour specified.");
-        return RedirectToAction("Index", "Budget");
+        return RedirectToAction("Index", "Planner");
     }
 
     try
@@ -151,7 +158,7 @@ public async Task<IActionResult> UnassignTask(int taskId, int hour)
     }
 
     // Redirect back to the appropriate page
-    return RedirectToAction("Index", "Budget");
+    return RedirectToAction("Index", "Planner");
 }
 
 

@@ -22,9 +22,30 @@ namespace BudgetTracker.Controllers
 [HttpPost]
 public async Task<IActionResult> AddTask(string Name, DateTime Date, TimeSpan Time)
 {
-    await _scheduleService.AddTaskAsync(Name, Date, Time);
+    Console.WriteLine($"[INFO] AddTask called with Name: {Name}, Date: {Date}, Time: {Time}");
+
+    if (string.IsNullOrWhiteSpace(Name))
+    {
+        Console.WriteLine("[ERROR] Task name is null or empty.");
+        TempData["ErrorMessage"] = "Task name cannot be empty.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    try
+    {
+        await _scheduleService.AddTaskAsync(Name, Date, Time);
+        Console.WriteLine($"[INFO] Task '{Name}' added for {Date} at {Time}.");
+        TempData["SuccessMessage"] = "Task added successfully.";
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[ERROR] Failed to add task: {ex.Message}");
+        TempData["ErrorMessage"] = "Failed to add the task. Please try again.";
+    }
+
     return RedirectToAction(nameof(Index));
 }
+
 
 
 

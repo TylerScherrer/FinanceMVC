@@ -67,31 +67,30 @@ namespace BudgetTracker.Services
             }
         }
 
-        public async Task AssignTaskToTimeAsync(int taskId, int hour)
-        {
-            var task = await _context.ToDoItems.FindAsync(taskId);
-            if (task != null)
-            {
-                var existingSchedule = await _context.DailySchedules
-                    .FirstOrDefaultAsync(ds => ds.Hour == hour);
+public async Task AssignTaskToTimeAsync(int taskId, int hour)
+{
+    Console.WriteLine($"AssignTaskToTimeAsync called with TaskId: {taskId}, Hour: {hour}");
 
-                if (existingSchedule != null)
-                {
-                    existingSchedule.TaskId = taskId; // Update existing schedule
-                }
-                else
-                {
-                    var newSchedule = new DailySchedule
-                    {
-                        TaskId = taskId,
-                        Hour = hour
-                    };
-                    _context.DailySchedules.Add(newSchedule);
-                }
+    var task = await _context.ToDoItems.FindAsync(taskId);
+    if (task == null)
+    {
+        Console.WriteLine($"TaskId: {taskId} not found.");
+        throw new Exception("Task not found.");
+    }
 
-                await _context.SaveChangesAsync();
-            }
-        }
+    var schedule = new DailySchedule
+    {
+        TaskId = taskId,
+        Hour = hour
+    };
+
+    Console.WriteLine($"Adding task to schedule: TaskId: {schedule.TaskId}, Hour: {schedule.Hour}");
+    _context.DailySchedules.Add(schedule);
+
+    await _context.SaveChangesAsync();
+    Console.WriteLine($"TaskId: {taskId} successfully assigned to Hour: {hour}");
+}
+
 
         public async Task<List<ToDoItem>> GetAllTasksAsync()
         {
