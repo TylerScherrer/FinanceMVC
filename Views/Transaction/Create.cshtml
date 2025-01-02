@@ -1,23 +1,39 @@
 @model BudgetTracker.Models.Transaction
 
-<h1>Add Transaction</h1>
+<div class="container py-5" style="background: #121212;">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-light">Add Transaction</h1>
+        <p class="text-muted">Record your transaction details below.</p>
+    </div>
 
-<form asp-action="Create" method="post">
-    <input type="hidden" asp-for="CategoryId" />
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <input asp-for="Description" class="form-control" />
-        <span asp-validation-for="Description" class="text-danger"></span>
+    <div class="card border-0 shadow-sm glass-panel">
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <input type="hidden" asp-for="CategoryId" />
+                <div class="mb-4">
+                    <label asp-for="Description" class="form-label text-light fw-bold">Description</label>
+                    <input asp-for="Description" class="form-control bg-transparent text-light border-secondary" placeholder="Enter description" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Amount" class="form-label text-light fw-bold">Amount</label>
+                    <input asp-for="Amount" class="form-control bg-transparent text-light border-secondary" placeholder="Enter amount" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Date" class="form-label text-light fw-bold">Date</label>
+                    <input asp-for="Date" class="form-control bg-transparent text-light border-secondary" type="date" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary fw-semibold">
+                        <i class="fas fa-save me-2"></i>Submit
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Amount"></label>
-        <input asp-for="Amount" class="form-control" />
-        <span asp-validation-for="Amount" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Date"></label>
-        <input asp-for="Date" class="form-control" type="date" />
-        <span asp-validation-for="Date" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>
