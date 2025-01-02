@@ -367,6 +367,7 @@
                                                 <span class="task-text">@task.Name</span>
                                                 <br />
                                                 <small class="task-date">@task.Date.ToShortDateString()</small>
+                                                <small class="text-muted">Time: @BudgetTracker.Helpers.TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</small>
                                             </div>
                                             <form asp-action="DeleteScheduledTask"
                                                   asp-controller="Schedule"
