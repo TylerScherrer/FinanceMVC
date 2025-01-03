@@ -46,30 +46,39 @@ namespace BudgetTracker.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(ToDoItem task)
+  [HttpPost]
+public async Task<IActionResult> Create(ToDoItem task)
+{
+    Console.WriteLine($"Name: {task.Name}, DueDate: {task.DueDate}, IsDaily: {task.IsDaily}, IsTodayOnly: {task.IsTodayOnly}");
+
+    if (ModelState.IsValid)
+    {
+        if (task.IsTodayOnly)
         {
-            // Log received values
-            Console.WriteLine($"Name: {task.Name}, DueDate: {task.DueDate}, IsDaily: {task.IsDaily}, IsTodayOnly: {task.IsTodayOnly}");
-
-            if (ModelState.IsValid)
-            {
-                await _toDoService.CreateTaskAsync(task);
-                return RedirectToAction(nameof(Index));
-            }
-
-            // Log model state errors
-            foreach (var key in ModelState.Keys)
-            {
-                var state = ModelState[key];
-                foreach (var error in state.Errors)
-                {
-                    Console.WriteLine($"Error in {key}: {error.ErrorMessage}");
-                }
-            }
-
-            return View(task);
+            task.IsToday = true; // Mark it for today only
+            task.DueDate = null; // Remove due date since it's today-specific
         }
+        else if (task.DueDate.HasValue)
+        {
+            task.IsToday = task.DueDate.Value.Date == DateTime.Today;
+        }
+
+        await _toDoService.CreateTaskAsync(task);
+        return RedirectToAction(nameof(Index));
+    }
+
+    // Log model state errors
+    foreach (var key in ModelState.Keys)
+    {
+        var state = ModelState[key];
+        foreach (var error in state.Errors)
+        {
+            Console.WriteLine($"Error in {key}: {error.ErrorMessage}");
+        }
+    }
+
+    return View(task);
+}
 
 
 

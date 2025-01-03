@@ -14,12 +14,13 @@ namespace BudgetTracker.Services
             _context = context;
         }
 
-        public async Task<List<ToDoItem>> GetTodayTasksAsync()
-        {
-            return await _context.ToDoItems
-                .Where(t => t.IsToday)
-                .ToListAsync(); // Ensure it includes tasks with IsToday = true
-        }
+public async Task<List<ToDoItem>> GetTodayTasksAsync()
+{
+    return await _context.ToDoItems
+        .Where(t => t.IsToday)
+        .ToListAsync();
+}
+
 
 
 
@@ -38,7 +39,7 @@ namespace BudgetTracker.Services
                 }
 public async Task CreateTaskAsync(ToDoItem task)
 {
-    Console.WriteLine($"Saving Task: Name={task.Name}, DueDate={(task.DueDate.HasValue ? task.DueDate.Value.ToShortDateString() : "No due date")}, IsDaily={task.IsDaily}, IsTodayOnly={task.IsTodayOnly}");
+    Console.WriteLine($"Saving Task: Name={task.Name}, DueDate={task.DueDate}, IsDaily={task.IsDaily}, IsTodayOnly={task.IsTodayOnly}, IsToday={task.IsToday}");
 
     _context.ToDoItems.Add(task);
     await _context.SaveChangesAsync();
