@@ -32,7 +32,7 @@
 
     /* Navigation buttons */
     .calendar-nav button {
-        background-color: #7289da;
+        background-color: #1747f7;
         border: none;
         color: #fff;
         font-weight: 500;
@@ -84,11 +84,11 @@
 
     /* Highlight days that have tasks */
     .task-day {
-        background: linear-gradient(120deg, #e53935 0%, #e35d5b 100%);
+        background: linear-gradient(120deg, #24a8f5 0%, #24a8f593 100%);
         color: #fff;
         font-weight: bold;
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(229, 57, 53, 0.4);
+        box-shadow: 0 4px 8px #24a8f593 ;
     }
 
     /* Make the date number more prominent */
@@ -152,12 +152,7 @@
         background-color: #5b6eae;
     }
 
-    /* Unassign button styling */
-    .btn-outline-danger:hover {
-        background-color: #ff5f57;
-        border-color: #ff5f57;
-        color: #fff;
-    }
+
 
     /* Make the assigned task name stand out */
     .assigned-task {
@@ -345,7 +340,7 @@
                                             </select>
                                         </div>
                                         <div class="col-5 d-grid">
-                                            <button type="submit" class="btn btn-sm custom-create-btn fw-semibold">
+                                            <button type="submit" class="btn btn-sm custom-complete-btn fw-semibold">
                                                 Assign
                                             </button>
                                         </div>
@@ -362,7 +357,7 @@
                                         <input type="hidden" name="taskId" value="@scheduledTask.Task.Id" />
                                         <input type="hidden" name="hour" value="@hour" />
                                         <input type="hidden" name="minute" value="@minute" />
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <button type="submit" class="btn btn-sm custom-delete-btn">
                                             Unassign
                                         </button>
                                     </form>
