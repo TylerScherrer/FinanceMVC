@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Pgeh2KJ/BcpP2/7gbewWsO40OYJB3w994CN3A47jt7o=",
+  "Hash": "lqhiC/UhPjAHdAXBD8naknuFWI72aNkrzjOGL+Fm+0U=",
   "Source": "BudgetTracker",
   "BasePath": "_content/BudgetTracker",
   "Mode": "Default",
@@ -458,12 +458,12 @@
       "OriginalItemSpec": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-s8ldznrc5t.gz",
+      "Identity": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-vx0c30p5au.gz",
       "SourceId": "BudgetTracker",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/BudgetTracker",
-      "RelativePath": "css/site#[.{fingerprint=s8ldznrc5t}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=vx0c30p5au}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -472,8 +472,8 @@
       "RelatedAsset": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "j840ovotgn",
-      "Integrity": "c8kzKm31KOQFjD9gvqUHTeXBAFj4KgkQTjXlcI4f/5I=",
+      "Fingerprint": "tl3i3ljehv",
+      "Integrity": "wemb1hZsv2Zu0sxmeYFC43EoIrK9hYWDLGeBhnjRlxc=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\css\\site.css"
@@ -1417,8 +1417,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "s8ldznrc5t",
-      "Integrity": "NOQFwRKncf+jIYvSc7dmYjV9u1gesbSGoJTssu6lI4M=",
+      "Fingerprint": "vx0c30p5au",
+      "Integrity": "w0L3N8v76utdCJpY6shmiQ8SatyXnAYI95hJg1ajTcE=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -3325,7 +3325,7 @@
     },
     {
       "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-s8ldznrc5t.gz",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-vx0c30p5au.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
@@ -3344,11 +3344,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"c8kzKm31KOQFjD9gvqUHTeXBAFj4KgkQTjXlcI4f/5I=\""
+          "Value": "\"wemb1hZsv2Zu0sxmeYFC43EoIrK9hYWDLGeBhnjRlxc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 03 Jan 2025 05:28:41 GMT"
+          "Value": "Fri, 03 Jan 2025 05:35:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3368,13 +3368,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"NOQFwRKncf+jIYvSc7dmYjV9u1gesbSGoJTssu6lI4M=\""
+          "Value": "W/\"w0L3N8v76utdCJpY6shmiQ8SatyXnAYI95hJg1ajTcE=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-NOQFwRKncf+jIYvSc7dmYjV9u1gesbSGoJTssu6lI4M="
+          "Value": "sha256-w0L3N8v76utdCJpY6shmiQ8SatyXnAYI95hJg1ajTcE="
         }
       ]
     },
@@ -3389,7 +3389,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "16118"
+          "Value": "16116"
         },
         {
           "Name": "Content-Type",
@@ -3397,11 +3397,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"NOQFwRKncf+jIYvSc7dmYjV9u1gesbSGoJTssu6lI4M=\""
+          "Value": "\"w0L3N8v76utdCJpY6shmiQ8SatyXnAYI95hJg1ajTcE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 03 Jan 2025 05:28:41 GMT"
+          "Value": "Fri, 03 Jan 2025 05:35:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3411,13 +3411,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-NOQFwRKncf+jIYvSc7dmYjV9u1gesbSGoJTssu6lI4M="
+          "Value": "sha256-w0L3N8v76utdCJpY6shmiQ8SatyXnAYI95hJg1ajTcE="
         }
       ]
     },
     {
       "Route": "css/site.css.gz",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-s8ldznrc5t.gz",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-vx0c30p5au.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3434,11 +3434,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"c8kzKm31KOQFjD9gvqUHTeXBAFj4KgkQTjXlcI4f/5I=\""
+          "Value": "\"wemb1hZsv2Zu0sxmeYFC43EoIrK9hYWDLGeBhnjRlxc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 03 Jan 2025 05:28:41 GMT"
+          "Value": "Fri, 03 Jan 2025 05:35:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3456,13 +3456,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-c8kzKm31KOQFjD9gvqUHTeXBAFj4KgkQTjXlcI4f/5I="
+          "Value": "sha256-wemb1hZsv2Zu0sxmeYFC43EoIrK9hYWDLGeBhnjRlxc="
         }
       ]
     },
     {
-      "Route": "css/site.s8ldznrc5t.css",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-s8ldznrc5t.gz",
+      "Route": "css/site.vx0c30p5au.css",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-vx0c30p5au.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
@@ -3481,11 +3481,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"c8kzKm31KOQFjD9gvqUHTeXBAFj4KgkQTjXlcI4f/5I=\""
+          "Value": "\"wemb1hZsv2Zu0sxmeYFC43EoIrK9hYWDLGeBhnjRlxc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 03 Jan 2025 05:28:41 GMT"
+          "Value": "Fri, 03 Jan 2025 05:35:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3505,13 +3505,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"NOQFwRKncf+jIYvSc7dmYjV9u1gesbSGoJTssu6lI4M=\""
+          "Value": "W/\"w0L3N8v76utdCJpY6shmiQ8SatyXnAYI95hJg1ajTcE=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "s8ldznrc5t"
+          "Value": "vx0c30p5au"
         },
         {
           "Name": "label",
@@ -3519,12 +3519,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-NOQFwRKncf+jIYvSc7dmYjV9u1gesbSGoJTssu6lI4M="
+          "Value": "sha256-w0L3N8v76utdCJpY6shmiQ8SatyXnAYI95hJg1ajTcE="
         }
       ]
     },
     {
-      "Route": "css/site.s8ldznrc5t.css",
+      "Route": "css/site.vx0c30p5au.css",
       "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3534,7 +3534,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "16118"
+          "Value": "16116"
         },
         {
           "Name": "Content-Type",
@@ -3542,11 +3542,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"NOQFwRKncf+jIYvSc7dmYjV9u1gesbSGoJTssu6lI4M=\""
+          "Value": "\"w0L3N8v76utdCJpY6shmiQ8SatyXnAYI95hJg1ajTcE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 03 Jan 2025 05:28:41 GMT"
+          "Value": "Fri, 03 Jan 2025 05:35:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3556,7 +3556,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "s8ldznrc5t"
+          "Value": "vx0c30p5au"
         },
         {
           "Name": "label",
@@ -3564,13 +3564,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-NOQFwRKncf+jIYvSc7dmYjV9u1gesbSGoJTssu6lI4M="
+          "Value": "sha256-w0L3N8v76utdCJpY6shmiQ8SatyXnAYI95hJg1ajTcE="
         }
       ]
     },
     {
-      "Route": "css/site.s8ldznrc5t.css.gz",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-s8ldznrc5t.gz",
+      "Route": "css/site.vx0c30p5au.css.gz",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-vx0c30p5au.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3587,11 +3587,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"c8kzKm31KOQFjD9gvqUHTeXBAFj4KgkQTjXlcI4f/5I=\""
+          "Value": "\"wemb1hZsv2Zu0sxmeYFC43EoIrK9hYWDLGeBhnjRlxc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 03 Jan 2025 05:28:41 GMT"
+          "Value": "Fri, 03 Jan 2025 05:35:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3609,7 +3609,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "s8ldznrc5t"
+          "Value": "vx0c30p5au"
         },
         {
           "Name": "label",
@@ -3617,7 +3617,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-c8kzKm31KOQFjD9gvqUHTeXBAFj4KgkQTjXlcI4f/5I="
+          "Value": "sha256-wemb1hZsv2Zu0sxmeYFC43EoIrK9hYWDLGeBhnjRlxc="
         }
       ]
     },

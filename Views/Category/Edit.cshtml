@@ -24,11 +24,11 @@
             <span asp-validation-for="AllocatedAmount" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="submit" class="btn custom-create-btn">Save Changes</button>
         <a asp-controller="Budget"
    asp-action="Details"
    asp-route-id="@Model.BudgetId"
-   class="btn btn-secondary">
+   class="btn custom-edit-btn">
     Cancel
 </a>
 
