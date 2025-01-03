@@ -471,6 +471,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* BILLS (Green) */
 .custom-bills-btn {
+  color: #069e39c7;
+  border: 1px solid #069e39c7;
   background: linear-gradient(135deg, #069e39c7, rgb(14, 221, 14));
 }
 .custom-bills-btn:hover {
