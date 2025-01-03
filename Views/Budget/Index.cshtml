@@ -251,7 +251,10 @@
                                             {
                                                 <tr>
                                                     <td>@task.Name</td>
-                                                    <td>@task.DueDate.ToShortDateString()</td>
+                                                    <td class="text-muted">
+                                                        @(task.DueDate.HasValue ? task.DueDate.Value.ToShortDateString() : "No Due Date")
+                                                    </td>
+
                                                     <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
                                                     <td class="text-end">
                                                         <!-- Mark Complete -->

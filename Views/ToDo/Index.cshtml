@@ -42,7 +42,8 @@
                             {
                                 <tr>
                                     <td class="text-light">@task.Name</td>
-                                    <td class="text-muted">@task.DueDate.ToShortDateString()</td>
+                                    <td class="text-muted">@(task.DueDate.HasValue ? task.DueDate.Value.ToShortDateString() : "No due date")
+</td>
                                     <td>
                                             <span class="custom-badge @(task.IsCompleted ? "custom-badge-completed" : "custom-badge-pending")">
                                                 @(task.IsCompleted ? "Completed" : "Pending")
@@ -97,7 +98,8 @@
                                 {
                                     <tr>
                                         <td class="text-light">@task.Name</td>
-                                        <td class="text-muted">@task.DueDate.ToShortDateString()</td>
+                                        <td class="text-muted">@(task.DueDate.HasValue ? task.DueDate.Value.ToShortDateString() : "No due date")
+</td>
                                         <td>
                                             <span class="custom-badge @(task.IsCompleted ? "custom-badge-completed" : "custom-badge-pending")">
                                                 @(task.IsCompleted ? "Completed" : "Pending")

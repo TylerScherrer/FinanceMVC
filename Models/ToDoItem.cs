@@ -9,8 +9,8 @@ namespace BudgetTracker.Models
         [Required]
         public string Name { get; set; } // Task name or description
 
-        [Required]
-        public DateTime DueDate { get; set; } = DateTime.Now; // Add this property
+       
+        public DateTime? DueDate { get; set; } = DateTime.Now; // Add this property
 
         public bool IsCompleted { get; set; } = false; // Task status
         public bool IsDaily { get; set; } = false;    // Recurring daily tasks

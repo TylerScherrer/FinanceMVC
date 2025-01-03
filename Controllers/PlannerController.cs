@@ -18,22 +18,25 @@ namespace BudgetTracker.Controllers
             _toDoService = toDoService;
         }
 
-public async Task<IActionResult> Index(DateTime? date)
-{
-    var selectedDate = date ?? DateTime.Today;
+        public async Task<IActionResult> Index(DateTime? date)
+        {
+            // Handle null date with default value
+            var selectedDate = date?.Date ?? DateTime.Today; // Use ?.Date to handle nullable DateTime correctly
 
-    var tasks = await _toDoService.GetTasksForDateAsync(selectedDate);
-    var schedules = await _toDoService.GetSchedulesForDateAsync(selectedDate);
+            // Fetch tasks and schedules for the selected date
+            var tasks = await _toDoService.GetTasksForDateAsync(selectedDate);
+            var schedules = await _toDoService.GetSchedulesForDateAsync(selectedDate);
 
-    var model = new BudgetWithTasksViewModel
-    {
-        TodayTasks = tasks ?? new List<ToDoItem>(), // Ensure it's not null
-        DailySchedules = schedules ?? new List<DailySchedule>(), // Ensure it's not null
-        SelectedDate = selectedDate
-    };
+            // Initialize the view model
+            var model = new BudgetWithTasksViewModel
+            {
+                TodayTasks = tasks ?? new List<ToDoItem>(),
+                DailySchedules = schedules ?? new List<DailySchedule>(),
+                SelectedDate = selectedDate
+            };
 
-    return View(model);
-}
+            return View(model);
+        }
 
 
 
@@ -42,7 +45,7 @@ public async Task<IActionResult> Index(DateTime? date)
 public async Task<List<ToDoItem>> GetTasksForDateAsync(DateTime date)
 {
     return await _context.ToDoItems
-        .Where(t => t.DueDate.Date == date.Date)
+        .Where(t => t.DueDate.HasValue && t.DueDate.Value.Date == date.Date) // Handle nullable DateTime
         .ToListAsync();
 }
 
@@ -50,9 +53,10 @@ public async Task<List<DailySchedule>> GetSchedulesForDateAsync(DateTime date)
 {
     return await _context.DailySchedules
         .Include(ds => ds.Task)
-        .Where(ds => ds.Task.DueDate.Date == date.Date)
+        .Where(ds => ds.Task.DueDate.HasValue && ds.Task.DueDate.Value.Date == date.Date) // Handle nullable DateTime
         .ToListAsync();
 }
+
 
     }
 }
