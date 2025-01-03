@@ -2,6 +2,8 @@ using BudgetTracker.Data;
 using BudgetTracker.Interfaces;
 using BudgetTracker.Services;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +22,16 @@ builder.Services.AddScoped<IBillService, BillService>();
 
 
 // Register the database context with SQLite
+// Add services to the container.
+// Configure services
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 27)) // Adjust MySQL version as needed
+    )
+);
+
+
 
 var app = builder.Build();
 
