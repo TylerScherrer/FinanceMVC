@@ -408,8 +408,6 @@ C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\xaup41mvf
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\a6fyezbw75-9vr69e8ynj.gz
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\g0x5i07wjd-87fc7y1x7t.gz
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\x1awyfcllt-mlv21k5csn.gz
-C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\hjrnxxbgqc-6ryzy8bh7v.gz
-C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\e6ayiq6f06-6ryzy8bh7v.gz
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\staticwebassets.build.endpoints.json
@@ -426,4 +424,6 @@ C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\BudgetTracker.pdb
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\BudgetTracker.genruntimeconfig.cache
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\ref\BudgetTracker.dll
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Debug\net9.0\Newtonsoft.Json.dll
-C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\9ci5h066md-0eyhol0c72.gz
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\hjrnxxbgqc-h7rkv0pu5l.gz
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\e6ayiq6f06-h7rkv0pu5l.gz
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\9ci5h066md-rtynhsaets.gz

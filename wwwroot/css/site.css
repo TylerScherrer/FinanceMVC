@@ -294,13 +294,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .sidebar-links .nav-link {
   color: #e5e9f0; /* Light gray */
+  border-color: #ffffff;
   font-size: 1rem;
   font-weight: 600;
-  padding: 0.8rem 1rem;
-  border-radius: 12px;
+  padding: 0.8rem 8rem;
+  border-radius: 10px;
+
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.5rem;
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
@@ -335,8 +337,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* Active Link Styling */
 .sidebar-links .nav-link.active {
-  background: linear-gradient(120deg, #0c79ff, #0c5baa85); /* Active gradient */
-  color: #2e3440; /* Dark text */
+  background: linear-gradient(120deg, #0067c7, #1100fc85); /* Active gradient */
+  color: #ffffff; /* Dark text */
   font-weight: bold;
 }
 
@@ -471,9 +473,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* BILLS (Green) */
 .custom-bills-btn {
-  color: #069e39c7;
-  border: 1px solid #069e39c7;
-  background: linear-gradient(135deg, #069e39c7, rgb(14, 221, 14));
+  color: #05f154c7;
+  border: 1px solid #05f154c7;
+  background: linear-gradient(135deg, #069e3977, rgba(14, 221, 14, 0.562));
 }
 .custom-bills-btn:hover {
   box-shadow: 0 4px 15px rgba(6, 158, 57, 0.6);
