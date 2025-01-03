@@ -16,10 +16,19 @@ namespace BudgetTracker.Services
 
 public async Task<List<ToDoItem>> GetTodayTasksAsync()
 {
+    var today = DateTime.Today;
     return await _context.ToDoItems
-        .Where(t => t.IsToday || t.IsTodayOnly) // Include "Today Only" tasks
+        .Where(t =>
+            // tasks with an actual due date of today
+            (t.DueDate.HasValue && t.DueDate.Value.Date == today)
+            // OR tasks flagged as "IsToday" or "IsTodayOnly"
+            || t.IsTodayOnly
+            || t.IsToday
+        )
         .ToListAsync();
 }
+
+
 
 
 
@@ -43,7 +52,12 @@ public async Task<List<DailySchedule>> GetDailySchedulesAsync()
 }
 
 
-
+    public async Task<List<DailySchedule>> GetAllSchedulesAsync()
+    {
+        return await _context.DailySchedules
+            .Include(ds => ds.Task)
+            .ToListAsync();
+    }
 
 public async Task CreateTaskAsync(ToDoItem task)
 {
@@ -77,28 +91,22 @@ public async Task CreateTaskAsync(ToDoItem task)
             }
         }
 
-public async Task AssignTaskToTimeAsync(int taskId, int hour, DateTime date)
-{
-    Console.WriteLine($"AssignTaskToTimeAsync called with TaskId: {taskId}, Hour: {hour}, Date: {date.ToShortDateString()}");
+        public async Task AssignTaskToTimeAsync(int taskId, int hour, DateTime date)
+        {
+            var task = await _context.ToDoItems.FindAsync(taskId);
+            if (task == null)
+                throw new Exception("Task not found.");
 
-    var task = await _context.ToDoItems.FindAsync(taskId);
-    if (task == null || (task.DueDate.HasValue && task.DueDate.Value.Date < date.Date))
-    {
-        Console.WriteLine($"Invalid Task or Date: TaskId={taskId}, Date={date.ToShortDateString()}");
-        throw new Exception("Task not found or date is invalid.");
-    }
+            var schedule = new DailySchedule
+            {
+                TaskId = taskId,
+                Hour = hour,
+                Date = date.Date
+            };
 
-    var schedule = new DailySchedule
-    {
-        TaskId = taskId,
-        Hour = hour,
-        Date = date.Date
-    };
-
-    _context.DailySchedules.Add(schedule);
-    await _context.SaveChangesAsync();
-    Console.WriteLine($"TaskId: {taskId} successfully assigned to Hour: {hour} on {date.ToShortDateString()}");
-}
+            _context.DailySchedules.Add(schedule);
+            await _context.SaveChangesAsync();
+        }
 
 
 

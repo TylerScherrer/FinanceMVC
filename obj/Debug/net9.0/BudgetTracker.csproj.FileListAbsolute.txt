@@ -426,3 +426,4 @@ C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\refint\BudgetTracker
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\BudgetTracker.pdb
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\BudgetTracker.genruntimeconfig.cache
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\ref\BudgetTracker.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Debug\net9.0\Newtonsoft.Json.dll

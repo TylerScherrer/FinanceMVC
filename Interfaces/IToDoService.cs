@@ -18,5 +18,7 @@ Task MoveTaskToTodayAsync(int taskId);
         Task<List<ToDoItem>> GetTasksForDateAsync(DateTime date);
         Task<List<DailySchedule>> GetSchedulesForDateAsync(DateTime date);
 
+        Task<List<DailySchedule>> GetAllSchedulesAsync();
+
     }
 }

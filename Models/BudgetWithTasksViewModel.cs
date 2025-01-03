@@ -29,5 +29,13 @@ namespace BudgetTracker.Models
         public List<Bill> MonthlyBills { get; set; }
 
         public DateTime SelectedDate { get; set; } // New property for selected date
+
+         public Dictionary<DateTime, List<DailySchedule>> TasksByDate { get; set; } = new Dictionary<DateTime, List<DailySchedule>>();
+
+        // New method: Converts grouped tasks into a list of date strings
+        public List<string> GetTaskDates()
+        {
+            return TasksByDate.Keys.Select(date => date.ToString("yyyy-MM-dd")).ToList();
+        }
     }
 }

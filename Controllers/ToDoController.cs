@@ -15,23 +15,27 @@ namespace BudgetTracker.Controllers
         }
 
         // GET: All tasks
-        public async Task<IActionResult> Index()
-        {
-            var todayTasks = await _toDoService.GetTodayTasksAsync();
-            var dailySchedules = await _toDoService.GetDailySchedulesAsync();
-            var allTasks = await _toDoService.GetAllTasksAsync(); // Add this line
+public async Task<IActionResult> Index(DateTime? date)
+{
+    var selectedDate = date ?? DateTime.Today;
 
-            var model = new BudgetWithTasksViewModel
-            {
-                TodayTasks = todayTasks,
-                DailySchedules = dailySchedules,
-                Budgets = new List<Budget>(), // Empty if not needed
-                CurrentWeekTasks = new List<TaskItem>(), // Empty if not needed
-                AllTasks = allTasks // Add all tasks here
-            };
+    // Fetch today's tasks
+    var todayTasks = await _toDoService.GetTodayTasksAsync();
 
-            return View(model); // Ensure the ToDo/Index view expects BudgetWithTasksViewModel
-        }
+    // Fetch all tasks
+    var allTasks = await _toDoService.GetAllTasksAsync();
+
+    var viewModel = new BudgetWithTasksViewModel
+    {
+        SelectedDate = selectedDate,
+        TodayTasks = todayTasks,
+        AllTasks = allTasks,
+        DailySchedules = new List<DailySchedule>(), // Add schedules if needed
+    };
+
+    return View(viewModel);
+}
+
 
         // GET: Daily tasks
         public async Task<IActionResult> DailyList()
