@@ -347,7 +347,6 @@ C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\BudgetTracker.source
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\scopedcss\bundle\BudgetTracker.styles.css
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\scopedcss\projectbundle\BudgetTracker.bundle.scp.css
-C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\9ci5h066md-uay55oci1d.gz
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\19x6gufnye-61n19gt1b8.gz
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\vr4n9caye1-xtxxf3hu2r.gz
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\46nzajxr3e-t1cqhe9u97.gz
@@ -427,3 +426,4 @@ C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\BudgetTracker.pdb
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\BudgetTracker.genruntimeconfig.cache
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\ref\BudgetTracker.dll
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\obj\Debug\net9.0\compressed\9ci5h066md-z3o9nmxlc9.gz

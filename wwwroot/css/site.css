@@ -388,45 +388,46 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 
+.custom-delete-btn,
+.custom-complete-btn,
+.custom-move-btn,
+.custom-create-btn,
+.custom-bills-btn,
+.custom-view-btn,
+.custom-edit-btn {
+  background-color: transparent;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* DELETE (Red) */
 .custom-delete-btn {
+  color: #ff5f57;
+  border: 1px solid #ff5f57;
   background: linear-gradient(135deg, #fc03039f, rgba(104, 0, 17, 0.822));
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 5px 8px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .custom-delete-btn:hover {
   box-shadow: 0 4px 15px rgba(105, 0, 0, 0.6);
   transform: translateY(-3px);
 }
-
 .custom-delete-btn:active {
   transform: translateY(0);
 }
 
 
+/* COMPLETE (Blue) */
 .custom-complete-btn {
-  background: linear-gradient(135deg, #0990ff, rgb(18, 0, 177));
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 5px 8px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  color: #00a2ff;
+  border: 1px solid #00a2ff;
+  background: linear-gradient(135deg, #0990ff63, #0990ff42);
 }
-
 .custom-complete-btn:hover {
   box-shadow: 0 4px 15px rgba(1, 0, 46, 0.6);
   transform: translateY(-3px);
 }
-
 .custom-complete-btn:active {
   transform: translateY(0);
 }
@@ -440,105 +441,71 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
 
+/* MOVE (Purple) */
 .custom-move-btn {
-  background: linear-gradient(135deg, #bf4fff, rgba(173, 2, 159, 0.473));
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 5px 8px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  color: #be4fffdc;
+  border: 1px solid #be4fffdc;
+  background: linear-gradient(135deg, #be4fff62, rgba(173, 2, 159, 0.473));
 }
-
 .custom-move-btn:hover {
   box-shadow: 0 4px 15px rgba(133, 0, 111, 0.6);
   transform: translateY(-3px);
 }
-
 .custom-move-btn:active {
   transform: translateY(0);
 }
 
+/* CREATE (Indigo) */
 .custom-create-btn {
-  background: linear-gradient(135deg, #023dffc7, rgb(5, 111, 250));
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 5px 8px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  color: #028dff;
+  border: 1px solid #028dff;
+  background: linear-gradient(135deg, #023dff79, rgba(5, 111, 250, 0.212));
 }
-
 .custom-create-btn:hover {
-  box-shadow: 0 4px 15px rgba(135deg, #012fc9c7, rgb(5, 111, 250));
+  box-shadow: 0 4px 15px rgba(1, 47, 201, 0.6);
   transform: translateY(-3px);
 }
-
 .custom-create-btn:active {
   transform: translateY(0);
 }
+
+/* BILLS (Green) */
 .custom-bills-btn {
   background: linear-gradient(135deg, #069e39c7, rgb(14, 221, 14));
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 5px 8px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-
 .custom-bills-btn:hover {
-  box-shadow: 0 4px 15px rgba(135deg, #069e39c7, rgb(14, 221, 14));
+  box-shadow: 0 4px 15px rgba(6, 158, 57, 0.6);
   transform: translateY(-3px);
 }
-
 .custom-bills-btn:active {
   transform: translateY(0);
 }
-.custom-view-btn {
-  background: linear-gradient(135deg, #9a02ffc7, rgb(51, 1, 75));
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 5px 8px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
 
+
+/* VIEW (Deep Purple) */
+.custom-view-btn {
+  color: #be4fffdc;
+  border: 1px solid #be4fffdc;
+  background: linear-gradient(135deg, #be4fff62, rgba(173, 2, 159, 0.473));
+}
 .custom-view-btn:hover {
-  box-shadow: 0 4px 15px rgba(135deg, #9a02ffc7, rgb(51, 1, 75));
+  box-shadow: 0 4px 15px rgba(154, 2, 255, 0.6);
   transform: translateY(-3px);
 }
-
 .custom-view-btn:active {
   transform: translateY(0);
 }
 
+/* EDIT (Yellow) */
 .custom-edit-btn {
-  background: linear-gradient(135deg, #fae103de, rgb(143, 129, 0));
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 5px 8px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  color: #fff34fdc;
+  border: 1px solid #fff34fdc;
+  background: linear-gradient(135deg, #fae10377, rgba(143, 129, 0, 0.363));
 }
-
 .custom-edit-btn:hover {
-  box-shadow: 0 4px 15px rgba(135deg,#fae103de, rgb(143, 129, 0));
+  box-shadow: 0 4px 15px rgba(250, 225, 3, 0.6);
   transform: translateY(-3px);
 }
-
 .custom-edit-btn:active {
   transform: translateY(0);
 }
