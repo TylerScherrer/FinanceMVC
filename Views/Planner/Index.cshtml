@@ -62,63 +62,62 @@ document.addEventListener('DOMContentLoaded', function () {
                             <th style="width:10%">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @for (int hour = 8; hour <= 20; hour++) // Loop from 8:00 AM to 8:00 PM
-                        {
-                            var scheduledTask = Model.DailySchedules?
-                                .FirstOrDefault(ds => ds.Hour == hour);
+<tbody>
+    @for (int hour = 8; hour <= 20; hour++) // Loop from 8:00 AM to 8:00 PM
+    {
+        var scheduledTask = Model.DailySchedules?
+            .FirstOrDefault(ds => ds.Hour == hour);
 
-                            <tr>
-                                <td class="fw-semibold">
-                                    @(hour <= 12 ? $"{hour} a.m." : $"{hour - 12} p.m.")
-                                </td>
-                                <td>
-                                    @if (scheduledTask != null)
-                                    {
-                                        <span class="fw-bold text-white">
-                                            @scheduledTask.Task.Name
-                                        </span>
-                                    }
-                                    else
-                                    {
-<form method="post" asp-action="AssignTaskToTime" asp-controller="ToDo" class="row g-2 align-items-center">
-    <input type="hidden" name="hour" value="@hour" />
-    <input type="hidden" name="selectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
-    
-    <div class="col-8">
-        <select name="taskId" class="form-select form-select-sm bg-dark text-light border-secondary">
-            <option value="">-- Select Task --</option>
-            @foreach (var task in Model.TodayTasks)
-            {
-                <option value="@task.Id">@task.Name</option>
-            }
-        </select>
-    </div>
-    <div class="col-4 d-grid">
-        <button type="submit" class="btn btn-sm custom-create-btn fw-semibold">Assign</button>
-    </div>
-</form>
+        <tr>
+            <td class="fw-semibold">
+                @(hour <= 12 ? $"{hour} a.m." : $"{hour - 12} p.m.")
+            </td>
+            <td>
+                @if (scheduledTask != null)
+                {
+                    <span class="fw-bold text-white">
+                        @scheduledTask.Task.Name
+                    </span>
+                }
+                else
+                {
+                    <form method="post" asp-action="AssignTaskToTime" asp-controller="ToDo" class="row g-2 align-items-center">
+                        <input type="hidden" name="hour" value="@hour" />
+                        <input type="hidden" name="selectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+                        <div class="col-8">
+                            <select name="taskId" class="form-select form-select-sm bg-dark text-light border-secondary">
+                                <option value="">-- Select Task --</option>
+                                @foreach (var task in Model.TodayTasks)
+                                {
+                                    <option value="@task.Id">@task.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-4 d-grid">
+                            <button type="submit" class="btn btn-sm custom-create-btn fw-semibold">Assign</button>
+                        </div>
+                    </form>
+                }
+            </td>
+            <td>
+                @if (scheduledTask != null)
+                {
+                    <form method="post"
+                          asp-action="UnassignTask"
+                          asp-controller="ToDo"
+                          class="d-inline">
+                        <input type="hidden" name="taskId" value="@scheduledTask.Task.Id" />
+                        <input type="hidden" name="hour" value="@hour" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                            Unassign
+                        </button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+</tbody>
 
-                                    }
-                                </td>
-                                <td>
-                                    @if (scheduledTask != null)
-                                    {
-                                        <form method="post"
-                                              asp-action="UnassignTask"
-                                              asp-controller="ToDo"
-                                              class="d-inline">
-                                            <input type="hidden" name="taskId" value="@scheduledTask.Task.Id" />
-                                            <input type="hidden" name="hour" value="@hour" />
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                Unassign
-                                            </button>
-                                        </form>
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
                 </table>
             </div>
         </div>

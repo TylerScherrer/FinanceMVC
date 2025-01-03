@@ -17,9 +17,10 @@ namespace BudgetTracker.Services
 public async Task<List<ToDoItem>> GetTodayTasksAsync()
 {
     return await _context.ToDoItems
-        .Where(t => t.IsToday)
+        .Where(t => t.IsToday || t.IsTodayOnly) // Include "Today Only" tasks
         .ToListAsync();
 }
+
 
 
 
@@ -95,10 +96,13 @@ public async Task AssignTaskToTimeAsync(int taskId, int hour, DateTime date)
 
 
 
-        public async Task<List<ToDoItem>> GetAllTasksAsync()
-        {
-            return await _context.ToDoItems.ToListAsync(); // Fetch all tasks from the database
-        }
+public async Task<List<ToDoItem>> GetAllTasksAsync()
+{
+    return await _context.ToDoItems
+        .Where(t => !t.IsTodayOnly) // Exclude "Today Only" tasks
+        .ToListAsync();
+}
+
 public async Task UnassignTaskAsync(int taskId, int hour)
 {
     var schedule = await _context.DailySchedules
@@ -144,9 +148,10 @@ public async Task<List<DailySchedule>> GetSchedulesForDateAsync(DateTime date)
 {
     return await _context.DailySchedules
         .Include(ds => ds.Task)
-        .Where(ds => ds.Task.DueDate.HasValue && ds.Task.DueDate.Value.Date == date.Date)
+        .Where(ds => ds.Date.Date == date.Date)
         .ToListAsync();
 }
+
 
 
     }
