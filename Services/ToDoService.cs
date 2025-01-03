@@ -32,12 +32,19 @@ public async Task<List<ToDoItem>> GetTodayTasksAsync()
                 .ToListAsync();
         }
 
-        public async Task<List<DailySchedule>> GetDailySchedulesAsync()
-        {
-            return await _context.DailySchedules
-                .Include(ds => ds.Task)
-                .ToListAsync();
-                }
+public async Task<List<DailySchedule>> GetDailySchedulesAsync()
+{
+    var today = DateTime.Today;
+
+    return await _context.DailySchedules
+        .Include(ds => ds.Task)
+        .Where(ds => ds.Date.Date == today) // Only include schedules for today
+        .ToListAsync();
+}
+
+
+
+
 public async Task CreateTaskAsync(ToDoItem task)
 {
     Console.WriteLine($"Saving Task: Name={task.Name}, DueDate={task.DueDate}, IsDaily={task.IsDaily}, IsTodayOnly={task.IsTodayOnly}, IsToday={task.IsToday}");
