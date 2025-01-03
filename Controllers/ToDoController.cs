@@ -100,44 +100,58 @@ public async Task<IActionResult> Create(ToDoItem task)
             return RedirectToAction(nameof(Index));
         }
 
-public async Task<IActionResult> AssignTaskToTime(int taskId, int hour,  DateTime selectedDate)
+[HttpPost]
+public async Task<IActionResult> AssignTaskToTime(int? taskId, string newTaskName, int hour, int minute, DateTime selectedDate)
 {
-{
-    Console.WriteLine($"AssignTaskToTime called with TaskId: {taskId}, Hour: {hour}, Date: {selectedDate.ToShortDateString()}");
+    Console.WriteLine($"AssignTaskToTime called with: taskId={taskId}, newTaskName={newTaskName}, hour={hour}, minute={minute}, date={selectedDate}");
 
-    // Validate input
-    if (taskId <= 0 || hour < 0 || hour > 23)
+    // If user typed a new task name, create that task.
+    int newTaskId = 0;
+    if (!string.IsNullOrWhiteSpace(newTaskName))
     {
-        Console.WriteLine("Validation failed. Invalid TaskId, Hour, or Date.");
-        TempData["ErrorMessage"] = "Invalid task, hour, or date specified.";
-        return RedirectToAction("Index", new { date = selectedDate }); // Redirect with selected date
+        // Create a new ToDoItem
+        var newTask = new ToDoItem
+        {
+            Name = newTaskName,
+            DueDate = selectedDate, 
+            IsCompleted = false
+            // ... set other fields as you see fit
+        };
+
+        // Save it (using your IToDoService or context)
+        // Example:
+        await _toDoService.CreateTaskAsync(newTask);
+        newTaskId = newTask.Id; // After saving, you should have the new ID
+        Console.WriteLine($"[DEBUG] Created a new Task with ID {newTask.Id} for name '{newTask.Name}'");
     }
 
+    // If we got a newTaskId from above, use that; otherwise, use the existing taskId
+    int finalTaskId = (newTaskId > 0) ? newTaskId : (taskId ?? 0);
+
+    // Validate
+    if (finalTaskId <= 0)
+    {
+        Console.WriteLine("[ERROR] No valid task ID found, and no new task name entered.");
+        TempData["ErrorMessage"] = "Please select an existing task or enter a new task name.";
+        return RedirectToAction("Index", "Planner", new { date = selectedDate });
+    }
+
+    // Actually assign the task
     try
     {
-        // Log task assignment attempt
-        Console.WriteLine($"Attempting to assign TaskId: {taskId} to Hour: {hour} on Date: {selectedDate.ToShortDateString()}");
-
-        // Attempt to assign the task
-        await _toDoService.AssignTaskToTimeAsync(taskId, hour, selectedDate);
-
-        // Success feedback
-        Console.WriteLine($"TaskId: {taskId} successfully assigned to Hour: {hour} on Date: {selectedDate.ToShortDateString()}");
-        TempData["SuccessMessage"] = "Task successfully assigned to the selected time.";
+        await _toDoService.AssignTaskToTimeAsync(finalTaskId, hour, selectedDate, minute);
+        Console.WriteLine($"[DEBUG] Assigned Task {finalTaskId} at {hour}:{minute:D2} on {selectedDate.ToShortDateString()}");
     }
     catch (Exception ex)
     {
-        // Log the exception details
-        Console.WriteLine($"Error occurred while assigning TaskId: {taskId} to Hour: {hour} on Date: {selectedDate.ToShortDateString()}. Exception: {ex.Message}");
-
-        // Error feedback
-        TempData["ErrorMessage"] = "An error occurred while assigning the task. Please try again.";
+        Console.WriteLine($"[ERROR] Failed to assign task: {ex.Message}");
+        TempData["ErrorMessage"] = "Failed to assign task. " + ex.Message;
     }
 
-    // Redirect back to the same page with the selected date
-    return RedirectToAction("Index", "Planner", new { date = selectedDate }); // Redirect with selected date
+    // Redirect back to the Planner
+    return RedirectToAction("Index", "Planner", new { date = selectedDate });
 }
-}
+
 
 
         

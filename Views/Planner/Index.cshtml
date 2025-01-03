@@ -290,82 +290,92 @@
                         <th class="action-col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @* We'll create a list of half-hour increments from 8:00 to 20:00 *@
-                    @{
-                        var timeSlots = Enumerable.Range(8, 13) // 8 through 20 is 13 hours
-                            .SelectMany(h => new[] { (h, 0), (h, 30) })
-                            .ToList(); // e.g. (8,0), (8,30), (9,0), (9,30)...
+             <tbody>
+@{
+    // We have half-hour increments from 8:00 to 8:00 PM
+    var timeSlots = Enumerable.Range(8, 13)
+        .SelectMany(h => new[] { (h, 0), (h, 30) })
+        .ToList();
 
-                        // Helper function to format times
-                        string FormatTime(int hour, int minute)
-                        {
-                            // Convert to 12-hour format
-                            int displayHour = hour % 12;
-                            if (displayHour == 0) displayHour = 12;
-                            string ampm = (hour < 12) ? "a.m." : "p.m.";
-                            return $"{displayHour}:{minute:D2} {ampm}";
-                        }
-                    }
+    string FormatTime(int hour, int minute)
+    {
+        int displayHour = hour % 12;
+        if (displayHour == 0) displayHour = 12;
+        string ampm = (hour < 12) ? "a.m." : "p.m.";
+        return $"{displayHour}:{minute:D2} {ampm}";
+    }
+}
 
-                    @foreach (var (hour, minute) in timeSlots)
-                    {
-                        // Attempt to find a scheduled task matching this hour/minute
-                        var scheduledTask = Model.DailySchedules?.FirstOrDefault(ds => ds.Hour == hour && ds.Minute == minute);
+@foreach (var (hour, minute) in timeSlots)
+{
+    var scheduledTask = Model.DailySchedules?
+        .FirstOrDefault(ds => ds.Hour == hour && ds.Minute == minute);
 
-                        <tr>
-                            <td class="time-col">@FormatTime(hour, minute)</td>
-                            <td class="assignment-col">
-                                @if (scheduledTask != null)
-                                {
-                                    <span class="assigned-task">@scheduledTask.Task.Name</span>
-                                }
-                                else
-                                {
-                                    <!-- Form to assign a task -->
-                                    <form method="post"
-                                          asp-action="AssignTaskToTime"
-                                          asp-controller="ToDo"
-                                          class="row g-2 align-items-center mb-0">
-                                        <input type="hidden" name="hour" value="@hour" />
-                                        <input type="hidden" name="minute" value="@minute" />
-                                        <input type="hidden" name="selectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
-                                        <div class="col-7">
-                                            <select name="taskId" class="form-select form-select-sm bg-dark text-light border-secondary">
-                                                <option value="">-- Select Task --</option>
-                                                @foreach (var task in Model.TodayTasks)
-                                                {
-                                                    <option value="@task.Id">@task.Name</option>
-                                                }
-                                            </select>
-                                        </div>
-                                        <div class="col-5 d-grid">
-                                            <button type="submit" class="btn btn-sm custom-complete-btn fw-semibold">
-                                                Assign
-                                            </button>
-                                        </div>
-                                    </form>
-                                }
-                            </td>
-                            <td class="action-col">
-                                @if (scheduledTask != null)
-                                {
-                                    <form method="post"
-                                          asp-action="UnassignTask"
-                                          asp-controller="ToDo"
-                                          class="d-inline">
-                                        <input type="hidden" name="taskId" value="@scheduledTask.Task.Id" />
-                                        <input type="hidden" name="hour" value="@hour" />
-                                        <input type="hidden" name="minute" value="@minute" />
-                                        <button type="submit" class="btn btn-sm custom-delete-btn">
-                                            Unassign
-                                        </button>
-                                    </form>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
+    <tr>
+        <td class="time-col">@FormatTime(hour, minute)</td>
+        <td class="assignment-col">
+            @if (scheduledTask != null)
+            {
+                <span class="assigned-task">@scheduledTask.Task.Name</span>
+            }
+            else
+            {
+                <!-- Form to assign a task -->
+                <form method="post"
+                      asp-action="AssignTaskToTime"
+                      asp-controller="ToDo"
+                      class="row g-2 align-items-center mb-0">
+                    <!-- Hidden fields for Hour, Minute, Selected Date -->
+                    <input type="hidden" name="hour" value="@hour" />
+                    <input type="hidden" name="minute" value="@minute" />
+                    <input type="hidden" name="selectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+
+                    <!-- 1) Dropdown for existing tasks -->
+                    <div class="col-12 col-sm-6">
+                        <select name="taskId" class="form-select form-select-sm bg-dark text-light border-secondary">
+                            <option value="">-- Select Existing Task --</option>
+                            @foreach (var task in Model.TodayTasks)
+                            {
+                                <option value="@task.Id">@task.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- 2) OR a new task name -->
+                    <div class="col-12 col-sm-6">
+                        <input type="text"
+                               name="newTaskName"
+                               class="form-control form-control-sm bg-dark text-light border-secondary"
+                               placeholder="Or new task name..." />
+                    </div>
+
+                    <div class="col-12 d-grid mt-2">
+                        <button type="submit" class="btn btn-sm custom-bills-btn fw-semibold">
+                            Assign
+                        </button>
+                    </div>
+                </form>
+            }
+        </td>
+        <td class="action-col">
+            @if (scheduledTask != null)
+            {
+                <form method="post"
+                      asp-action="UnassignTask"
+                      asp-controller="ToDo"
+                      class="d-inline">
+                    <input type="hidden" name="taskId" value="@scheduledTask.Task.Id" />
+                    <input type="hidden" name="hour" value="@hour" />
+                    <input type="hidden" name="minute" value="@minute" />
+                    <button type="submit" class="btn btn-sm custom-delete-btn">
+                        Unassign
+                    </button>
+                </form>
+            }
+        </td>
+    </tr>
+}
+</tbody>
             </table>
         </div>
     </div>

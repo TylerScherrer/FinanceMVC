@@ -30,7 +30,20 @@ public async Task<List<ToDoItem>> GetTodayTasksAsync()
 
 
 
+    public async Task AssignTaskToTimeAsync(int taskId, int hour, DateTime date, int minute)
+    {
+        // Your existing logic goes here, e.g. create a new DailySchedule:
+        var schedule = new DailySchedule
+        {
+            TaskId = taskId,
+            Hour = hour,
+            Minute = minute, // <-- Using the new parameter
+            Date = date.Date
+        };
 
+        _context.DailySchedules.Add(schedule);
+        await _context.SaveChangesAsync();
+    }
 
 
 
