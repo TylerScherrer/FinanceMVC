@@ -1,0 +1,674 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 1050;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  max-height: 200px; /* Limit height to 200px */
+  overflow-y: auto; /* Add scrolling for overflow */
+}
+
+.dropdown-menu .dropdown-item {
+  color: #fff;
+  transition: background-color 0.2s ease-in-out;
+}
+.dropdown-menu .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.card {
+  position: relative;
+  overflow: visible;
+}
+
+/* Add spacing below "Your Budgets" cards */
+#budgets-section {
+  margin-bottom: 2rem; /* Adjust spacing as needed */
+}
+
+/* Ensure dropdown is always above other elements */
+.dropdown-menu .dropdown-item {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem; /* Adjust font size */
+}
+
+
+/* Add margin to "Organize My Day" */
+#organize-my-day-section {
+  margin-top: 2rem; /* Create space above the section */
+}
+/* General Page Background */
+body, .container-fluid {
+  background-color: #1c1c1e !important; /* Dark gray background */
+  color: #f0f0f0; /* Light text */
+}
+
+/* Cards */
+.card {
+  background-color: #2c2c2e !important; /* Slightly lighter dark gray */
+  border: none;
+  border-radius: 8px;
+}
+
+.card-header {
+  background-color: #3c3c3e !important; /* Header background */
+  color: #f0f0f0;
+}
+
+/* Tables */
+.table {
+  background-color: #2c2c2e;
+  color: #f0f0f0;
+}
+
+.table thead {
+  background-color: #3c3c3e;
+  color: #f0f0f0;
+}
+
+.table tbody tr {
+  background-color: #2c2c2e;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #1c1c1e;
+}
+
+.table-bordered td, .table-bordered th {
+  border-color: #4c4c4e;
+}
+
+/* Buttons */
+.btn-outline-primary {
+  color: #6cb2eb;
+  border-color: #6cb2eb;
+}
+
+.btn-outline-primary:hover {
+  background-color: #6cb2eb;
+  color: #fff;
+}
+
+.btn-outline-warning {
+  color: #ffca28;
+  border-color: #ffca28;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffca28;
+  color: #fff;
+}
+
+.btn-outline-danger {
+  color: #f86c6b;
+  border-color: #f86c6b;
+}
+
+.btn-outline-danger:hover {
+  background-color: #f86c6b;
+  color: #fff;
+}
+
+.btn-outline-info {
+  color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.btn-outline-info:hover {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+/* Collapsible Rows */
+.collapse {
+  background-color: #2c2c2e;
+  color: #f0f0f0;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* Alerts */
+.alert {
+  background-color: #3c3c3e;
+  color: #f0f0f0;
+  border: none;
+}
+/* Ensure background for cards matches the design */
+.card {
+    background-color: #121212 !important; /* Ensure it stays dark */
+    color: #f8f9fa !important; /* White text */
+}
+
+
+/* Ensure sidebar-link styles are consistent */
+.sidebar-link {
+  color: #ccc; /* Light gray */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sidebar-link:hover {
+  color: #fff; /* White on hover */
+}
+.glass-panel {
+  background: rgba(255, 255, 255, 0.07); /* Subtle transparency */
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+/* Styling for the task date */
+.task-date {
+  color: #b3b3b3; /* Light gray for better contrast */
+  font-size: 0.85rem; /* Optional: Adjust font size for readability */
+  opacity: 1; /* Ensure full opacity */
+}
+.task-text {
+  color: #ffffff; /* Bright white for maximum contrast */
+  font-weight: bold;
+}
+.task-date {
+  color: #cccccc; /* Light gray for contrast with white */
+  font-style: italic;
+}
+/* Ensure highlighted text appears white */
+.text-highlight {
+  color: #fff !important; /* Set text color to white */
+  background-color: transparent !important; /* Remove any unwanted background */
+  text-decoration: none; /* Optional: remove underline for links if applicable */
+}
+.table-dark {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: none; /* Remove default borders */
+  font-size: 0.9rem; /* Adjust font size */
+  font-family: Arial, sans-serif; /* Change font family */
+}
+input::placeholder {
+  color: white !important;
+  opacity: 1; /* Makes placeholder fully visible */
+}
+/* General styling for all input[type="date"] */
+form input[type="date"] {
+  color: #fff !important; /* Ensure text is white */
+  background-color: transparent !important; /* Ensure background is transparent */
+  border: 1px solid lightgray !important; /* Ensure border is visible */
+}
+
+
+/* For placeholder text */
+input[type="date"]::placeholder {
+  color: #fff !important; /* Ensure placeholder is white */
+}
+
+/* For calendar picker icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Makes the calendar icon white */
+}
+
+
+.card .text-muted {
+  color: #ffffff !important; /* Set color to white */
+}
+
+
+
+.custom-sidebar {
+  width: 230px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #02020249, #0000008f); /* Elegant gradient */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  box-shadow: 3px 0 15px rgba(0, 0, 0, 0.4);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Sidebar 3D Effect */
+.custom-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  z-index: 0;
+  transform: skewY(-5deg);
+  transform-origin: top right;
+  pointer-events: none;
+}
+
+/* Sidebar Title */
+.sidebar-title {
+  font-size: 1.8rem;
+  color: #ffffff; /* Ice blue */
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+/* Sidebar Links */
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 1;
+}
+
+.sidebar-links .nav-link {
+  color: #e5e9f0; /* Light gray */
+  border-color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.8rem 8rem;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-links .nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, #afafaf, #6d6d6d6b); /* Highlight gradient */
+  transition: all 0.3s ease;
+  z-index: 0;
+}
+
+.sidebar-links .nav-link:hover::before {
+  left: 0;
+}
+
+.sidebar-links .nav-link span {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar-links .nav-link i {
+  font-size: 1.2rem;
+  color: #88c0d0;
+}
+
+/* Active Link Styling */
+.sidebar-links .nav-link.active {
+  background: linear-gradient(120deg, #0067c7, #1100fc85); /* Active gradient */
+  color: #ffffff; /* Dark text */
+  font-weight: bold;
+}
+
+/* Footer */
+.footer-text {
+  margin-top: auto;
+  color: #b1b1b1; /* Subtle gray */
+  font-size: 0.9rem;
+  text-align: center;
+  z-index: 1;
+}
+
+/* Hover Glow Effect */
+.sidebar-links .nav-link:hover {
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(88, 144, 255, 0.5); /* Glow effect */
+  transform: scale(1.05); /* Subtle zoom */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .custom-sidebar {
+    width: 200px;
+    padding: 1rem;
+  }
+
+  .sidebar-title {
+    font-size: 1.4rem;
+  }
+
+  .sidebar-links .nav-link {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+}
+
+
+/* Footer Text */
+.footer-text {
+  margin-top: auto;
+  font-size: 0.9rem;
+  color: #aaaaaa; /* Subtle gray */
+}
+.task-name {
+  color: #4dff91; /* Change to your desired color (e.g., yellow) */
+  font-weight: bold; /* Ensure bold styling */
+  font-size: 1.2rem; /* Adjust font size if needed */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Add a subtle shadow */
+}
+
+
+.custom-delete-btn,
+.custom-complete-btn,
+.custom-move-btn,
+.custom-create-btn,
+.custom-bills-btn,
+.custom-view-btn,
+.custom-edit-btn {
+  background-color: transparent;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* DELETE (Red) */
+.custom-delete-btn {
+  color: #ff5f57;
+  border: 1px solid #ff5f57;
+  background: linear-gradient(135deg, #fc03039f, rgba(104, 0, 17, 0.822));
+}
+
+.custom-delete-btn:hover {
+  box-shadow: 0 4px 15px rgba(105, 0, 0, 0.6);
+  transform: translateY(-3px);
+}
+.custom-delete-btn:active {
+  transform: translateY(0);
+}
+
+
+/* COMPLETE (Blue) */
+.custom-complete-btn {
+  color: #00a2ff;
+  border: 1px solid #00a2ff;
+  background: linear-gradient(135deg, #0990ff63, #0990ff42);
+}
+.custom-complete-btn:hover {
+  box-shadow: 0 4px 15px rgba(1, 0, 46, 0.6);
+  transform: translateY(-3px);
+}
+.custom-complete-btn:active {
+  transform: translateY(0);
+}
+
+
+
+
+
+
+
+
+
+
+/* MOVE (Purple) */
+.custom-move-btn {
+  color: #be4fffdc;
+  border: 1px solid #be4fffdc;
+  background: linear-gradient(135deg, #be4fff62, rgba(173, 2, 159, 0.473));
+}
+.custom-move-btn:hover {
+  box-shadow: 0 4px 15px rgba(133, 0, 111, 0.6);
+  transform: translateY(-3px);
+}
+.custom-move-btn:active {
+  transform: translateY(0);
+}
+
+/* CREATE (Indigo) */
+.custom-create-btn {
+  color: #028dff;
+  border: 1px solid #028dff;
+  background: linear-gradient(135deg, #023dff79, rgba(5, 111, 250, 0.212));
+}
+.custom-create-btn:hover {
+  box-shadow: 0 4px 15px rgba(1, 47, 201, 0.6);
+  transform: translateY(-3px);
+}
+.custom-create-btn:active {
+  transform: translateY(0);
+}
+
+/* BILLS (Green) */
+.custom-bills-btn {
+  color: #05f154c7;
+  border: 1px solid #05f154c7;
+  background: linear-gradient(135deg, #069e3977, rgba(14, 221, 14, 0.562));
+}
+.custom-bills-btn:hover {
+  box-shadow: 0 4px 15px rgba(6, 158, 57, 0.6);
+  transform: translateY(-3px);
+}
+.custom-bills-btn:active {
+  transform: translateY(0);
+}
+
+
+/* VIEW (Deep Purple) */
+.custom-view-btn {
+  color: #be4fffdc;
+  border: 1px solid #be4fffdc;
+  background: linear-gradient(135deg, #be4fff62, rgba(173, 2, 159, 0.473));
+}
+.custom-view-btn:hover {
+  box-shadow: 0 4px 15px rgba(154, 2, 255, 0.6);
+  transform: translateY(-3px);
+}
+.custom-view-btn:active {
+  transform: translateY(0);
+}
+
+/* EDIT (Yellow) */
+.custom-edit-btn {
+  color: #fff34fdc;
+  border: 1px solid #fff34fdc;
+  background: linear-gradient(135deg, #fae10377, rgba(143, 129, 0, 0.363));
+}
+.custom-edit-btn:hover {
+  box-shadow: 0 4px 15px rgba(250, 225, 3, 0.6);
+  transform: translateY(-3px);
+}
+.custom-edit-btn:active {
+  transform: translateY(0);
+}
+
+/* Style for the card container */
+.upcoming-tasks-card {
+  background: linear-gradient(135deg, #2c2c2c, #1a1a1a); /* Subtle dark gradient */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Soft border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Add a shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+}
+
+
+
+/* Style for the card header */
+/* Specific styles for upcoming tasks header */
+.upcoming-tasks-header {
+  color: white !important; /* Change the color to green (or any desired color) */
+  font-weight: bold;
+  text-shadow: none; /* Remove any shadow causing a blue tint */
+  border-bottom: 2px solid#ffffff; /* Divider line */
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+
+
+/* Style for the list items */
+.upcoming-tasks-list {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+.upcoming-tasks-item {
+  background-color: transparent; /* Transparent background */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Soft divider */
+  padding: 10px 15px; /* Add padding for spacing */
+  color: #4dff91; /* Light gray text */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.upcoming-tasks-item:hover {
+  background-color: rgba(0, 188, 212, 0.1); /* Highlighted background on hover */
+  color: #fff; /* White text on hover */
+}
+
+/* Style for the task name */
+.task-name {
+  font-weight: bold; /* Make task name bold */
+  color: #4dff91; /* White color for task name */
+}
+
+/* Style for the task date and time */
+.task-details {
+  font-size: 0.9rem; /* Slightly smaller font size */
+  color: #aaa; /* Muted gray for date and time */
+}
+.custom-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff; /* Default text color */
+  border-radius: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Style for completed tasks */
+.custom-badge-completed {
+  background-color: #28a745; /* Green */
+  background-color: transparent;
+  box-shadow: 0 0 8px rgb(0, 255, 60); /* Subtle green glow */
+}
+
+/* Style for pending tasks */
+.custom-badge-pending {
+  color: #e5ff00; /* Yellow */
+  background-color: transparent;
+  color: #ffffff; /* Dark text for contrast */
+  box-shadow: 0 0 8px #e5ff00; /* Subtle yellow glow */
+}
+
+/* Hover effect for badges */
+.custom-badge:hover {
+  transform: scale(1.1); /* Slightly increase size */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Glow effect */
+}
+/* Style for table rows */
+.table tr {
+  border-bottom: 1px solid rgb(255, 255, 255); /* Subtle line between rows */
+}
+
+/* Style for table header */
+.table thead th {
+  color: #f8f9fa; /* Lighter text for headers */
+  font-family: 'Roboto', sans-serif;
+
+  font-size: 1.1rem; /* Slightly larger text */
+  font-weight: bold;
+  text-transform: uppercase; /* Make header text uppercase */
+  letter-spacing: 0.5px; /* Slight spacing for elegance */
+  background-color: #343a40; /* Dark background for contrast */
+  border-bottom: 2px solid #495057; /* Bold separator for header */
+  padding: 10px;
+}
+
+/* Style for table cells */
+.table td {
+  color: #d1d1d1; /* Soft white text */
+  font-family: 'Roboto', sans-serif;
+
+  font-size: 1rem; /* Standard text size */
+  font-weight: 500; /* Medium weight */
+  padding: 12px 10px; /* Add padding for readability */
+  transition: all 0.3s ease-in-out; /* Smooth transitions for hover effects */
+}
+
+/* Add hover effect to rows */
+.table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.1); /* Slight background change on hover */
+  color: #fff; /* Brighten text color */
+}
+
+/* Add a subtle shadow effect to text */
+.table td, .table thead th {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Soft shadow */
+}
+
+/* Style for task names */
+.table td:first-child {
+  font-weight: bold; /* Highlight task names */
+  color: #ffffff; /* Soft green for task names */
+  font-size: 1.05rem; /* Slightly larger text */
+}
+
+/* Add focus effect for active row */
+.table tr:focus-within td {
+  background-color: #023dffc7; /* Highlight active row */
+  color: #ffffff; /* Green text for active row */
+  outline: none; /* Remove default outline */
+}
+.large-header {
+  font-size: 2rem; /* Adjust the size as needed */
+  font-weight: bold;
+  margin-bottom: 20px; /* Maintain consistent spacing */
+}
+
+.text-header {
+color: white
+}
+
+.text-white{
+  color: white
+  }
+
+.text-blue{
+    color: rgb(0, 107, 247)
+    }

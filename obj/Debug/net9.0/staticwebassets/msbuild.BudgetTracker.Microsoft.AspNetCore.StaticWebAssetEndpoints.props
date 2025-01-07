@@ -4,13 +4,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\BudgetTracker.h7rkv0pu5l.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Q6pZrmJ72tjyy4laFAsuGSs14alHFBCehIZFxiNTCBA="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1135"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Q6pZrmJ72tjyy4laFAsuGSs14alHFBCehIZFxiNTCBA=\u0022"},{"Name":"Last-Modified","Value":"Fri, 03 Jan 2025 05:24:11 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1135"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Q6pZrmJ72tjyy4laFAsuGSs14alHFBCehIZFxiNTCBA=\u0022"},{"Name":"Last-Modified","Value":"Mon, 06 Jan 2025 23:56:40 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BudgetTracker/BudgetTracker.h7rkv0pu5l.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\BudgetTracker.h7rkv0pu5l.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"h7rkv0pu5l"},{"Name":"integrity","Value":"sha256-Q6pZrmJ72tjyy4laFAsuGSs14alHFBCehIZFxiNTCBA="},{"Name":"label","Value":"_content/BudgetTracker/BudgetTracker.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1135"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Q6pZrmJ72tjyy4laFAsuGSs14alHFBCehIZFxiNTCBA=\u0022"},{"Name":"Last-Modified","Value":"Fri, 03 Jan 2025 05:24:11 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1135"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Q6pZrmJ72tjyy4laFAsuGSs14alHFBCehIZFxiNTCBA=\u0022"},{"Name":"Last-Modified","Value":"Mon, 06 Jan 2025 23:56:40 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BudgetTracker/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
