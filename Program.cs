@@ -4,34 +4,31 @@ using BudgetTracker.Services;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllersWithViews();
+
+// Register scoped services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IBudgetService, BudgetService>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<IToDoService, ToDoService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IBillService, BillService>();
-builder.Services.AddScoped<IBillService, BillService>();
 
-
-
-
-
-// Register the database context with SQLite
-// Add services to the container.
-// Configure services
+// Configure MySQL database context with retry logic
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 27)) // Adjust MySQL version as needed
+        new MySqlServerVersion(new Version(8, 0, 27)), // Replace with your MySQL version
+        mysqlOptions => mysqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5, // Retry up to 5 times
+            maxRetryDelay: TimeSpan.FromSeconds(10), // Wait up to 10 seconds between retries
+            errorNumbersToAdd: null // Add MySQL error codes if needed
+        )
     )
 );
-
-
 
 var app = builder.Build();
 

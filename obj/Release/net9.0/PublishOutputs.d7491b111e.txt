@@ -1,6 +1,12 @@
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\BudgetTracker.exe
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\publish\web.config
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\appsettings.Development.json
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\appsettings.json
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\publish\appsettings.Development.json
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\publish\appsettings.json
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\publish\BudgetTracker.deps.json
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\publish\BudgetTracker.runtimeconfig.json
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\publish\BudgetTracker.staticwebassets.endpoints.json
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\BudgetTracker.dll
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\BudgetTracker.deps.json
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\bin\Release\net9.0\publish\BudgetTracker.runtimeconfig.json

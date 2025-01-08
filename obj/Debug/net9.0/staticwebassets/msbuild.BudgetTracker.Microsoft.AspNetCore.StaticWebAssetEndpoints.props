@@ -12,6 +12,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"h7rkv0pu5l"},{"Name":"integrity","Value":"sha256-Q6pZrmJ72tjyy4laFAsuGSs14alHFBCehIZFxiNTCBA="},{"Name":"label","Value":"_content/BudgetTracker/BudgetTracker.bundle.scp.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1135"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Q6pZrmJ72tjyy4laFAsuGSs14alHFBCehIZFxiNTCBA=\u0022"},{"Name":"Last-Modified","Value":"Mon, 06 Jan 2025 23:56:40 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/BudgetTracker/certs/BaltimoreCyberTrustRoot.crt.84dbq6pisv.pem">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\certs\BaltimoreCyberTrustRoot.crt.pem'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"84dbq6pisv"},{"Name":"integrity","Value":"sha256-KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU\u002BUU="},{"Name":"label","Value":"_content/BudgetTracker/certs/BaltimoreCyberTrustRoot.crt.pem"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1262"},{"Name":"Content-Type","Value":"application/octet-stream"},{"Name":"ETag","Value":"\u0022KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU\u002BUU=\u0022"},{"Name":"Last-Modified","Value":"Wed, 08 Jan 2025 05:01:07 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/BudgetTracker/certs/BaltimoreCyberTrustRoot.crt.pem">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\certs\BaltimoreCyberTrustRoot.crt.pem'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU\u002BUU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1262"},{"Name":"Content-Type","Value":"application/octet-stream"},{"Name":"ETag","Value":"\u0022KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU\u002BUU=\u0022"},{"Name":"Last-Modified","Value":"Wed, 08 Jan 2025 05:01:07 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BudgetTracker/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

@@ -301,6 +301,88 @@
       ]
     },
     {
+      "Route": "certs/BaltimoreCyberTrustRoot.crt.84dbq6pisv.pem",
+      "AssetFile": "certs/BaltimoreCyberTrustRoot.crt.pem",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1262"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU+UU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 08 Jan 2025 05:01:07 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "84dbq6pisv"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU+UU="
+        },
+        {
+          "Name": "label",
+          "Value": "certs/BaltimoreCyberTrustRoot.crt.pem"
+        }
+      ]
+    },
+    {
+      "Route": "certs/BaltimoreCyberTrustRoot.crt.pem",
+      "AssetFile": "certs/BaltimoreCyberTrustRoot.crt.pem",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1262"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU+UU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 08 Jan 2025 05:01:07 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU+UU="
+        }
+      ]
+    },
+    {
       "Route": "css/site.css",
       "AssetFile": "css/site.css.gz",
       "Selectors": [
