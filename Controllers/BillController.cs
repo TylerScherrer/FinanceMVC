@@ -133,6 +133,49 @@ public async Task<IActionResult> MarkAsPaid(int id, int budgetId)
     return RedirectToAction("ViewBills", new { budgetId });
 }
 
+[HttpGet]
+public async Task<IActionResult> Edit(int id)
+{
+    try
+    {
+        var bill = await _billService.GetBillByIdAsync(id);
+        if (bill == null)
+        {
+            TempData["Error"] = "Bill not found.";
+            return RedirectToAction("Index", "Budget");
+        }
+
+        return View(bill); // Pass the bill to the Edit view
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error loading edit page: {ex.Message}");
+        TempData["Error"] = "An error occurred while loading the edit page.";
+        return RedirectToAction("Index", "Budget");
+    }
+}
+
+[HttpPost]
+public async Task<IActionResult> Edit(Bill bill)
+{
+    if (!ModelState.IsValid)
+    {
+        // If validation fails, return to the Edit page with validation messages
+        return View(bill);
+    }
+
+    try
+    {
+        await _billService.UpdateBillAsync(bill); // Update the bill
+        return RedirectToAction("ViewBills", new { budgetId = bill.BudgetId });
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error updating bill: {ex.Message}");
+        ModelState.AddModelError("", "An error occurred while updating the bill.");
+        return View(bill);
+    }
+}
 
 
 
