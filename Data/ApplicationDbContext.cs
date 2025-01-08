@@ -43,7 +43,7 @@ namespace BudgetTracker.Data
     if (!optionsBuilder.IsConfigured)
     {
         optionsBuilder.UseMySql(
-            "Server=fitnessserver.mysql.database.azure.com;Port=3306;Database=budget;Uid=TylerS00;Pwd=Blink182!;SslMode=VerifyCA;SslCa=C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\certs\\BaltimoreCyberTrustRoot.crt.pem;",
+            "Server=fitnessserver.mysql.database.azure.com;Port=3306;Database=budget;Uid=TylerS00;Pwd=Blink182!;SslMode=VerifyCA;SslCa=/home/site/wwwroot/certs/BaltimoreCyberTrustRoot.crt.pem;",
             new MySqlServerVersion(new Version(8, 0, 28)),
             options => options.EnableRetryOnFailure()
         );
