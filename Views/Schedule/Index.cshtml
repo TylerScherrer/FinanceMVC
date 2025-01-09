@@ -274,11 +274,15 @@ else
                                     @foreach (var task in Model.FarthestTasks)
                                     {
 <li class="list-group-item bg-transparent text-light border-bottom">
-    <strong>@task.Name</strong>
-    <p class="text-muted">
-        Date: @task.StartDate.ToShortDateString() - @task.EndDate.ToShortDateString()<br />
-        Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)
-    </p>
+                <strong class="text-white">@task.Name</strong><br />
+                <span class="text-white">
+                    Date: @task.StartDate.ToShortDateString() - @task.EndDate.ToShortDateString()<br />
+                    Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)
+                </span>
+                <form method="post" asp-action="DeleteTask" asp-controller="Schedule" class="mt-1">
+                    <input type="hidden" name="id" value="@task.Id" />
+                    <button type="submit" class="custom-delete-btn">Delete</button>
+                </form>
 </li>
 
                                     }
