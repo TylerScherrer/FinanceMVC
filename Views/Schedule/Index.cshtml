@@ -151,24 +151,29 @@
                             <h4 class="fw-bold mb-3 text-header">
                                 <i class="fas fa-plus-circle me-2"></i>Add a New Task
                             </h4>
-                            <form method="post" asp-action="AddTask" asp-controller="Schedule" class="row g-2">
-                                <div class="col-md-4">
-                                    <input type="text" name="Name" 
-                                           class="form-control bg-transparent text-light border-light" 
-                                           placeholder="Task Name" required />
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="date" name="Date" 
-                                           class="form-control bg-transparent text-light border-light" required />
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="time" name="Time" 
-                                           class="form-control bg-transparent text-light border-light" required />
-                                </div>
-                                <div class="col-md-2 d-grid">
-                                    <button type="submit" class="custom-create-btn">Add</button>
-                                </div>
-                            </form>
+                          <form method="post" asp-action="AddTask" asp-controller="Schedule" class="row g-2">
+    <div class="col-md-4">
+        <input type="text" name="Name" 
+               class="form-control bg-transparent text-light border-light" 
+               placeholder="Task Name" required />
+    </div>
+    <div class="col-md-3">
+        <input type="date" name="StartDate" 
+               class="form-control bg-transparent text-light border-light" required />
+    </div>
+    <div class="col-md-3">
+        <input type="date" name="EndDate" 
+               class="form-control bg-transparent text-light border-light" required />
+    </div>
+    <div class="col-md-2">
+        <input type="time" name="Time" 
+               class="form-control bg-transparent text-light border-light" required />
+    </div>
+    <div class="col-md-2 d-grid">
+        <button type="submit" class="custom-create-btn">Add</button>
+    </div>
+</form>
+
                         </div>
                     </div>
 
@@ -196,21 +201,23 @@
                     @if (Model.CurrentWeekTasks.Any())
                     {
                         <div class="row row-cols-1 row-cols-md-2 g-3">
-                            @foreach (var task in Model.CurrentWeekTasks)
-                            {
-                                <div class="col">
-                                    <div class="card glass-panel h-100 text-light">
-                                        <div class="card-body d-flex flex-column">
-                                            <h5 class="fw-bold">@task.Name</h5>
-                                            <p class="text-muted">Date: @task.Date.ToShortDateString()</p>
-                                            <p class="text-muted">Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</p>
-                                            <form method="post" asp-action="DeleteTask" asp-controller="Schedule">
-                                                <input type="hidden" name="id" value="@task.Id" />
-                                                <button type="submit" class="custom-delete-btn">Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+@foreach (var task in Model.CurrentWeekTasks)
+{
+    <div class="col">
+        <div class="card glass-panel h-100 text-light">
+            <div class="card-body d-flex flex-column">
+                <h5 class="fw-bold">@task.Name</h5>
+                <p class="text-muted">Date: @task.StartDate.ToShortDateString() - @task.EndDate.ToShortDateString()</p>
+                <p class="text-muted">Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</p>
+                <form method="post" asp-action="DeleteTask" asp-controller="Schedule">
+                    <input type="hidden" name="id" value="@task.Id" />
+                    <button type="submit" class="custom-delete-btn">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
                             }
                         </div>
                     }
@@ -233,17 +240,18 @@
                                 <ul class="upcoming-tasks-list">
                                     @foreach (var task in Model.UpcomingWeekTasks)
                                     {
-                                        <li class="upcoming-tasks-item mb-2">
-                                            <strong class="text-white">@task.Name</strong><br />
-                                            <span class="text-white">
-                                                Date: @task.Date.ToShortDateString()<br />
-                                                Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)
-                                            </span>
-                                            <form method="post" asp-action="DeleteTask" asp-controller="Schedule" class="mt-1">
-                                                <input type="hidden" name="id" value="@task.Id" />
-                                                <button type="submit" class="custom-delete-btn">Delete</button>
-                                            </form>
-                                        </li>
+<li class="upcoming-tasks-item mb-2">
+    <strong class="text-white">@task.Name</strong><br />
+    <span class="text-white">
+        Date: @task.StartDate.ToShortDateString() - @task.EndDate.ToShortDateString()<br />
+        Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)
+    </span>
+    <form method="post" asp-action="DeleteTask" asp-controller="Schedule" class="mt-1">
+        <input type="hidden" name="id" value="@task.Id" />
+        <button type="submit" class="custom-delete-btn">Delete</button>
+    </form>
+</li>
+
                                     }
                                 </ul>
                             }
@@ -265,13 +273,14 @@
                                 <ul class="list-group list-group-flush">
                                     @foreach (var task in Model.FarthestTasks)
                                     {
-                                        <li class="list-group-item bg-transparent text-light border-bottom">
-                                            <strong>@task.Name</strong>
-                                            <p class="text-muted">
-                                                Date: @task.Date.ToShortDateString()<br />
-                                                Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)
-                                            </p>
-                                        </li>
+<li class="list-group-item bg-transparent text-light border-bottom">
+    <strong>@task.Name</strong>
+    <p class="text-muted">
+        Date: @task.StartDate.ToShortDateString() - @task.EndDate.ToShortDateString()<br />
+        Time: @TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)
+    </p>
+</li>
+
                                     }
                                 </ul>
                             }
@@ -304,39 +313,40 @@
             label.textContent = `${monthNames[currentMonth]} ${currentYear}`;
         }
 
-        function generateCalendar(year, month, tasksArr) {
-            const calendar = document.getElementById('calendar');
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
+function generateCalendar(year, month, tasksArr) {
+    const calendar = document.getElementById('calendar');
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-            let calendarHTML = '<table class="calendar-table">';
-            calendarHTML += '<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>';
-            calendarHTML += '<tbody><tr>';
+    let calendarHTML = '<table class="calendar-table">';
+    calendarHTML += '<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>';
+    calendarHTML += '<tbody><tr>';
 
-            // Blank cells for days before the 1st
-            for (let i = 0; i < firstDay; i++) {
-                calendarHTML += '<td></td>';
-            }
+    // Blank cells for days before the 1st
+    for (let i = 0; i < firstDay; i++) {
+        calendarHTML += '<td></td>';
+    }
 
-            // Render days
-            for (let day = 1; day <= daysInMonth; day++) {
-                if ((firstDay + day - 1) % 7 === 0) {
-                    calendarHTML += '</tr><tr>';
-                }
-                const currentDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-                const hasTasks = tasksArr.includes(currentDate);
-
-                calendarHTML += `
-                    <td class="clickable ${hasTasks ? 'task-day' : ''}"
-                        onclick="selectDate(${year}, ${month}, ${day})">
-                        ${day}
-                    </td>
-                `;
-            }
-
-            calendarHTML += '</tr></tbody></table>';
-            calendar.innerHTML = calendarHTML;
+    // Render days
+    for (let day = 1; day <= daysInMonth; day++) {
+        if ((firstDay + day - 1) % 7 === 0) {
+            calendarHTML += '</tr><tr>';
         }
+        const currentDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        const hasTasks = tasksArr.includes(currentDate);
+
+        calendarHTML += `
+            <td class="clickable ${hasTasks ? 'task-day' : ''}"
+                onclick="selectDate(${year}, ${month}, ${day})">
+                ${day}
+            </td>
+        `;
+    }
+
+    calendarHTML += '</tr></tbody></table>';
+    calendar.innerHTML = calendarHTML;
+}
+
 
         function updateCalendar() {
             generateCalendar(currentYear, currentMonth, tasksByDate);
@@ -351,37 +361,37 @@
             // window.location.href = '/Schedule/DayDetail?date=' + dateStr;
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // We'll base our calendar on today's date for the initial view
-            const today = new Date();
-            currentYear = today.getFullYear();
-            currentMonth = today.getMonth();
+document.addEventListener('DOMContentLoaded', function () {
+    const today = new Date();
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth();
 
-            // This is the array of "YYYY-MM-DD" from all tasks
-            tasksByDate = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
-                Model.AllTaskDates.Select(d => d.ToString("yyyy-MM-dd"))
-            ));
+    // This is the array of "YYYY-MM-DD" for all tasks
+    tasksByDate = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+        Model.AllTaskDates.Select(d => d.ToString("yyyy-MM-dd"))
+    ));
 
+    // Generate the initial calendar
+    updateCalendar();
 
-            updateCalendar();
+    document.getElementById('prevMonth').addEventListener('click', () => {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        updateCalendar();
+    });
 
-            document.getElementById('prevMonth').addEventListener('click', () => {
-                currentMonth--;
-                if (currentMonth < 0) {
-                    currentMonth = 11;
-                    currentYear--;
-                }
-                updateCalendar();
-            });
+    document.getElementById('nextMonth').addEventListener('click', () => {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        updateCalendar();
+    });
+});
 
-            document.getElementById('nextMonth').addEventListener('click', () => {
-                currentMonth++;
-                if (currentMonth > 11) {
-                    currentMonth = 0;
-                    currentYear++;
-                }
-                updateCalendar();
-            });
-        });
     </script>
 }

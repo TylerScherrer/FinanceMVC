@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetTracker", "BudgetTracker.csproj", "{466FF56C-26B3-415E-9375-B32770BA5A5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetTracker", "BudgetTracker.csproj", "{98280416-E330-4661-AA65-B3F4DA63680C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{466FF56C-26B3-415E-9375-B32770BA5A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{466FF56C-26B3-415E-9375-B32770BA5A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{466FF56C-26B3-415E-9375-B32770BA5A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{466FF56C-26B3-415E-9375-B32770BA5A5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98280416-E330-4661-AA65-B3F4DA63680C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98280416-E330-4661-AA65-B3F4DA63680C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98280416-E330-4661-AA65-B3F4DA63680C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98280416-E330-4661-AA65-B3F4DA63680C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {EE8B3E8A-0DD5-4F7A-8D7A-C6349B8CD707}
+		SolutionGuid = {69E4B6FF-72E3-4D45-B8F3-3E6F0675721D}
 	EndGlobalSection
 EndGlobal

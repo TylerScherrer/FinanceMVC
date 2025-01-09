@@ -361,17 +361,17 @@
                                 </a>
                             </div>
                             <ul class="list-group list-group-flush">
-                                @if (Model.CurrentWeekTasks != null && Model.CurrentWeekTasks.Any())
-                                {
-                                    @foreach (var task in Model.CurrentWeekTasks)
-                                    {
-                                        <li class="list-group-item bg-transparent border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <span class="task-text">@task.Name</span>
-                                                <br />
-                                                <small class="task-date">@task.Date.ToShortDateString()</small>
-                                                <small class="text-muted">Time: @BudgetTracker.Helpers.TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</small>
-                                            </div>
+@if (Model.CurrentWeekTasks != null && Model.CurrentWeekTasks.Any())
+{
+    @foreach (var task in Model.CurrentWeekTasks)
+    {
+        <li class="list-group-item bg-transparent border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
+            <div>
+                <span class="task-text">@task.Name</span>
+                <br />
+                <small class="task-date">From: @task.StartDate.ToShortDateString() to @task.EndDate.ToShortDateString()</small>
+                <small class="text-muted">Time: @BudgetTracker.Helpers.TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</small>
+            </div>
                                             <form asp-action="DeleteScheduledTask"
                                                   asp-controller="Schedule"
                                                   method="post"
