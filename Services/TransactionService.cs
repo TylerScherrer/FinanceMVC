@@ -74,5 +74,40 @@ namespace BudgetTracker.Services
                 .Take(5) // Limit to the 5 most recent transactions
                 .ToListAsync();
         }
+
+public async Task UpdateTransactionAsync(Transaction updatedTransaction)
+{
+    var existingTransaction = await _context.Transactions.FindAsync(updatedTransaction.Id);
+    if (existingTransaction == null)
+    {
+        throw new InvalidOperationException("Transaction not found.");
+    }
+
+    // Normalize values
+    updatedTransaction.Amount = Math.Round(updatedTransaction.Amount, 2);
+    existingTransaction.Amount = Math.Round(existingTransaction.Amount, 2);
+
+    // Check for changes
+    if (updatedTransaction.Amount == existingTransaction.Amount)
+    {
+        throw new InvalidOperationException("Please make a change of at least 0.01 to the amount.");
+    }
+
+    // Update fields
+    existingTransaction.Description = updatedTransaction.Description;
+    existingTransaction.Amount = updatedTransaction.Amount;
+    existingTransaction.Date = updatedTransaction.Date;
+
+    await _context.SaveChangesAsync();
+}
+
+
+
+
+public async Task<Transaction> GetTransactionByIdAsync(int id)
+{
+    return await _context.Transactions.FindAsync(id);
+}
+
     }
 }

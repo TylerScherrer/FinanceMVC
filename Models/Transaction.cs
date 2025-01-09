@@ -9,9 +9,11 @@ namespace BudgetTracker.Models
         [Required]
         public string Description { get; set; }
 
-        [Required]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than zero.")]
-        public decimal Amount { get; set; }
+[Range(0.01, double.MaxValue, ErrorMessage = "Please enter a value greater than 0.")]
+[RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Please enter a valid amount with up to 2 decimal places.")]
+public decimal Amount { get; set; }
+
+
 
         [Required]
         public DateTime Date { get; set; } = DateTime.Now;

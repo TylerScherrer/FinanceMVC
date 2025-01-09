@@ -8,5 +8,7 @@ namespace BudgetTracker.Interfaces
         Task<Transaction> CreateTransactionAsync(Transaction transaction);
         Task DeleteTransactionAsync(int transactionId);
         Task<IEnumerable<Transaction>> GetRecentTransactionsAsync();
+         Task<Transaction> GetTransactionByIdAsync(int id); // For retrieving a transaction by its ID
+    Task UpdateTransactionAsync(Transaction transaction); // For updating a transaction
     }
 }

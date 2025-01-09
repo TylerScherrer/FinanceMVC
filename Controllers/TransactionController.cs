@@ -71,6 +71,53 @@ namespace BudgetTracker.Controllers
             ViewBag.CategoryId = categoryId;
             return View(transactions);
         }
+[HttpGet]
+public async Task<IActionResult> Edit(int id)
+{
+    var transaction = await _transactionService.GetTransactionByIdAsync(id);
+    if (transaction == null)
+    {
+        return NotFound();
+    }
+    return View(transaction);
+}
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(Transaction transaction)
+{
+    Console.WriteLine("[DEBUG] Received Transaction Data:");
+    Console.WriteLine($"[DEBUG] Transaction ID: {transaction.Id}");
+    Console.WriteLine($"[DEBUG] Description: {transaction.Description}");
+    Console.WriteLine($"[DEBUG] Amount: {transaction.Amount}");
+    Console.WriteLine($"[DEBUG] Date: {transaction.Date}");
+    Console.WriteLine($"[DEBUG] Category ID: {transaction.CategoryId}");
+
+    if (!ModelState.IsValid)
+    {
+        Console.WriteLine("[DEBUG] ModelState is invalid.");
+        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+        {
+            Console.WriteLine($"[DEBUG] ModelState Error: {error.ErrorMessage}");
+        }
+        return View(transaction);
+    }
+
+    try
+    {
+        await _transactionService.UpdateTransactionAsync(transaction);
+        Console.WriteLine("[DEBUG] Transaction updated successfully.");
+        return RedirectToAction("Details", "Category", new { id = transaction.CategoryId });
+    }
+    catch (InvalidOperationException ex)
+    {
+        Console.WriteLine($"[DEBUG] Exception: {ex.Message}");
+        ModelState.AddModelError(string.Empty, ex.Message);
+        return View(transaction);
+    }
+}
+
+
 
         
     }

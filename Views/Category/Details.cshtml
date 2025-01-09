@@ -28,7 +28,6 @@
                         <i class="fas fa-trash-alt me-1"></i>Delete Category
                     </button>
                 </form>
-                <!-- Return to Budget Button -->
                 <a class="btn custom-bills-btn" href="@Url.Action("Details", "Budget", new { id = Model.Budget.Id })">
                     <i class="fas fa-arrow-left me-1"></i>Return to Budget
                 </a>
@@ -44,6 +43,7 @@
                                 <th>Description</th>
                                 <th>Amount</th>
                                 <th>Date</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,6 +53,15 @@
                                     <td>@transaction.Description</td>
                                     <td>@transaction.Amount.ToString("C")</td>
                                     <td>@transaction.Date.ToShortDateString()</td>
+<td>
+    <a asp-action="Edit" asp-controller="Transaction" asp-route-id="@transaction.Id" class="btn custom-create-btn btn-sm me-2">
+        Edit
+    </a>
+    <form asp-action="Delete" asp-controller="Transaction" asp-route-id="@transaction.Id" method="post" class="d-inline">
+        <button type="submit" class="btn custom-delete-btn btn-sm">Delete</button>
+    </form>
+</td>
+
                                 </tr>
                             }
                         </tbody>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "s/HoH3kvoHBaV0rL+P3ui73L3NCzgX3sHr2ZxjO/pcQ=",
+  "Hash": "FvA/M7uOkBV4k3NxnWuKS84+SChHOdC2Tkh1uWWwUEg=",
   "Source": "BudgetTracker",
   "BasePath": "_content/BudgetTracker",
   "Mode": "Default",
@@ -1401,6 +1401,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Release\\net9.0\\scopedcss\\projectbundle\\BudgetTracker.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\certs\\BaltimoreCyberTrustRoot.crt.pem",
+      "SourceId": "BudgetTracker",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\",
+      "BasePath": "_content/BudgetTracker",
+      "RelativePath": "certs/BaltimoreCyberTrustRoot.crt#[.{fingerprint}]?.pem",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "84dbq6pisv",
+      "Integrity": "KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU+UU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\certs\\BaltimoreCyberTrustRoot.crt.pem"
     },
     {
       "Identity": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\css\\site.css",
@@ -3320,6 +3341,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-zBIM4cwdsG9m7tEOa6jc0ZhDg3L9/JmTyYdZsCsEghs="
+        }
+      ]
+    },
+    {
+      "Route": "certs/BaltimoreCyberTrustRoot.crt.84dbq6pisv.pem",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\certs\\BaltimoreCyberTrustRoot.crt.pem",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1262"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU+UU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 08 Jan 2025 05:01:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "84dbq6pisv"
+        },
+        {
+          "Name": "label",
+          "Value": "certs/BaltimoreCyberTrustRoot.crt.pem"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU+UU="
+        }
+      ]
+    },
+    {
+      "Route": "certs/BaltimoreCyberTrustRoot.crt.pem",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\certs\\BaltimoreCyberTrustRoot.crt.pem",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1262"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU+UU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 08 Jan 2025 05:01:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KFljsJaKIgQBnbNR710cl9cy8cTeANOuA16Jh8lU+UU="
         }
       ]
     },
