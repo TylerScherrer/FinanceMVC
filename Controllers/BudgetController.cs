@@ -26,31 +26,34 @@ namespace BudgetTracker.Controllers
 
         
         // In BudgetController
-        public async Task<IActionResult> Index()
-        {
-            var budgets = await _budgetService.GetAllBudgetsAsync();
-            var tasksForWeek = await _scheduleService.GetTasksForCurrentWeekAsync();
+public async Task<IActionResult> Index()
+{
+    var budgets = await _budgetService.GetAllBudgetsAsync();
+    var tasksForWeek = await _scheduleService.GetTasksForCurrentWeekAsync();
 
-            // Fetch today's tasks and daily schedules
-            var todayTasks = await _toDoService.GetTodayTasksAsync();
-            var dailySchedules = await _toDoService.GetDailySchedulesAsync();
+    // Fetch today's tasks and daily schedules
+    var todayTasks = await _toDoService.GetTodayTasksAsync();
+    var dailySchedules = await _toDoService.GetDailySchedulesAsync();
 
-            // Fetch bills for the current month
-            var currentMonth = DateTime.Now.Month;
-            var currentYear = DateTime.Now.Year;
-            var monthlyBills = await _billService.GetBillsForMonthAsync(currentMonth, currentYear);
+    // Fetch bills for the current month and sort by due date
+    var currentMonth = DateTime.Now.Month;
+    var currentYear = DateTime.Now.Year;
+    var monthlyBills = (await _billService.GetBillsForMonthAsync(currentMonth, currentYear))
+        .OrderBy(b => b.DueDate) // Ensure bills are sorted by due date
+        .ToList();
 
-            var viewModel = new BudgetWithTasksViewModel
-            {
-                Budgets = budgets,
-                CurrentWeekTasks = tasksForWeek,
-                TodayTasks = todayTasks,
-                DailySchedules = dailySchedules,
-                MonthlyBills = monthlyBills // Add bills for the month
-            };
+    var viewModel = new BudgetWithTasksViewModel
+    {
+        Budgets = budgets,
+        CurrentWeekTasks = tasksForWeek,
+        TodayTasks = todayTasks,
+        DailySchedules = dailySchedules,
+        MonthlyBills = monthlyBills // Add sorted bills for the month
+    };
 
-            return View(viewModel);
-        }
+    return View(viewModel);
+}
+
 
 
 
