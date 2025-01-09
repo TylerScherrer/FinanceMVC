@@ -246,6 +246,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .custom-sidebar {
   width: 230px;
+  border: 1px solid white; /* White border */
   min-height: 100vh;
   background: linear-gradient(135deg, #02020249, #0000008f); /* Elegant gradient */
   position: relative;
@@ -255,7 +256,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: center;
   padding: 2rem 1rem;
   box-shadow: 3px 0 15px rgba(0, 0, 0, 0.4);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgb(255, 255, 255);
 }
 
 /* Sidebar 3D Effect */
@@ -672,3 +673,29 @@ color: white
 .text-blue{
     color: rgb(0, 107, 247)
     }
+
+
+    .create-budget-title {
+      font-family: 'Merriweather', serif; /* Classic and elegant */
+      font-weight: bold; /* Makes the text bold */
+      color: #ffffff; /* Light text color */
+      font-size: 2.5rem; /* Adjust the size */
+      margin-bottom: 1rem; /* Add space below the text */
+      text-transform: capitalize; /* Optional: Capitalize text */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Optional: Add a shadow effect */
+  
+      /* Outline using text-stroke */
+      -webkit-text-stroke: 0.6px rgb(17, 17, 17); /* Red outline, 2px thick */
+  }
+  .create-header-title {
+    font-family: 'Merriweather', serif; /* Classic and elegant */
+    font-weight: bold; /* Makes the text bold */
+    color: #ffffff; /* Light text color */
+    font-size: 40rem; /* Adjust the size */
+    margin-bottom: 1rem; /* Add space below the text */
+    text-transform: capitalize; /* Optional: Capitalize text */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Optional: Add a shadow effect */
+
+    /* Outline using text-stroke */
+    -webkit-text-stroke: 0.6px rgb(17, 17, 17); /* Red outline, 2px thick */
+}
