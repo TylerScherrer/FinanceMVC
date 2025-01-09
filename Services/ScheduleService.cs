@@ -15,63 +15,70 @@ namespace BudgetTracker.Services
             _context = context;
         }
 
-        public async Task<ScheduleViewModel> GetScheduleAsync()
-        {
-            var currentDate = DateTime.Now;
-
-            // Get tasks for the current week
-            var currentWeekTasks = await _context.Tasks
-                .Where(t => t.StartDate <= currentDate.EndOfWeek() && t.EndDate >= currentDate.StartOfWeek())
-                .ToListAsync();
-
-            // Get tasks for the upcoming week
-            var upcomingWeekTasks = await _context.Tasks
-                .Where(t => t.StartDate > currentDate.EndOfWeek() && t.StartDate <= currentDate.AddDays(14).EndOfWeek())
-                .ToListAsync();
-
-            // Get tasks beyond the next two weeks
-            var farthestTasks = await _context.Tasks
-                .Where(t => t.StartDate > currentDate.AddDays(14).EndOfWeek())
-                .ToListAsync();
-
-            // Create and return the schedule view model
-            return new ScheduleViewModel
-            {
-                CurrentWeekTasks = currentWeekTasks,
-                UpcomingWeekTasks = upcomingWeekTasks,
-                FarthestTasks = farthestTasks
-            };
-        }
-
-        // Multi-day task
-        public async Task AddTaskAsync(string name, DateTime startDate, DateTime endDate, TimeSpan time)
-        {
-            if (startDate > endDate)
+public async Task<ScheduleViewModel> GetScheduleAsync()
 {
-    throw new ArgumentException("StartDate cannot be later than EndDate.");
+    var currentDate = DateTime.Now;
+
+    // Fetch all tasks from the database
+    var allTasks = await _context.Tasks.ToListAsync();
+
+    // Remove duplicates by grouping by task ID
+    allTasks = allTasks.GroupBy(t => t.Id)
+                       .Select(g => g.First())
+                       .ToList();
+
+    var startOfWeek = currentDate.StartOfWeek();
+    var endOfWeek = currentDate.EndOfWeek();
+
+    // Get tasks for the current week (including overlapping tasks)
+    var currentWeekTasks = allTasks
+        .Where(t => t.StartDate <= endOfWeek && t.EndDate >= startOfWeek)
+        .ToList();
+
+    // Get tasks for the upcoming week (next 7 days)
+    var upcomingWeekTasks = allTasks
+        .Where(t => t.StartDate > endOfWeek && t.StartDate <= endOfWeek.AddDays(7))
+        .ToList();
+
+    // Get tasks beyond the next two weeks
+    var farthestTasks = allTasks
+        .Where(t => t.StartDate > endOfWeek.AddDays(7))
+        .ToList();
+
+    return new ScheduleViewModel
+    {
+        CurrentWeekTasks = currentWeekTasks,
+        UpcomingWeekTasks = upcomingWeekTasks,
+        FarthestTasks = farthestTasks
+    };
 }
 
-            if (startDate > endDate)
-            {
-                throw new ArgumentException("Start date cannot be after the end date.");
-            }
 
-            // Add tasks for each day in the range
-            for (var date = startDate; date <= endDate; date = date.AddDays(1))
-            {
-                var newTask = new TaskItem
-                {
-                    Name = name,
-                    StartDate = startDate,
-                    EndDate = endDate,
-                    Time = time
-                };
 
-                _context.Tasks.Add(newTask);
-            }
 
-            await _context.SaveChangesAsync();
-        }
+        // Multi-day task
+// Multi-day task
+// Multi-day task
+public async Task AddTaskAsync(string name, DateTime startDate, DateTime endDate, TimeSpan time)
+{
+    if (startDate > endDate)
+        throw new ArgumentException("StartDate cannot be later than EndDate.");
+
+    // Add a single task with the full date range
+    var newTask = new TaskItem
+    {
+        Name = name,
+        StartDate = startDate,
+        EndDate = endDate,
+        Time = time
+    };
+
+    _context.Tasks.Add(newTask);
+    await _context.SaveChangesAsync();
+}
+
+
+
 
         // Single-day task with date and time
         public async Task AddTaskAsync(string name, DateTime date, TimeSpan time)

@@ -17,7 +17,6 @@ public HashSet<DateTime> AllTaskDates =>
 
 }
 
-
     public class TaskItem
     {
         public int Id { get; set; }
