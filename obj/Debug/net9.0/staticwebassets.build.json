@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "BbE3QZ++Qm8wpKn2qxNGxyklMqbY9G6UPmu6oil4xAQ=",
+  "Hash": "Xl6cApRQt4N7MROi8gN08m9VGISJrf0ezYttaVysNtY=",
   "Source": "BudgetTracker",
   "BasePath": "_content/BudgetTracker",
   "Mode": "Default",
@@ -458,12 +458,12 @@
       "OriginalItemSpec": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-was7n25vav.gz",
+      "Identity": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-jlis89zcxr.gz",
       "SourceId": "BudgetTracker",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/BudgetTracker",
-      "RelativePath": "css/site#[.{fingerprint=was7n25vav}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=jlis89zcxr}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -472,8 +472,8 @@
       "RelatedAsset": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "9yfyaxcnu7",
-      "Integrity": "v4xRsDiSOevCEcqIWxJswN9m5pPw2/SgiIkk/MeCFdM=",
+      "Fingerprint": "kc7spd0mr2",
+      "Integrity": "NKH7ZXgrmQUZFyIVKTSuYkc3AoJ3t7v71Cs7ZIZNDNg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\css\\site.css"
@@ -1438,8 +1438,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "was7n25vav",
-      "Integrity": "CFrz+cY1AnQJOQ6bddlm+p/2WOf2WFh6n4MomhcxV0o=",
+      "Fingerprint": "jlis89zcxr",
+      "Integrity": "J0koR5RU+RRgwkDpkcXxVcoZeWOGXDTgGGFnuUxPoeE=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -3428,12 +3428,12 @@
     },
     {
       "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-was7n25vav.gz",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-jlis89zcxr.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000224921278"
+          "Quality": "0.000225225225"
         }
       ],
       "ResponseHeaders": [
@@ -3443,15 +3443,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4445"
+          "Value": "4439"
         },
         {
           "Name": "ETag",
-          "Value": "\"v4xRsDiSOevCEcqIWxJswN9m5pPw2/SgiIkk/MeCFdM=\""
+          "Value": "\"NKH7ZXgrmQUZFyIVKTSuYkc3AoJ3t7v71Cs7ZIZNDNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 09 Jan 2025 23:42:10 GMT"
+          "Value": "Fri, 10 Jan 2025 05:06:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3471,13 +3471,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"CFrz+cY1AnQJOQ6bddlm+p/2WOf2WFh6n4MomhcxV0o=\""
+          "Value": "W/\"J0koR5RU+RRgwkDpkcXxVcoZeWOGXDTgGGFnuUxPoeE=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-CFrz+cY1AnQJOQ6bddlm+p/2WOf2WFh6n4MomhcxV0o="
+          "Value": "sha256-J0koR5RU+RRgwkDpkcXxVcoZeWOGXDTgGGFnuUxPoeE="
         }
       ]
     },
@@ -3500,11 +3500,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"CFrz+cY1AnQJOQ6bddlm+p/2WOf2WFh6n4MomhcxV0o=\""
+          "Value": "\"J0koR5RU+RRgwkDpkcXxVcoZeWOGXDTgGGFnuUxPoeE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 09 Jan 2025 23:42:10 GMT"
+          "Value": "Fri, 10 Jan 2025 05:06:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3514,13 +3514,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-CFrz+cY1AnQJOQ6bddlm+p/2WOf2WFh6n4MomhcxV0o="
+          "Value": "sha256-J0koR5RU+RRgwkDpkcXxVcoZeWOGXDTgGGFnuUxPoeE="
         }
       ]
     },
     {
       "Route": "css/site.css.gz",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-was7n25vav.gz",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-jlis89zcxr.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3529,7 +3529,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4445"
+          "Value": "4439"
         },
         {
           "Name": "Content-Type",
@@ -3537,11 +3537,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"v4xRsDiSOevCEcqIWxJswN9m5pPw2/SgiIkk/MeCFdM=\""
+          "Value": "\"NKH7ZXgrmQUZFyIVKTSuYkc3AoJ3t7v71Cs7ZIZNDNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 09 Jan 2025 23:42:10 GMT"
+          "Value": "Fri, 10 Jan 2025 05:06:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3559,18 +3559,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-v4xRsDiSOevCEcqIWxJswN9m5pPw2/SgiIkk/MeCFdM="
+          "Value": "sha256-NKH7ZXgrmQUZFyIVKTSuYkc3AoJ3t7v71Cs7ZIZNDNg="
         }
       ]
     },
     {
-      "Route": "css/site.was7n25vav.css",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-was7n25vav.gz",
+      "Route": "css/site.jlis89zcxr.css",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-jlis89zcxr.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000224921278"
+          "Quality": "0.000225225225"
         }
       ],
       "ResponseHeaders": [
@@ -3580,15 +3580,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4445"
+          "Value": "4439"
         },
         {
           "Name": "ETag",
-          "Value": "\"v4xRsDiSOevCEcqIWxJswN9m5pPw2/SgiIkk/MeCFdM=\""
+          "Value": "\"NKH7ZXgrmQUZFyIVKTSuYkc3AoJ3t7v71Cs7ZIZNDNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 09 Jan 2025 23:42:10 GMT"
+          "Value": "Fri, 10 Jan 2025 05:06:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3608,13 +3608,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"CFrz+cY1AnQJOQ6bddlm+p/2WOf2WFh6n4MomhcxV0o=\""
+          "Value": "W/\"J0koR5RU+RRgwkDpkcXxVcoZeWOGXDTgGGFnuUxPoeE=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "was7n25vav"
+          "Value": "jlis89zcxr"
         },
         {
           "Name": "label",
@@ -3622,12 +3622,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-CFrz+cY1AnQJOQ6bddlm+p/2WOf2WFh6n4MomhcxV0o="
+          "Value": "sha256-J0koR5RU+RRgwkDpkcXxVcoZeWOGXDTgGGFnuUxPoeE="
         }
       ]
     },
     {
-      "Route": "css/site.was7n25vav.css",
+      "Route": "css/site.jlis89zcxr.css",
       "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3645,11 +3645,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"CFrz+cY1AnQJOQ6bddlm+p/2WOf2WFh6n4MomhcxV0o=\""
+          "Value": "\"J0koR5RU+RRgwkDpkcXxVcoZeWOGXDTgGGFnuUxPoeE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 09 Jan 2025 23:42:10 GMT"
+          "Value": "Fri, 10 Jan 2025 05:06:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3659,7 +3659,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "was7n25vav"
+          "Value": "jlis89zcxr"
         },
         {
           "Name": "label",
@@ -3667,13 +3667,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-CFrz+cY1AnQJOQ6bddlm+p/2WOf2WFh6n4MomhcxV0o="
+          "Value": "sha256-J0koR5RU+RRgwkDpkcXxVcoZeWOGXDTgGGFnuUxPoeE="
         }
       ]
     },
     {
-      "Route": "css/site.was7n25vav.css.gz",
-      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-was7n25vav.gz",
+      "Route": "css/site.jlis89zcxr.css.gz",
+      "AssetFile": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\obj\\Debug\\net9.0\\compressed\\9ci5h066md-jlis89zcxr.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3682,7 +3682,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4445"
+          "Value": "4439"
         },
         {
           "Name": "Content-Type",
@@ -3690,11 +3690,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"v4xRsDiSOevCEcqIWxJswN9m5pPw2/SgiIkk/MeCFdM=\""
+          "Value": "\"NKH7ZXgrmQUZFyIVKTSuYkc3AoJ3t7v71Cs7ZIZNDNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 09 Jan 2025 23:42:10 GMT"
+          "Value": "Fri, 10 Jan 2025 05:06:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3712,7 +3712,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "was7n25vav"
+          "Value": "jlis89zcxr"
         },
         {
           "Name": "label",
@@ -3720,7 +3720,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-v4xRsDiSOevCEcqIWxJswN9m5pPw2/SgiIkk/MeCFdM="
+          "Value": "sha256-NKH7ZXgrmQUZFyIVKTSuYkc3AoJ3t7v71Cs7ZIZNDNg="
         }
       ]
     },
