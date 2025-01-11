@@ -6,14 +6,22 @@ using System.Threading.Tasks;
 
 namespace BudgetTracker.Controllers
 {
-    public class BillController : Controller
+    public class BillController : Controller // BillController class that inherts from the controller Base class
+                                             // The Controller base class provides methods like View(), RedirectToAction(), and Json() to handle different types of responses.
     {
-        private readonly IBillService _billService;
+        private readonly IBillService _billService;  // Creates an object of IBillService, that allows us to use the implementation methods of BillService 
+                                                     // readonly ensures that _billService field can only be assigned once, guaranteeing that the field can not accidentally be changed later in the controller
+ 
+    // The BillController is responsible for handling HTTP requests related to bills.
+    // It relies on the IBillService interface to perform actions like fetching, creating, or deleting bills.
+    public BillController(IBillService billService)
+    {
+        // Assign the IBillService instance provided by Dependency Injection to the private field _billService.
+        // This allows the controller to use the methods defined in the IBillService interface
+        // (implemented by BillService) throughout the class.
+        _billService = billService;
+    }
 
-        public BillController(IBillService billService)
-        {
-            _billService = billService;
-        }
 
         // GET: Bills
         public async Task<IActionResult> Index(int? budgetId)
