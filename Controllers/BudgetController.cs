@@ -33,6 +33,8 @@ namespace BudgetTracker.Controllers
 
 
 
+
+
     // ***********
     // INDEX PAGE 
     // ***********
@@ -78,6 +80,8 @@ namespace BudgetTracker.Controllers
         // Pass the ViewModel to the Index view for rendering.
         return View(viewModel);
     }
+
+
 
 
 
@@ -152,6 +156,7 @@ namespace BudgetTracker.Controllers
 
 
 
+
     // ***********
     // GET Method for CREATE
     // ***********
@@ -170,6 +175,9 @@ namespace BudgetTracker.Controllers
         // The view uses this model to bind form input fields to the Budget properties.
         return View(budget);
     }
+
+
+
 
     // ***********
     // POST Method for CREATE
@@ -225,6 +233,7 @@ namespace BudgetTracker.Controllers
     }
 
 
+
     // ***********
     // GET Method for Edit
     // ***********
@@ -249,6 +258,8 @@ namespace BudgetTracker.Controllers
             return NotFound(ex.Message);
         }
     }
+
+
 
     // ***********
     // POST Method for Edit
@@ -281,7 +292,6 @@ namespace BudgetTracker.Controllers
             return NotFound(ex.Message);
         }
     }
-
 
 
 
