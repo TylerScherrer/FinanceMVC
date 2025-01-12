@@ -4,14 +4,38 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetTracker.Controllers
 {
-    public class CategoryController : Controller
-    {
-        private readonly ICategoryService _categoryService;
+// ***********
+// CategoryController Class
+// ***********
 
-        public CategoryController(ICategoryService categoryService)
-        {
-            _categoryService = categoryService;
-        }
+// The CategoryController class manages category-related operations and inherits from the Controller base class.
+// The Controller base class provides built-in methods like View(), RedirectToAction(), and Json() to handle various HTTP responses.
+
+public class CategoryController : Controller
+{
+    // Private field to hold the service reference
+    // Creates an object of ICategoryService that allows us to use the implementation methods of the CategoryService class.
+    // readonly ensures that the _categoryService field can only be assigned once, preventing accidental modifications later in the controller.
+    private readonly ICategoryService _categoryService;
+
+    // ***********
+    // Constructor
+    // ***********
+
+    // Initializes the CategoryController with the required ICategoryService via dependency injection.
+    // This approach promotes loose coupling and allows the controller to depend on an abstraction rather than a concrete implementation.
+
+    public CategoryController(ICategoryService categoryService)
+    {
+        // Assign the ICategoryService instance provided by Dependency Injection to the private field _categoryService.
+        // This enables the controller to use the methods defined in the ICategoryService interface 
+        // (implemented by the CategoryService class) throughout this class.
+        _categoryService = categoryService; // Category management
+    }
+
+
+
+
 
         [HttpGet]
         public IActionResult Create(int budgetId)

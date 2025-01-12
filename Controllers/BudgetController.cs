@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetTracker.Controllers
 {
+
+    // ***********
+    // BudgetController Class
+    // ***********
     public class BudgetController : Controller  // BudgetController class that inherts from the controller Base class
                                                 // The Controller base class provides methods like View(), RedirectToAction(), and Json() to handle different types of responses.
     {
@@ -18,7 +22,12 @@ namespace BudgetTracker.Controllers
         private readonly ITransactionService _transactionService;
         private readonly IBillService _billService;
 
-        // Constructor: Initializes the BudgetController with required services via dependency injection.
+
+        // ***********
+        // Constructor
+        // ***********
+        
+        // Initializes the BudgetController with required services via dependency injection.
         public BudgetController(IBudgetService budgetService, IScheduleService scheduleService, IToDoService toDoService, ITransactionService transactionService, IBillService billService)
         {
             // Assign the I"..."Service instance provided by Dependency Injection to the private field _"..."Service.
