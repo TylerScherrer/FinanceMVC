@@ -140,31 +140,49 @@ namespace BudgetTracker.Controllers
     }
 
 
+    // ***********
+    // POST Method for Deleting a Bill
+    // ***********
 
-
-
-        // POST: Bills/Delete
-[HttpPost]
-public async Task<IActionResult> Delete(int id, int budgetId)
-{
-    try
+    // This POST method handles the deletion of a specific bill from the database.
+    // Parameters:
+    // - `id`: The ID of the bill to be deleted.
+    // - `budgetId`: The ID of the budget the bill belongs to.
+    // Asynchronous operation ensures server responsiveness during the deletion process.
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id, int budgetId)
     {
-        var success = await _billService.DeleteBillAsync(id);
+        try
+        {
+         
+        // Attempt to delete the bill using the provided ID
+        // DeleteBillAsynch returns True or False
+        var success = await _billService.DeleteBillAsync(id); // Asynchronous service call to delete the bill
+
+        // Check if the deletion was unsuccessful
         if (!success)
         {
+            // Store an error message in TempData to inform the user
             TempData["Error"] = "Unable to delete the bill.";
         }
 
-        // Redirect back to the correct budget's bills page
+        // Redirect the user back to the bills page for the corresponding budget
         return RedirectToAction("ViewBills", new { budgetId });
+        }
+        catch (Exception ex)
+        {
+            // Log the error message to the console for debugging purposes
+            Console.WriteLine($"Error deleting bill: {ex.Message}");
+
+            // Store an error message in TempData to inform the user of the issue
+            // TempData is used for passing message to the user, while consoleWrite is for server side logs 
+            TempData["Error"] = "An error occurred while deleting the bill.";
+
+            // Redirect the user back to the bills page for the corresponding budget
+            return RedirectToAction("ViewBills", new { budgetId });
+        }
+
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error deleting bill: {ex.Message}");
-        TempData["Error"] = "An error occurred while deleting the bill.";
-        return RedirectToAction("ViewBills", new { budgetId });
-    }
-}
 
 
             [HttpGet]public async Task<IActionResult> ViewBills(int budgetId)
