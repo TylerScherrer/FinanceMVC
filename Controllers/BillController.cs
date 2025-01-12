@@ -23,28 +23,49 @@ namespace BudgetTracker.Controllers
     }
 
 
-        // GET: Bills
-        public async Task<IActionResult> Index(int? budgetId)
-        {
-            if (budgetId == null)
+
+
+    // ***********
+    // INDEX PAGE 
+    //
+    // ***********
+
+    // Returns a Task<IActionResult>, meaning it performs some asynchronous operation and eventually returns an IActionResult (like rendering a view or redirecting).   
+    public async Task<IActionResult> Index(int? budgetId) // A nullable integrer representing the ID of a budget
+                                                          // '?' allows budgetID to hold a value or be null
+                                                          // This is useful when the parameter is optional
+    {
+        if (budgetId == null)
             {
                 return RedirectToAction("Index", "Budget"); // Redirect to Budget Index
             }
 
             try
             {
-                var bills = await _billService.GetBillsAsync(budgetId.Value);
+                // await allows this method to free up the free thread to process other HTTP requests while data is being retreived 
+                // Asynchronous call to free up server threads
+                var bills = await _billService.GetBillsAsync(budgetId.Value); // Uses _billService to call GetBillsAsync to get the BudgetID values
+                                                                              // Returns a list of bills for the given BudgetID from the database
+                                                                              
+                // Store the current budget ID in the ViewBag to pass it to the view.
+                // Allows us to pass additional information (BudgetId) to the .cshtml view 
+                // that is not part of the main model being passed (list of bills).
                 ViewBag.BudgetId = budgetId;
-                return View(bills);
+
+
+                return View(bills); // Tells the controller to render the Index view and pass the bills list that was retrieved
             }
+
+            // Catches any exceptions that may be thrown:
+                // Error fetching the bills
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching bills: {ex.Message}");
-                return RedirectToAction("Error", "Home");
+                Console.WriteLine($"Error fetching bills: {ex.Message}"); // Logs the error for debugging
+                return RedirectToAction("Error", "Home"); // Redirects the user to a generic error page to avoid crashes
             }
         }
 
-        // GET: Bills/Create
+        
         [HttpGet]
         public IActionResult Create(int budgetId)
         {
@@ -60,29 +81,29 @@ namespace BudgetTracker.Controllers
             }
         }
 
-[HttpPost]
-public async Task<IActionResult> Create(Bill bill)
-{
-    if (!ModelState.IsValid)
+    [HttpPost]
+    public async Task<IActionResult> Create(Bill bill)
     {
-        // Return to the same page with validation messages if the model is invalid
-        return View(bill);
-    }
+        if (!ModelState.IsValid)
+        {
+            // Return to the same page with validation messages if the model is invalid
+            return View(bill);
+        }
 
-    try
-    {
-        await _billService.CreateBillAsync(bill);
+        try
+        {
+            await _billService.CreateBillAsync(bill);
 
-        // Redirect to the "ViewBills" page for the same budget
-        return RedirectToAction("ViewBills", new { budgetId = bill.BudgetId });
+            // Redirect to the "ViewBills" page for the same budget
+            return RedirectToAction("ViewBills", new { budgetId = bill.BudgetId });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating bill: {ex.Message}");
+            ModelState.AddModelError("", "An error occurred while creating the bill.");
+            return View(bill);
+        }
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error creating bill: {ex.Message}");
-        ModelState.AddModelError("", "An error occurred while creating the bill.");
-        return View(bill);
-    }
-}
 
 
 
