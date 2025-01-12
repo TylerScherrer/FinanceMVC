@@ -236,6 +236,7 @@ namespace BudgetTracker.Controllers
     // Parameters:
     // - `id`: The ID of the bill to be updated.
     // - `budgetId`: The ID of the budget the bill belongs to, used for redirection.
+    // Uses asynchronous operations to fetch bills from the service layer.
     [HttpPost]
     public async Task<IActionResult> MarkAsPaid(int id, int budgetId)
     {
@@ -262,6 +263,7 @@ namespace BudgetTracker.Controllers
     // - `id`: The ID of the bill to be edited.
     // Returns:
     // - A view containing the details of the bill to edit, or redirects if an error occurs.
+    // Uses asynchronous operations to fetch bills from the service layer.
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
@@ -303,6 +305,7 @@ namespace BudgetTracker.Controllers
     // - `bill`: The updated bill object submitted by the user.
     // Returns:
     // - Redirects to the appropriate page after updating, or returns to the Edit page if an error occurs.
+    // Uses asynchronous operations to fetch bills from the service layer.
     [HttpPost]
     public async Task<IActionResult> Edit(Bill bill)
     {

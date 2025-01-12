@@ -40,7 +40,7 @@ namespace BudgetTracker.Controllers
     // The Index method serves as the default page for the BudgetController.
     // It aggregates data from multiple services to provide an overview of budgets, tasks, schedules, and bills.
     // The data is packaged into a ViewModel and passed to the Index view.
-
+    // Uses asynchronous operations to fetch bills from the service layer.
     public async Task<IActionResult> Index()
     {
         // Fetch all budgets using the budget service.
@@ -88,7 +88,7 @@ namespace BudgetTracker.Controllers
     // GET Method to display detailed information about a specific budget.
     // This method retrieves detailed information about a budget, including its recent transactions.
     // The details are retrieved asynchronously to ensure server responsiveness during the data-fetching process.
-
+    // Uses asynchronous operations to fetch bills from the service layer.
     public async Task<IActionResult> Details(int id)
     {
         // Validate the ID
@@ -171,105 +171,183 @@ namespace BudgetTracker.Controllers
         return View(budget);
     }
 
+    // ***********
+    // POST Method for CREATE
+    // ***********
 
-
-
-[HttpPost]
-public async Task<IActionResult> Create(Budget budget)
-{
-    Console.WriteLine("Entering Create POST action."); // Debug: Method entry
-    Console.WriteLine($"Received Budget Name: {budget.Name}");
-    Console.WriteLine($"Received Budget Amount: {budget.TotalAmount}");
-
-    if (!ModelState.IsValid)
+    // The POST method handles the form submission for creating a new budget.
+    // It validates the submitted data, saves the budget to the database if valid,
+    // and redirects the user to the Index page upon successful creation.
+    // Uses asynchronous operations to fetch bills from the service layer.
+    [HttpPost]
+    public async Task<IActionResult> Create(Budget budget)
     {
-        Console.WriteLine("ModelState is invalid.");
-        foreach (var error in ModelState)
+        // Check if the model state is valid (ensures all validation attributes are met).
+        if (!ModelState.IsValid)
         {
-            Console.WriteLine($"Key: {error.Key}");
-            foreach (var stateError in error.Value.Errors)
+            // Log validation errors to the console for debugging purposes.
+            Console.WriteLine("ModelState is invalid.");
+            foreach (var error in ModelState) // Iterate through validation errors.
             {
-                Console.WriteLine($"Error: {stateError.ErrorMessage}");
+                Console.WriteLine($"Key: {error.Key}"); // Log the key (field name).
+                foreach (var stateError in error.Value.Errors)
+                {
+                    Console.WriteLine($"Error: {stateError.ErrorMessage}"); // Log the error message.
+                }
             }
+
+            // Return the user to the form with the current data and validation messages.
+            return View(budget);
         }
-        return View(budget);
+
+        try
+        {
+            // Set the current date and time as the creation date of the budget.
+            budget.DateCreated = DateTime.Now;
+
+            // Call the service to save the new budget to the database asynchronously.
+            await _budgetService.CreateBudgetAsync(budget);
+
+            // Redirect the user to the Index page after successful creation.
+            return RedirectToAction(nameof(Index));
+        }
+        catch (Exception ex)
+        {
+            // Log the exception message to the console for debugging.
+            Console.WriteLine($"Exception occurred: {ex.Message}");
+
+            // Add a generic error message to the ModelState for display on the form.
+            ModelState.AddModelError(string.Empty, ex.Message);
+
+            // Return the user to the form with the current data and error messages.
+            return View(budget);
+        }
     }
 
-    try
+
+    // ***********
+    // GET Method for Edit
+    // ***********
+
+    // GET method to load the edit form for a specific budget.
+    // Retrieves the budget details from the database using the provided `id`.
+    // If successful, the budget is passed to the edit view for user modification.
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
     {
-        budget.DateCreated = DateTime.Now;
-        Console.WriteLine("Attempting to create a new budget in the database.");
-        await _budgetService.CreateBudgetAsync(budget);
-        Console.WriteLine("Budget successfully created.");
+        try
+        {
+            // Fetch the budget details for the given ID.
+            var budget = await _budgetService.GetBudgetDetailsAsync(id);
+
+            // Pass the budget to the edit view.
+            return View(budget);
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Handle cases where the budget could not be found.
+            return NotFound(ex.Message);
+        }
+    }
+
+    // ***********
+    // POST Method for Edit
+    // ***********
+
+    // POST method to handle form submission for editing a budget.
+    // Validates the submitted data and updates the budget in the database if valid.
+    // Redirects to the Index page upon successful update.
+    [HttpPost]
+    public async Task<IActionResult> Edit(Budget budget)
+    {
+        // Validate the model state.
+        if (!ModelState.IsValid)
+        {
+            // Return to the edit view with validation messages.
+            return View(budget);
+        }
+
+        try
+        {
+            // Update the budget in the database.
+            await _budgetService.UpdateBudgetAsync(budget);
+
+            // Redirect to the Index page after a successful update.
+            return RedirectToAction(nameof(Index));
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Handle cases where the budget update fails.
+            return NotFound(ex.Message);
+        }
+    }
+
+
+
+
+    // ***********
+    // POST Method for Delete
+    // ***********
+
+    // POST method to handle the deletion of a budget.
+    // Deletes the budget with the specified `id` from the database.
+    // Redirects to the Index page upon successful deletion.
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        // Attempt to delete the budget using the service.
+        var success = await _budgetService.DeleteBudgetAsync(id);
+
+        // If the deletion fails, return a 404 response with an error message.
+        if (!success)
+            return NotFound("Budget not found.");
+
+        // Redirect to the Index page after successful deletion.
         return RedirectToAction(nameof(Index));
     }
-    catch (Exception ex)
+
+
+
+
+    // ***********
+    // POST Method for Delete Scheduled Task
+    // ***********
+
+    // POST method to handle the deletion of a scheduled task.
+    // Deletes the task with the specified `id` from the database.
+    // Redirects to the Index page upon successful deletion.
+    [HttpPost]
+    public async Task<IActionResult> DeleteScheduledTask(int id)
     {
-        Console.WriteLine($"Exception occurred: {ex.Message}");
-        ModelState.AddModelError(string.Empty, ex.Message);
-        return View(budget);
+        // Use the schedule service to delete the specified task.
+        await _scheduleService.DeleteTaskAsync(id);
+
+        // Redirect to the Index page after deletion.
+        return RedirectToAction(nameof(Index));
     }
-}
+
+
+
+    // ***********
+    // Get Recent Transactions
+    // ***********
+
+    // Retrieves a list of recent transactions to display as a partial view.
+    // Useful for dynamically updating parts of the page without reloading the entire page.
+    public async Task<IActionResult> RecentTransactions()
+    {
+        // Fetch the list of recent transactions from the service.
+        var recentTransactions = await _transactionService.GetRecentTransactionsAsync();
+
+        // Return a partial view containing the recent transactions.
+        return PartialView("_RecentTransactions", recentTransactions);
+    }
 
 
 
 
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
-            try
-            {
-                var budget = await _budgetService.GetBudgetDetailsAsync(id);
-                return View(budget);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(Budget budget)
-        {
-            if (!ModelState.IsValid)
-                return View(budget);
-
-            try
-            {
-                await _budgetService.UpdateBudgetAsync(budget);
-                return RedirectToAction(nameof(Index));
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var success = await _budgetService.DeleteBudgetAsync(id);
-
-            if (!success)
-                return NotFound("Budget not found.");
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteScheduledTask(int id)
-        {
-            await _scheduleService.DeleteTaskAsync(id);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> RecentTransactions()
-        {
-            var recentTransactions = await _transactionService.GetRecentTransactionsAsync();
-            return PartialView("_RecentTransactions", recentTransactions);
-        }
-
+    // End of Controller
 
     }
 }
