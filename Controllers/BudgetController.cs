@@ -6,53 +6,78 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetTracker.Controllers
 {
-    public class BudgetController : Controller
+    public class BudgetController : Controller  // BudgetController class that inherts from the controller Base class
+                                                // The Controller base class provides methods like View(), RedirectToAction(), and Json() to handle different types of responses.
     {
-        private readonly IBudgetService _budgetService;
+        // Private fields to hold service references
+        // Creates an object of I".."Service, that allows us to use the implementation methods of ".."Service methods
+        // readonly ensures that _".."Service field can only be assigned once, guaranteeing that the field can not accidentally be changed later in the controller
+        private readonly IBudgetService _budgetService; 
         private readonly IScheduleService _scheduleService;
-        private readonly IToDoService _toDoService; // Add this line
+        private readonly IToDoService _toDoService;
         private readonly ITransactionService _transactionService;
         private readonly IBillService _billService;
 
-
-        public BudgetController(IBudgetService budgetService, IScheduleService scheduleService, IToDoService toDoService, ITransactionService transactionService,IBillService billService)
+        // Constructor: Initializes the BudgetController with required services via dependency injection.
+        public BudgetController(IBudgetService budgetService, IScheduleService scheduleService, IToDoService toDoService, ITransactionService transactionService, IBillService billService)
         {
-            _budgetService = budgetService;
-            _scheduleService = scheduleService;
-            _toDoService = toDoService; 
-            _transactionService = transactionService;
-            _billService = billService; // Assign the dependency to the private field
+            // Assign the I"..."Service instance provided by Dependency Injection to the private field _"..."Service.
+            // This allows the controller to use the methods defined in the I"..."Service interface
+            // (implemented by "..."Service) throughout the class.
+            _budgetService = budgetService;            // Budget management
+            _scheduleService = scheduleService;        // Schedule management
+            _toDoService = toDoService;                // To-do task management
+            _transactionService = transactionService;  // Transaction management
+            _billService = billService;                // Bill management
         }
 
-        
-        // In BudgetController
-public async Task<IActionResult> Index()
-{
-    var budgets = await _budgetService.GetAllBudgetsAsync();
-    var tasksForWeek = await _scheduleService.GetTasksForCurrentWeekAsync();
 
-    // Fetch today's tasks and daily schedules
-    var todayTasks = await _toDoService.GetTodayTasksAsync();
-    var dailySchedules = await _toDoService.GetDailySchedulesAsync();
+    // ***********
+    // INDEX PAGE 
+    // ***********
 
-    // Fetch bills for the current month and sort by due date
-    var currentMonth = DateTime.Now.Month;
-    var currentYear = DateTime.Now.Year;
-    var monthlyBills = (await _billService.GetBillsForMonthAsync(currentMonth, currentYear))
-        .OrderBy(b => b.DueDate) // Ensure bills are sorted by due date
-        .ToList();
+    // The Index method serves as the default page for the BudgetController.
+    // It aggregates data from multiple services to provide an overview of budgets, tasks, schedules, and bills.
+    // The data is packaged into a ViewModel and passed to the Index view.
 
-    var viewModel = new BudgetWithTasksViewModel
+    public async Task<IActionResult> Index()
     {
-        Budgets = budgets,
-        CurrentWeekTasks = tasksForWeek,
-        TodayTasks = todayTasks,
-        DailySchedules = dailySchedules,
-        MonthlyBills = monthlyBills // Add sorted bills for the month
-    };
+        // Fetch all budgets using the budget service.
+        var budgets = await _budgetService.GetAllBudgetsAsync();
 
-    return View(viewModel);
-}
+        // Fetch tasks for the current week using the schedule service.
+        var tasksForWeek = await _scheduleService.GetTasksForCurrentWeekAsync();
+
+        // Fetch today's tasks using the To-Do service.
+        var todayTasks = await _toDoService.GetTodayTasksAsync();
+
+        // Fetch daily schedules using the To-Do service.
+        var dailySchedules = await _toDoService.GetDailySchedulesAsync();
+
+        // Fetch bills for the current month using the bill service.
+        // Filter the bills for the current month and year and sort them by due date.
+        var currentMonth = DateTime.Now.Month; // Retrieve the current month.
+        var currentYear = DateTime.Now.Year;  // Retrieve the current year.
+        var monthlyBills = (await _billService.GetBillsForMonthAsync(currentMonth, currentYear))
+            .OrderBy(b => b.DueDate) // Ensure bills are displayed in order of their due dates.
+            .ToList(); // Convert the result to a list.
+
+        // Create a ViewModel to combine all the retrieved data.
+        // ViewModel is an object that acts as a container to organize and pass multiple pieces of data from a controller to a view.
+        // BudgetWithTasksViewModel is a special type of model created specifically to pass data from the controller to the view.
+        var viewModel = new BudgetWithTasksViewModel
+        {
+            Budgets = budgets,                  // List of all budgets.
+            CurrentWeekTasks = tasksForWeek,    // Tasks for the current week.
+            TodayTasks = todayTasks,            // Tasks for today.
+            DailySchedules = dailySchedules,    // Daily schedules.
+            MonthlyBills = monthlyBills         // Sorted list of monthly bills.
+        };
+
+        // Pass the ViewModel to the Index view for rendering.
+        return View(viewModel);
+    }
+
 
 
 
