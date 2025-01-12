@@ -67,6 +67,7 @@ namespace BudgetTracker.Controllers
         
 
 
+
     // ***********
     // GET METHOD FOR CREATE
     // ***********
@@ -92,6 +93,8 @@ namespace BudgetTracker.Controllers
             return RedirectToAction("Error", "Home");
         }
     }
+
+
 
 
     // ***********
@@ -140,6 +143,8 @@ namespace BudgetTracker.Controllers
     }
 
 
+
+
     // ***********
     // POST Method for Deleting a Bill
     // ***********
@@ -181,85 +186,157 @@ namespace BudgetTracker.Controllers
             // Redirect the user back to the bills page for the corresponding budget
             return RedirectToAction("ViewBills", new { budgetId });
         }
-
     }
 
 
-            [HttpGet]public async Task<IActionResult> ViewBills(int budgetId)
-{
-    if (budgetId == 0)
+
+    // ***********
+    // GET Method for View Bills
+    // ***********
+
+    // Retrieves and displays all bills associated with a specific budget.
+    // Parameters:
+    // - `budgetId`: The ID of the budget whose bills are being fetched.
+    //
+    // Uses asynchronous operations to fetch bills from the service layer.
+    // Provides the retrieved bills and the budget ID to the view for display.
+    [HttpGet]
+    public async Task<IActionResult> ViewBills(int budgetId)
     {
-        TempData["Error"] = "Invalid budget ID.";
-        return RedirectToAction("Index", "Budget");
-    }
-
-    var bills = await _billService.GetBillsAsync(budgetId);
-    ViewBag.BudgetId = budgetId;
-    return View(bills);
-}
-
-
-
-
-[HttpPost]
-public async Task<IActionResult> MarkAsPaid(int id, int budgetId)
-{
-    var success = await _billService.MarkAsPaidAsync(id);
-
-    if (!success)
-    {
-        TempData["Error"] = "Unable to mark the bill as paid.";
-    }
-
-    return RedirectToAction("ViewBills", new { budgetId });
-}
-
-[HttpGet]
-public async Task<IActionResult> Edit(int id)
-{
-    try
-    {
-        var bill = await _billService.GetBillByIdAsync(id);
-        if (bill == null)
+        try
         {
-            TempData["Error"] = "Bill not found.";
-            return RedirectToAction("Index", "Budget");
+            // Asynchronous call to the service to fetch bills for the given budget.
+            var bills = await _billService.GetBillsAsync(budgetId);
+
+            // Store the budget ID in the ViewBag for use in the view.
+            ViewBag.BudgetId = budgetId;
+
+            // Pass the bills to the Razor view for rendering.
+            return View(bills);
+        }
+        catch (Exception ex)
+        {
+            // Log the error message to the console for debugging.
+            Console.WriteLine($"Error retrieving bills for BudgetId {budgetId}: {ex.Message}");
+
+            // Redirect the user to the error page if an exception occurs.
+            return RedirectToAction("Error", "Home");
+        }
+    }
+
+
+
+
+
+    // ***********
+    // POST Method for Marking a Bill as Paid
+    // ***********
+
+    // Handles the marking of a specific bill as "paid" in the database.
+    // Parameters:
+    // - `id`: The ID of the bill to be updated.
+    // - `budgetId`: The ID of the budget the bill belongs to, used for redirection.
+    [HttpPost]
+    public async Task<IActionResult> MarkAsPaid(int id, int budgetId)
+    {
+        // Attempt to mark the bill as paid asynchronously.
+        var success = await _billService.MarkAsPaidAsync(id);
+
+        // If the operation fails, store an error message in TempData for the next request.
+        if (!success)
+        {
+            TempData["Error"] = "Unable to mark the bill as paid.";
         }
 
-        return View(bill); // Pass the bill to the Edit view
+        // Redirect the user back to the "ViewBills" page for the specified budget.
+        return RedirectToAction("ViewBills", new { budgetId });
     }
-    catch (Exception ex)
+
+
+    // ***********
+    // GET Method for Editing a Bill
+    // ***********
+
+    // Handles displaying the Edit page for a specific bill.
+    // Parameters:
+    // - `id`: The ID of the bill to be edited.
+    // Returns:
+    // - A view containing the details of the bill to edit, or redirects if an error occurs.
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
     {
-        Console.WriteLine($"Error loading edit page: {ex.Message}");
-        TempData["Error"] = "An error occurred while loading the edit page.";
-        return RedirectToAction("Index", "Budget");
-    }
-}
+        try
+        {
+            // Retrieve the bill with the specified ID.
+            var bill = await _billService.GetBillByIdAsync(id);
 
-[HttpPost]
-public async Task<IActionResult> Edit(Bill bill)
-{
-    if (!ModelState.IsValid)
+            // Check if the bill exists. If it doesn't, store an error message in TempData.
+            if (bill == null)
+            {
+                TempData["Error"] = "Bill not found."; // Inform the user that the bill couldn't be located.
+                return RedirectToAction("Index", "Budget"); // Redirect to the Budget Index page.
+            }
+
+            // Pass the retrieved bill object to the Edit view for editing.
+            return View(bill);
+        }
+        catch (Exception ex)
+        {
+            // Log the exception details to the console for debugging purposes.
+            Console.WriteLine($"Error loading edit page: {ex.Message}");
+
+            // Store a generic error message in TempData to inform the user.
+            TempData["Error"] = "An error occurred while loading the edit page.";
+
+            // Redirect to the Budget Index page.
+            return RedirectToAction("Index", "Budget");
+        }
+    }
+
+
+    // ***********
+    // POST Method for Updating a Bill
+    // ***********
+
+    // Handles the form submission for updating an existing bill in the database.
+    // Parameters:
+    // - `bill`: The updated bill object submitted by the user.
+    // Returns:
+    // - Redirects to the appropriate page after updating, or returns to the Edit page if an error occurs.
+    [HttpPost]
+    public async Task<IActionResult> Edit(Bill bill)
     {
-        // If validation fails, return to the Edit page with validation messages
-        return View(bill);
+        // Check if the model state is valid (e.g., all required fields are filled out correctly).
+        if (!ModelState.IsValid)
+        {
+            // If validation fails, return to the Edit view with validation messages.
+            return View(bill);
+        }
+
+        try
+        {
+            // Call the service layer to update the bill details in the database.
+            await _billService.UpdateBillAsync(bill);
+
+            // Redirect to the "ViewBills" page for the corresponding budget after a successful update.
+            return RedirectToAction("ViewBills", new { budgetId = bill.BudgetId });
+        }
+        catch (Exception ex)
+        {
+            // Log the exception details to the console for debugging purposes.
+            Console.WriteLine($"Error updating bill: {ex.Message}");
+
+            // Add an error message to the ModelState to display it in the Edit view.
+            ModelState.AddModelError("", "An error occurred while updating the bill.");
+
+            // Return to the Edit view with the current bill details so the user can try again.
+            return View(bill);
+        }
     }
 
-    try
-    {
-        await _billService.UpdateBillAsync(bill); // Update the bill
-        return RedirectToAction("ViewBills", new { budgetId = bill.BudgetId });
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error updating bill: {ex.Message}");
-        ModelState.AddModelError("", "An error occurred while updating the bill.");
-        return View(bill);
-    }
-}
 
 
 
-
+    // End of Controller 
     }
 }
