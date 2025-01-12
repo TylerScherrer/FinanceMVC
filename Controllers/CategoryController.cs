@@ -37,122 +37,219 @@ public class CategoryController : Controller
 
 
 
-        [HttpGet]
-        public IActionResult Create(int budgetId)
-        {
-            var category = new Category
-            {
-                BudgetId = budgetId // Pre-fill the BudgetId
-            };
+    // ***********
+    // GET Method for Creating a Category
+    // ***********
 
+    // Handles the GET request to display the form for creating a new category.
+    // Pre-fills the form with the BudgetId to associate the category with a specific budget.
+    // Parameters:
+    // - `budgetId`: The ID of the budget the new category will be associated with.
+    // Returns:
+    // - The Create view pre-populated with the BudgetId.
+    [HttpGet]
+    public IActionResult Create(int budgetId)
+    {
+        // Initialize a new Category object and pre-fill the BudgetId.
+        var category = new Category
+        {
+            BudgetId = budgetId // Pre-fill the BudgetId to associate the category with the correct budget.
+        };
+
+        // Pass the initialized category model to the Create view.
+        return View(category);
+    }
+
+
+    // ***********
+    // POST Method for Creating a Category
+    // ***********
+
+    // Handles the POST request to create a new category.
+    // Validates the input model and creates a new category in the database.
+    // Parameters:
+    // - `category`: The Category object containing the form data submitted by the user.
+    // Returns:
+    // - Redirects to the Details page of the associated budget if successful.
+    // - Returns the Create view with validation messages if the model state is invalid or an error occurs.
+    [HttpPost]
+    public async Task<IActionResult> Create(Category category)
+    {
+        // Check if the model state is valid.
+        if (!ModelState.IsValid)
+        {
+            // If the model state is invalid, return the Create view with the submitted category data.
             return View(category);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Category category)
+        try
         {
-            if (!ModelState.IsValid)
-                return View(category);
+            // Call the service to create the new category asynchronously.
+            await _categoryService.CreateCategoryAsync(category);
 
-            try
-            {
-                await _categoryService.CreateCategoryAsync(category);
-                return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
-            }
-            catch (InvalidOperationException ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                return View(category);
-            }
+            // Redirect to the Details page of the associated budget upon successful creation.
+            return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        catch (InvalidOperationException ex)
         {
-            try
-            {
-                var category = await _categoryService.GetCategoryDetailsAsync(id);
-                return View(category);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            // Add an error message to the model state if an exception occurs.
+            ModelState.AddModelError("", ex.Message);
+
+            // Return the Create view with the submitted category data and error messages.
+            return View(category);
         }
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+    // ***********
+    // GET Method for Viewing Category Details
+    // ***********
+
+    // Handles the GET request to display detailed information about a specific category.
+    // Parameters:
+    // - `id`: The ID of the category to fetch details for.
+    // Returns:
+    // - The Details view with the category data if found.
+    // - A NotFound result if the category does not exist.
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        try
         {
-            var success = await _categoryService.DeleteCategoryAsync(id);
-
-            if (!success)
-                return NotFound("Category not found.");
-
-            return RedirectToAction("Index", "Budget");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
+            // Call the service to fetch the details of the specified category asynchronously.
             var category = await _categoryService.GetCategoryDetailsAsync(id);
 
-            if (category == null)
+            // Pass the retrieved category data to the Details view.
+            return View(category);
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Return a NotFound result with a specific error message if an exception occurs.
+            return NotFound(ex.Message);
+        }
+    }
+
+
+
+
+    // ***********
+    // POST Method for Deleting a Category
+    // ***********
+
+    // Handles the deletion of a category by its ID.
+    // Parameters:
+    // - `id`: The ID of the category to delete.
+    // Returns:
+    // - A NotFound response if the category doesn't exist or the deletion fails.
+    // - Redirects to the Budget Index page upon successful deletion.
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        // Attempt to delete the category using the service.
+        var success = await _categoryService.DeleteCategoryAsync(id);
+
+        // Check if the deletion was unsuccessful.
+        if (!success)
+        {
+            // Return a NotFound result with an error message.
+            return NotFound("Category not found.");
+        }
+
+        // Redirect to the Budget Index page after successful deletion.
+        return RedirectToAction("Index", "Budget");
+    }
+
+
+
+
+    // ***********
+    // GET Method for Editing a Category
+    // ***********
+
+    // Handles the GET request to display the form for editing a category.
+    // Parameters:
+    // - `id`: The ID of the category to edit.
+    // Returns:
+    // - The Edit view with the category data if found.
+    // - A NotFound result if the category doesn't exist.
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        // Fetch the category details using the service.
+        var category = await _categoryService.GetCategoryDetailsAsync(id);
+
+        // Check if the category exists.
+        if (category == null)
+        {
+            // Return a NotFound result with an error message if the category is not found.
+            return NotFound("Category not found.");
+        }
+
+        // Pass the category data to the Edit view for display and editing.
+        return View(category);
+    }
+
+
+
+
+    // ***********
+    // POST Method for Editing a Category
+    // ***********
+
+    // Handles the POST request to save changes to an existing category.
+    // Parameters:
+    // - `category`: The updated Category object submitted from the form.
+    // Returns:
+    // - The Edit view with validation messages if the model state is invalid or an error occurs.
+    // - Redirects to the Budget Details page upon successful update.
+    [HttpPost]
+    public async Task<IActionResult> Edit(Category category)
+    {
+        // Validate the submitted model.
+        if (!ModelState.IsValid)
+        {
+            // Log validation errors for debugging purposes.
+            Console.WriteLine("[DEBUG] ModelState is invalid.");
+            foreach (var key in ModelState.Keys)
             {
-                return NotFound("Category not found.");
+                foreach (var error in ModelState[key].Errors)
+                {
+                    Console.WriteLine($"[DEBUG] ModelState Error - Key: {key}, Error: {error.ErrorMessage}");
+                }
             }
 
+            // Return the Edit view with the current category data to allow the user to fix input errors.
             return View(category);
         }
 
-[HttpPost]
-public async Task<IActionResult> Edit(Category category)
-{
-    Console.WriteLine("[DEBUG] Received Form Data:");
-    foreach (var key in Request.Form.Keys)
-    {
-        Console.WriteLine($"[DEBUG] Key: {key}, Value: {Request.Form[key]}");
-    }
-
-    Console.WriteLine($"[DEBUG] Bound Category Name: {category.Name}");
-    Console.WriteLine($"[DEBUG] Bound Initial Allocated Amount: {category.InitialAllocatedAmount}");
-    Console.WriteLine($"[DEBUG] Bound Allocated Amount: {category.AllocatedAmount}");
-
-    if (!ModelState.IsValid)
-    {
-        Console.WriteLine("[DEBUG] ModelState is invalid.");
-        foreach (var key in ModelState.Keys)
+        try
         {
-            foreach (var error in ModelState[key].Errors)
-            {
-                Console.WriteLine($"[DEBUG] ModelState Error - Key: {key}, Error: {error.ErrorMessage}");
-            }
+            // Update the category using the service.
+            await _categoryService.UpdateCategoryAsync(category);
+            Console.WriteLine("[DEBUG] Category updated successfully.");
         }
-        return View(category); // Return the view with the current category to fix input errors
+        catch (Exception ex)
+        {
+            // Log the exception for debugging purposes.
+            Console.WriteLine($"[DEBUG] Exception occurred during update: {ex.Message}");
+
+            // Add an error message to the model state to inform the user of the issue.
+            ModelState.AddModelError(string.Empty, "An error occurred while updating the category. Please try again.");
+
+            // Return the Edit view with the current category data and error message.
+            return View(category);
+        }
+
+        // Redirect to the Budget Details page after a successful update.
+        return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
     }
 
-    try
-    {
-        // Update the category using the service
-        await _categoryService.UpdateCategoryAsync(category);
-        Console.WriteLine("[DEBUG] Category updated successfully.");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"[DEBUG] Exception occurred during update: {ex.Message}");
-        ModelState.AddModelError(string.Empty, "An error occurred while updating the category. Please try again.");
-        return View(category); // Return the view with an error message
-    }
-
-    // Redirect to the budget details after successful update
-    return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
-}
 
 
 
 
 
 
-
+    // End of Controller 
 
     }
 }
