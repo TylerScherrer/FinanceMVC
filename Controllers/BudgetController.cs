@@ -32,6 +32,7 @@ namespace BudgetTracker.Controllers
         }
 
 
+
     // ***********
     // INDEX PAGE 
     // ***********
@@ -151,13 +152,25 @@ namespace BudgetTracker.Controllers
 
 
 
+    // ***********
+    // GET Method for CREATE
+    // ***********
 
-[HttpGet]
-public IActionResult Create()
-{
-    var budget = new Budget();
-    return View(budget); // Pass the correct model
-}
+    // This GET method is responsible for rendering the "Create" view for a new budget.
+    // It prepares an empty `Budget` object as the model to be used in the view.
+    // The view will display a form allowing the user to input details for creating a new budget.
+    [HttpGet]
+    public IActionResult Create()
+    {
+        // Create a new instance of the Budget class.
+        // This initializes an empty budget model, that will then be populated with the data in the POST method
+        var budget = new Budget();
+
+        // Pass the empty Budget object to the Create view.
+        // The view uses this model to bind form input fields to the Budget properties.
+        return View(budget);
+    }
+
 
 
 
