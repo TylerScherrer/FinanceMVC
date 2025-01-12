@@ -27,7 +27,6 @@ namespace BudgetTracker.Controllers
 
     // ***********
     // INDEX PAGE 
-    //
     // ***********
 
     // Returns a Task<IActionResult>, meaning it performs some asynchronous operation and eventually returns an IActionResult (like rendering a view or redirecting).   
@@ -57,7 +56,7 @@ namespace BudgetTracker.Controllers
             }
 
             // Catches any exceptions that may be thrown:
-                // Error fetching the bills
+            // Error fetching the bills
             catch (Exception ex)
             {
                 Console.WriteLine($"Error fetching bills: {ex.Message}"); // Logs the error for debugging
@@ -66,41 +65,76 @@ namespace BudgetTracker.Controllers
         }
 
         
-        [HttpGet]
-        public IActionResult Create(int budgetId)
-        {
-            try
-            {
-                Console.WriteLine($"Initializing Create form for BudgetId={budgetId}");
-                return View(new Bill { BudgetId = budgetId, DueDate = DateTime.Now }); // Pass BudgetId
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error loading create bill page: {ex.Message}");
-                return RedirectToAction("Error", "Home");
-            }
-        }
 
+
+    // ***********
+    // GET METHOD FOR CREATE
+    // ***********
+
+    // GET endpoint for rendering the Create Bill form.
+    // Initializes the Create form and pre-populates it with the provided budget ID and the current date as the due date.
+    // The form allows the user to input details for adding a new bill associated with the specified budget.
+    [HttpGet]
+    public IActionResult Create(int budgetId) // Parameter: budgetId - The ID of the budget to which the new bill will be linked.
+    {
+        try
+        {
+            // Prepares a new Bill object with the given BudgetId and the current date as the default DueDate.
+            // Passes the Bill object to the Create view to pre-fill form fields.
+            return View(new Bill { BudgetId = budgetId, DueDate = DateTime.Now });
+        }
+        catch (Exception ex)
+        {
+            // Logs the error for debugging purposes (optional in production).
+            Console.WriteLine($"Error initializing Create Bill form: {ex.Message}");
+            
+            // Redirects the user to a generic Error page to handle the exception gracefully.
+            return RedirectToAction("Error", "Home");
+        }
+    }
+
+
+    // ***********
+    // POST Method for Creating a New Bill
+    // ***********
+
+    // Handles the form submission for creating a new bill.
+    // Receives the newly created Bill object as a parameter from the user's form input.
+    // Validates the data, saves it to the database, and redirects the user to the list of bills for the associated budget.
+    // This is an asynchronous method that returns an IActionResult, which could be a view or a redirect depending on the operation's success or failure.
     [HttpPost]
     public async Task<IActionResult> Create(Bill bill)
     {
         if (!ModelState.IsValid)
         {
-            // Return to the same page with validation messages if the model is invalid
+            // Check if the model state is invalid (e.g., validation rules failed).
+            // If invalid, redisplay the form with the current data and validation messages.
+            // This ensures the user can correct any errors and resubmit the form.
             return View(bill);
         }
 
         try
         {
-            await _billService.CreateBillAsync(bill);
+            // Asynchronously calls the service to create the new bill.
+            // 'await' allows this method to free up the current thread while the operation completes,
+            // improving server performance by handling other requests concurrently.
+            await _billService.CreateBillAsync(bill);  // Uses the Bill object passed from the form submission.
 
-            // Redirect to the "ViewBills" page for the same budget
+            // Redirects the user to the "ViewBills" page, displaying all bills for the same budget.
             return RedirectToAction("ViewBills", new { budgetId = bill.BudgetId });
         }
         catch (Exception ex)
         {
+            // Logs the exception details to the server console for debugging purposes.
+            // Includes the specific error message from the exception (ex.Message).
             Console.WriteLine($"Error creating bill: {ex.Message}");
+
+            // Adds a model-level error to the ModelState to display a general error message to the user.
+            // The first parameter ("") associates the error with the entire model rather than a specific field.
             ModelState.AddModelError("", "An error occurred while creating the bill.");
+
+            // Returns the user back to the form view with the same Bill object.
+            // This allows the user to see the error message and make any necessary corrections to their input.
             return View(bill);
         }
     }
