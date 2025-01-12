@@ -80,43 +80,75 @@ namespace BudgetTracker.Controllers
 
 
 
+    // ***********
+    // DETAILS PAGE
+    // ***********
 
+    // GET Method to display detailed information about a specific budget.
+    // This method retrieves detailed information about a budget, including its recent transactions.
+    // The details are retrieved asynchronously to ensure server responsiveness during the data-fetching process.
 
-
-
-public async Task<IActionResult> Details(int id)
-{
-    if (id <= 0)
+    public async Task<IActionResult> Details(int id)
     {
-        return NotFound("Invalid ID provided."); // Explicitly handle invalid IDs
-    }
-
-    try
-    {
-        var budget = await _budgetService.GetBudgetDetailsAsync(id);
-
-        if (budget == null)
+        // Validate the ID
+        // If the provided ID is less than or equal to zero, it is considered invalid.
+        // Return a "NotFound" response with an explicit error message.
+        if (id <= 0)
         {
-            return NotFound();
+            return NotFound("Invalid ID provided."); // Explicitly handle invalid IDs.
         }
-        budget.RecentTransactions = budget.Categories
-            .SelectMany(c => c.Transactions)
-            .OrderByDescending(t => t.Date)
-            .Take(5) // Limit to the most recent 5 transactions
-            .ToList();
 
-        return View(budget);
+        try
+        {
+            // Fetch Budget Details
+            // Use the budget service to retrieve the details of the specified budget by its ID.
+            var budget = await _budgetService.GetBudgetDetailsAsync(id);
+
+            // Handle Null Results
+            // If no budget is found for the provided ID, return a "NotFound" response.
+            if (budget == null)
+            {
+                return NotFound(); // Budget not found.
+            }
+
+            // Process Recent Transactions
+            // Extract and organize the most recent transactions from the budget's categories.
+            // Combine transactions from all categories, sort them by date in descending order,
+            // and take the 5 most recent ones to display.
+            budget.RecentTransactions = budget.Categories
+
+            // Use a lambda expression to extract all transactions from each category.
+            // `SelectMany` iterates through each category (represented by `c`) 
+            // and retrieves its associated transactions (`c.Transactions`).
+            // This operation "flattens" the nested structure of categories containing lists of transactions
+            // into a single collection of transactions from all categories.
+            .SelectMany(c => c.Transactions) 
+
+            // Sort the flattened list of transactions in descending order by their date property (`t.Date`).
+            // This ensures the most recent transactions appear first in the list.
+            .OrderByDescending(t => t.Date)  
+
+                .Take(5)                         // Limit the list to the top 5 transactions.
+                .ToList();                       // Convert the result to a list.
+
+            // Return the View
+            // Pass the detailed budget data (including recent transactions) to the view for rendering.
+            return View(budget);
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Handle Specific Exceptions
+            // Log and return a "NotFound" response with details of the specific error.
+            return NotFound($"An error occurred: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Handle Generic Exceptions
+            // Log and return a generic "NotFound" response for unexpected errors.
+            return NotFound("An unexpected error occurred while fetching budget details.");
+        }
     }
-    catch (InvalidOperationException ex)
-    {
-        return NotFound($"An error occurred: {ex.Message}"); // Specific exception
-    }
-    catch (Exception ex)
-    {
-        // Handle generic exceptions
-        return NotFound("An unexpected error occurred while fetching budget details.");
-    }
-}
+
 
 
 
