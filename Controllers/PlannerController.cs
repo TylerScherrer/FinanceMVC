@@ -16,6 +16,7 @@ namespace BudgetTracker.Controllers
 
 public class PlannerController : Controller
 {
+    
     // ***********
     // Private Fields
     // ***********
@@ -27,6 +28,7 @@ public class PlannerController : Controller
     // IToDoService is a service interface for managing To-Do tasks.
     // Encapsulates business logic for handling task-related operations.
     private readonly IToDoService _toDoService;
+
 
     // ***********
     // Constructor
@@ -57,7 +59,6 @@ public class PlannerController : Controller
     // The Index method serves as the default action for the PlannerController.
     // It displays a list of schedules and tasks grouped by date, with an optional date filter.
     // If no date is provided, it defaults to today's date.
-
     public async Task<IActionResult> Index(DateTime? date)
     {
         // ***********
@@ -82,9 +83,6 @@ public class PlannerController : Controller
             ? tasksByDate[selectedDate.Date] // Get schedules for the selected date.
             : new List<DailySchedule>(); // Return an empty list if no schedules exist.
 
-        // ***********
-        // ViewModel Creation
-        // ***********
 
         // Create a ViewModel to combine all the necessary data for the view.
         var viewModel = new BudgetWithTasksViewModel
