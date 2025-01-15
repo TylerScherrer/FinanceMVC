@@ -265,3 +265,12 @@ C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCApp.Tests\obj\Debug\net9.0\
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCApp.Tests\obj\Debug\net9.0\FinanceMVCApp.Tests.pdb
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCApp.Tests\obj\Debug\net9.0\FinanceMVCApp.Tests.genruntimeconfig.cache
 C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCApp.Tests\obj\Debug\net9.0\ref\FinanceMVCApp.Tests.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCAPP.Tests\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCAPP.Tests\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCAPP.Tests\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCAPP.Tests\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCAPP.Tests\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCAPP.Tests\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCAPP.Tests\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCAPP.Tests\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+C:\Users\Tyler\OneDrive\Desktop\FinanceMVC\FinanceMVCAPP.Tests\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll

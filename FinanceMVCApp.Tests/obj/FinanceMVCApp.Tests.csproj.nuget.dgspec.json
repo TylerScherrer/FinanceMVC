@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.Tests\\FinanceMVCApp.Tests.csproj": {}
+    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCAPP.Tests\\FinanceMVCApp.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.Tests\\FinanceMVCApp.Tests.csproj": {
+    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCAPP.Tests\\FinanceMVCApp.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.Tests\\FinanceMVCApp.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCAPP.Tests\\FinanceMVCApp.Tests.csproj",
         "projectName": "FinanceMVCApp.Tests",
-        "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.Tests\\FinanceMVCApp.Tests.csproj",
+        "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCAPP.Tests\\FinanceMVCApp.Tests.csproj",
         "packagesPath": "C:\\Users\\Tyler\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.Tests\\obj\\",
+        "outputPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCAPP.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Tyler\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -48,6 +48,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.11.1, )"
