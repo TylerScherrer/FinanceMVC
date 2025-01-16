@@ -18,29 +18,34 @@ public async Task<List<Budget>> GetAllBudgetsAsync()
 {
     return await _context.Budgets
         .Include(b => b.Categories)
-        .Select(b => new Budget
-        {
-            Id = b.Id,
-            Name = b.Name,
-            TotalAmount = b.TotalAmount,
-            DateCreated = b.DateCreated,
-            RowVersion = b.RowVersion // Include RowVersion
-        })
+        .ThenInclude(c => c.Transactions) // Ensure nested inclusion if needed
         .ToListAsync();
 }
+
 
 public async Task<Budget> GetBudgetDetailsAsync(int id)
 {
     var budget = await _context.Budgets
         .Include(b => b.Categories)
-            .ThenInclude(c => c.Transactions)
+            .ThenInclude(c => c.Transactions) // Include transactions
         .Select(b => new Budget
         {
             Id = b.Id,
             Name = b.Name,
             TotalAmount = b.TotalAmount,
             DateCreated = b.DateCreated,
-            RowVersion = b.RowVersion // Include RowVersion
+            RowVersion = b.RowVersion, // Include RowVersion
+            Categories = b.Categories.Select(c => new Category
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Transactions = c.Transactions.Select(t => new Transaction
+                {
+                    Id = t.Id,
+                    Description = t.Description,
+                    Amount = t.Amount
+                }).ToList()
+            }).ToList()
         })
         .FirstOrDefaultAsync(b => b.Id == id);
 
@@ -50,6 +55,7 @@ public async Task<Budget> GetBudgetDetailsAsync(int id)
     return budget;
 }
 
+
 public async Task<Budget> CreateBudgetAsync(Budget budget)
 {
     if (budget.TotalAmount < 0)
@@ -57,10 +63,25 @@ public async Task<Budget> CreateBudgetAsync(Budget budget)
         throw new ArgumentException("TotalAmount cannot be negative.", nameof(budget.TotalAmount));
     }
 
+    if (string.IsNullOrWhiteSpace(budget.Name))
+    {
+        throw new ArgumentException("Name cannot be null or empty.", nameof(budget.Name));
+    }
+
     // Ensure RowVersion is initialized
     if (budget.RowVersion == null)
     {
-        budget.RowVersion = new byte[8]; // Initialize RowVersion with a default value
+        budget.RowVersion = new byte[8]; // Initialize RowVersion with default value
+    }
+
+    // Check for duplicate names
+    var existingBudget = await _context.Budgets
+        .AsNoTracking()
+        .FirstOrDefaultAsync(b => b.Name == budget.Name);
+
+    if (existingBudget != null)
+    {
+        throw new InvalidOperationException("A budget with the same name already exists.");
     }
 
     _context.Budgets.Add(budget);
@@ -71,10 +92,27 @@ public async Task<Budget> CreateBudgetAsync(Budget budget)
 
 
 
+
+
 public async Task<Budget> UpdateBudgetAsync(Budget budget)
 {
     try
     {
+        // Validate input
+        if (string.IsNullOrWhiteSpace(budget.Name))
+        {
+            throw new ArgumentException("Name cannot be null or empty.", nameof(budget.Name));
+        }
+
+        // Check if the entity is already tracked
+        var trackedEntity = _context.ChangeTracker.Entries<Budget>()
+            .FirstOrDefault(e => e.Entity.Id == budget.Id);
+
+        if (trackedEntity != null)
+        {
+            _context.Entry(trackedEntity.Entity).State = EntityState.Detached;
+        }
+
         // Attach the entity to track changes
         _context.Entry(budget).Property(b => b.RowVersion).OriginalValue = budget.RowVersion;
         _context.Budgets.Update(budget);
@@ -105,6 +143,8 @@ public async Task<Budget> UpdateBudgetAsync(Budget budget)
         throw;
     }
 }
+
+
 
 
 

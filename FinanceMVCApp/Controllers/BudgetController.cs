@@ -187,56 +187,84 @@ namespace BudgetTracker.Controllers
     }
 
 
+    // ***********
+    // POST Method for CREATE
+    // ***********
 
-
-[HttpPost]
-public async Task<IActionResult> Create(Budget budget)
-{
-    // Remove RowVersion validation for Create action
-    ModelState.Remove("RowVersion");
-
-    // Check if the model state is valid (ensures all validation attributes are met).
-    if (!ModelState.IsValid)
+    // This POST method is responsible for handling the form submission to create a new budget.
+    // It validates the submitted data, checks for errors, and saves the budget to the database if valid.
+    // If validation fails or an exception occurs, the user is returned to the form with error messages.
+    [HttpPost]
+    public async Task<IActionResult> Create(Budget budget)
     {
-        // Log validation errors to the console for debugging purposes.
-        Console.WriteLine("ModelState is invalid.");
-        foreach (var error in ModelState) // Iterate through validation errors.
+        // ***********
+        // Remove RowVersion Validation
+        // ***********
+        // The RowVersion property is used for concurrency checks but is not required for new records.
+        // This explicitly removes it from ModelState validation for the create operation.
+        ModelState.Remove("RowVersion");
+
+        // ***********
+        // Validate Model State
+        // ***********
+        // Check if the model state is valid based on the validation attributes defined in the Budget model.
+        if (!ModelState.IsValid)
         {
-            Console.WriteLine($"Key: {error.Key}"); // Log the key (field name).
-            foreach (var stateError in error.Value.Errors)
+            // Log validation errors for debugging purposes.
+            Console.WriteLine("ModelState is invalid.");
+            foreach (var error in ModelState) // Iterate through all validation errors.
             {
-                Console.WriteLine($"Error: {stateError.ErrorMessage}"); // Log the error message.
+                Console.WriteLine($"Key: {error.Key}"); // Log the field name (key).
+                foreach (var stateError in error.Value.Errors)
+                {
+                    Console.WriteLine($"Error: {stateError.ErrorMessage}"); // Log the specific error message.
+                }
             }
+
+            // Return the user to the form with the current input and validation messages.
+            // This ensures the user can correct their input without losing their data.
+            return View(budget);
         }
 
-        // Return the user to the form with the current data and validation messages.
-        return View(budget);
+        try
+        {
+            // ***********
+            // Set Default Values
+            // ***********
+            // Assign the current timestamp to the DateCreated property to record when the budget was created.
+            budget.DateCreated = DateTime.Now;
+
+            // Explicitly set RowVersion to null since it is not required for new records.
+            budget.RowVersion = null;
+
+            // ***********
+            // Save Budget
+            // ***********
+            // Call the service method to save the budget asynchronously to the database.
+            await _budgetService.CreateBudgetAsync(budget);
+
+            // ***********
+            // Redirect to Index
+            // ***********
+            // Redirect the user to the Index page after successfully creating the budget.
+            return RedirectToAction(nameof(Index));
+        }
+        catch (Exception ex)
+        {
+            // ***********
+            // Handle Exceptions
+            // ***********
+            // Log the exception message for debugging purposes.
+            Console.WriteLine($"Exception occurred: {ex.Message}");
+
+            // Add a generic error message to the ModelState to inform the user of the issue.
+            ModelState.AddModelError(string.Empty, ex.Message);
+
+            // Return the user to the form with the current input and error messages displayed.
+            return View(budget);
+        }
     }
 
-    try
-    {
-        // Set the current date and time as the creation date of the budget.
-        budget.DateCreated = DateTime.Now;
-        budget.RowVersion = null; // Explicitly set RowVersion to null for new records
-
-        // Call the service to save the new budget to the database asynchronously.
-        await _budgetService.CreateBudgetAsync(budget);
-
-        // Redirect the user to the Index page after successful creation.
-        return RedirectToAction(nameof(Index));
-    }
-    catch (Exception ex)
-    {
-        // Log the exception message to the console for debugging.
-        Console.WriteLine($"Exception occurred: {ex.Message}");
-
-        // Add a generic error message to the ModelState for display on the form.
-        ModelState.AddModelError(string.Empty, ex.Message);
-
-        // Return the user to the form with the current data and error messages.
-        return View(budget);
-    }
-}
 
 
 
