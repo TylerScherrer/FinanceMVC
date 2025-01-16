@@ -52,21 +52,22 @@ public async Task<Budget> GetBudgetDetailsAsync(int id)
 
 public async Task<Budget> CreateBudgetAsync(Budget budget)
 {
-    if (budget == null)
-    {
-        throw new ArgumentNullException(nameof(budget), "Budget cannot be null.");
-    }
-
     if (budget.TotalAmount < 0)
     {
         throw new ArgumentException("TotalAmount cannot be negative.", nameof(budget.TotalAmount));
     }
 
-    budget.RowVersion = null; // Ensure RowVersion starts as null for a new record
+    // Ensure RowVersion is initialized
+    if (budget.RowVersion == null)
+    {
+        budget.RowVersion = new byte[8]; // Initialize RowVersion with a default value
+    }
+
     _context.Budgets.Add(budget);
     await _context.SaveChangesAsync();
     return budget;
 }
+
 
 
 
