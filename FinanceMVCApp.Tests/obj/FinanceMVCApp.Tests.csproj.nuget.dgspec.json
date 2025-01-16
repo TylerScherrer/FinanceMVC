@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCAPP.Tests\\FinanceMVCApp.Tests.csproj": {}
+    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.tests\\FinanceMVCApp.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCAPP.Tests\\FinanceMVCApp.Tests.csproj": {
+    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.tests\\FinanceMVCApp.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCAPP.Tests\\FinanceMVCApp.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.tests\\FinanceMVCApp.Tests.csproj",
         "projectName": "FinanceMVCApp.Tests",
-        "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCAPP.Tests\\FinanceMVCApp.Tests.csproj",
+        "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.tests\\FinanceMVCApp.Tests.csproj",
         "packagesPath": "C:\\Users\\Tyler\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCAPP.Tests\\obj\\",
+        "outputPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Tyler\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,8 +26,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\FinanceMVCApp.csproj": {
-                "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\FinanceMVCApp.csproj"
+              "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\BudgetTracker.csproj": {
+                "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\BudgetTracker.csproj"
               }
             }
           }
@@ -48,6 +48,14 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
               "version": "[9.0.1, )"
@@ -66,7 +74,7 @@
             },
             "xunit": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "xunit.runner.visualstudio": {
               "target": "Package",
@@ -93,12 +101,12 @@
         }
       }
     },
-    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\FinanceMVCApp.csproj": {
+    "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\BudgetTracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\FinanceMVCApp.csproj",
-        "projectName": "FinanceMVCApp",
-        "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\FinanceMVCApp.csproj",
+        "projectUniqueName": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\BudgetTracker.csproj",
+        "projectName": "BudgetTracker",
+        "projectPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\BudgetTracker.csproj",
         "packagesPath": "C:\\Users\\Tyler\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp\\obj\\",
         "projectStyle": "PackageReference",
