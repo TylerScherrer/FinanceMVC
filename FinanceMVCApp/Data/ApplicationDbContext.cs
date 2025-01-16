@@ -79,44 +79,64 @@ namespace BudgetTracker.Data
     public DbSet<Bill> Bills { get; set; }
 
 
-
-
-    public object BudgetCategories { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Budget>()
-                .Property(b => b.RowVersion)
-                .IsRowVersion()
-                .HasDefaultValueSql("CURRENT_TIMESTAMP(6)");
-
-            modelBuilder.Entity<Category>()
-                .HasOne(c => c.Budget) // Category has one Budget
-                .WithMany(b => b.Categories) // Budget has many Categories
-                .HasForeignKey(c => c.BudgetId) // Foreign key is BudgetId
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete if Budget is removed
-
-            // Configure the relationship between Bill and Budget
-              // Configure Bill-Budget relationship
-            modelBuilder.Entity<Bill>()
-                .HasOne(b => b.Budget) // Bill has one Budget
-                .WithMany(b => b.Bills) // Budget has many Bills
-                .HasForeignKey(b => b.BudgetId) // Foreign key
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete if Budget is removed
-        }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-{
-    if (!optionsBuilder.IsConfigured)
+    /// Configures the entity models and their relationships for the database using the ModelBuilder.
+    /// This method defines rules and constraints for how the database schema should be generated
+    /// and updated.
+    /// <param name="modelBuilder">The ModelBuilder instance used to configure entity relationships and properties.</param>
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        optionsBuilder.UseMySql(
-           "Server=fitnessserver.mysql.database.azure.com;Port=3306;Database=budget;Uid=TylerS00;Pwd=Blink182!;SslMode=Required;",
-            new MySqlServerVersion(new Version(8, 0, 28)),
-            options => options.EnableRetryOnFailure()
-        );
+        // Call the base method to ensure any configurations from the base DbContext are applied.
+        base.OnModelCreating(modelBuilder);
+
+        // **********
+        // Budget Entity Configuration
+        // **********
+
+        // Configure the `RowVersion` property of the `Budget` entity.
+        // - `IsRowVersion()`: Marks this property as a concurrency token, which EF Core uses to handle concurrency conflicts.
+        // - `HasDefaultValueSql("CURRENT_TIMESTAMP(6)")`: Sets the default value of this column to the current timestamp
+        //   with millisecond precision (used in MySQL). This ensures the database automatically updates the timestamp.
+        modelBuilder.Entity<Budget>()
+            .Property(b => b.RowVersion)
+            .IsRowVersion()
+            .HasDefaultValueSql("CURRENT_TIMESTAMP(6)");
+
+        // **********
+        // Category Entity Configuration
+        // **********
+
+        // Configure the relationship between the `Category` and `Budget` entities:
+        // - `HasOne(c => c.Budget)`: Each `Category` is related to a single `Budget`.
+        // - `WithMany(b => b.Categories)`: Each `Budget` can have many `Categories`.
+        // - `HasForeignKey(c => c.BudgetId)`: Specifies `BudgetId` as the foreign key in the `Category` table.
+        // - `OnDelete(DeleteBehavior.Cascade)`: If a `Budget` is deleted, all associated `Categories` will also be deleted.
+        modelBuilder.Entity<Category>()
+            .HasOne(c => c.Budget)
+            .WithMany(b => b.Categories)
+            .HasForeignKey(c => c.BudgetId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // **********
+        // Bill Entity Configuration
+        // **********
+
+        // Configure the relationship between the `Bill` and `Budget` entities:
+        // - `HasOne(b => b.Budget)`: Each `Bill` is related to a single `Budget`.
+        // - `WithMany(b => b.Bills)`: Each `Budget` can have many `Bills`.
+        // - `HasForeignKey(b => b.BudgetId)`: Specifies `BudgetId` as the foreign key in the `Bill` table.
+        // - `OnDelete(DeleteBehavior.Cascade)`: If a `Budget` is deleted, all associated `Bills` will also be deleted.
+        modelBuilder.Entity<Bill>()
+            .HasOne(b => b.Budget)
+            .WithMany(b => b.Bills)
+            .HasForeignKey(b => b.BudgetId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
-}
+
+
+
+
+
+    // End of class
     }
     
 }
