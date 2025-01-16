@@ -324,11 +324,198 @@ public async Task CreateBudgetAsync_ShouldAllowBudgetWithZeroTotalAmount()
 
 
 
+[Fact]
+public async Task GetAllBudgetsAsync_ShouldIncludeCategories()
+{
+    // Arrange
+    var category = new Category
+    {
+        Id = 1,
+        Name = "Category 1",
+        BudgetId = 1 // Ensure the foreign key is set correctly
+    };
+
+    var budget = new Budget
+    {
+        Id = 1,
+        Name = "Budget with Category",
+        TotalAmount = 1000,
+        DateCreated = DateTime.Now,
+        RowVersion = new byte[8],
+        Categories = new List<Category> { category } // Associate the category
+    };
+
+    // Add the budget and its category to the in-memory database
+    _context.Budgets.Add(budget);
+    await _context.SaveChangesAsync();
+
+    // Act
+    var result = await _budgetService.GetAllBudgetsAsync();
+
+    // Assert
+    Assert.Single(result); // Ensure one budget is returned
+    Assert.Single(result[0].Categories); // Ensure one category is associated
+    Assert.Equal("Category 1", result[0].Categories.First().Name); // Verify the category name
+}
 
 
 
 
 
+[Fact]
+public async Task CreateBudgetAsync_ShouldInitializeRowVersion_WhenNull()
+{
+    // Arrange
+    var budget = new Budget
+    {
+        Name = "Budget Without RowVersion",
+        TotalAmount = 500,
+        DateCreated = DateTime.Now,
+        RowVersion = null
+    };
+
+    // Act
+    var result = await _budgetService.CreateBudgetAsync(budget);
+
+    // Assert
+    Assert.NotNull(result.RowVersion);
+    Assert.Equal(8, result.RowVersion.Length); // Default size for RowVersion
+}
+
+
+
+[Fact]
+public async Task UpdateBudgetAsync_ShouldThrowInvalidOperationException_WhenRowVersionIsNull()
+{
+    // Arrange
+    var budget = new Budget
+    {
+        Id = 1,
+        Name = "Budget Without RowVersion",
+        TotalAmount = 1000,
+        DateCreated = DateTime.Now,
+        RowVersion = null // Missing RowVersion
+    };
+
+    // Act & Assert
+    await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+    {
+        await _budgetService.UpdateBudgetAsync(budget);
+    });
+}
+
+[Fact]
+public async Task DeleteBudgetAsync_ShouldHandleConcurrentDeletion()
+{
+    // Arrange
+    var budget = new Budget
+    {
+        Id = 1,
+        Name = "Budget to Delete",
+        TotalAmount = 1000,
+        DateCreated = DateTime.Now,
+        RowVersion = new byte[8]
+    };
+
+    _context.Budgets.Add(budget);
+    await _context.SaveChangesAsync();
+
+    // Simulate concurrent deletion
+    var concurrentBudget = await _context.Budgets.FindAsync(1);
+    _context.Budgets.Remove(concurrentBudget);
+    await _context.SaveChangesAsync();
+
+    // Act
+    var result = await _budgetService.DeleteBudgetAsync(1);
+
+    // Assert
+    Assert.False(result); // Budget was already deleted
+}
+
+[Fact]
+public async Task UpdateBudgetAsync_ShouldThrowDbUpdateConcurrencyException_WhenRowVersionMismatchOccurs()
+{
+    // Arrange
+    var budget = new Budget
+    {
+        Id = 1,
+        Name = "Original Budget",
+        TotalAmount = 1000,
+        DateCreated = DateTime.Now,
+        RowVersion = new byte[] { 0, 0, 0, 1 }
+    };
+
+    _context.Budgets.Add(budget);
+    await _context.SaveChangesAsync();
+
+    // Simulate User A's update
+    var userABudget = new Budget
+    {
+        Id = budget.Id,
+        Name = "User A's Budget",
+        TotalAmount = 1200,
+        DateCreated = budget.DateCreated,
+        RowVersion = budget.RowVersion
+    };
+
+    // Simulate User B's update
+    var userBBudget = await _context.Budgets.FirstAsync();
+    userBBudget.RowVersion = new byte[] { 0, 0, 0, 2 }; // Simulate RowVersion change
+    await _context.SaveChangesAsync();
+
+    // Detach tracked entities
+    _context.Entry(budget).State = EntityState.Detached;
+    _context.Entry(userBBudget).State = EntityState.Detached;
+
+    // Act & Assert
+    var exception = await Assert.ThrowsAsync<DbUpdateConcurrencyException>(async () =>
+    {
+        await _budgetService.UpdateBudgetAsync(userABudget);
+    });
+
+    Assert.Contains("The budget was updated by another user", exception.Message);
+}
+
+[Fact]
+public async Task GetBudgetDetailsAsync_ShouldIncludeTransactionsInCategories()
+{
+    // Arrange
+    var transaction = new Transaction
+    {
+        Id = 1,
+        Description = "Transaction 1",
+        Amount = 100
+    };
+
+    var category = new Category
+    {
+        Id = 1,
+        Name = "Category 1",
+        Transactions = new List<Transaction> { transaction }
+    };
+
+    var budget = new Budget
+    {
+        Id = 1,
+        Name = "Test Budget",
+        TotalAmount = 1000,
+        Categories = new List<Category> { category },
+        RowVersion = new byte[8]
+    };
+
+    _context.Budgets.Add(budget);
+    await _context.SaveChangesAsync();
+
+    // Act
+    var result = await _budgetService.GetBudgetDetailsAsync(1);
+
+    // Assert
+    Assert.NotNull(result);
+    Assert.Equal("Test Budget", result.Name);
+    Assert.Single(result.Categories);
+    Assert.Single(result.Categories.First().Transactions);
+    Assert.Equal("Transaction 1", result.Categories.First().Transactions.First().Description);
+}
 
 
 
