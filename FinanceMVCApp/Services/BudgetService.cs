@@ -23,37 +23,18 @@ public async Task<List<Budget>> GetAllBudgetsAsync()
 }
 
 
-public async Task<Budget> GetBudgetDetailsAsync(int id)
-{
-    var budget = await _context.Budgets
-        .Include(b => b.Categories)
-            .ThenInclude(c => c.Transactions) // Include transactions
-        .Select(b => new Budget
+        public async Task<Budget> GetBudgetDetailsAsync(int id)
         {
-            Id = b.Id,
-            Name = b.Name,
-            TotalAmount = b.TotalAmount,
-            DateCreated = b.DateCreated,
-            RowVersion = b.RowVersion, // Include RowVersion
-            Categories = b.Categories.Select(c => new Category
-            {
-                Id = c.Id,
-                Name = c.Name,
-                Transactions = c.Transactions.Select(t => new Transaction
-                {
-                    Id = t.Id,
-                    Description = t.Description,
-                    Amount = t.Amount
-                }).ToList()
-            }).ToList()
-        })
-        .FirstOrDefaultAsync(b => b.Id == id);
+            var budget = await _context.Budgets
+                .Include(b => b.Categories)
+                    .ThenInclude(c => c.Transactions) // Include Transactions
+                .FirstOrDefaultAsync(b => b.Id == id);
 
-    if (budget == null)
-        throw new InvalidOperationException("Budget not found.");
+            if (budget == null)
+                throw new InvalidOperationException("Budget not found.");
 
-    return budget;
-}
+            return budget;
+        }
 
 
 public async Task<Budget> CreateBudgetAsync(Budget budget)
