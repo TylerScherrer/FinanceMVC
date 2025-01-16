@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using BudgetTracker.Data; // Adjust to the correct namespace.
+using BudgetTracker.Data; 
+using System.Diagnostics;
+
 
 
 namespace BudgetTracker.Tests
@@ -618,20 +620,164 @@ public async Task UpdateBudgetAsync_ShouldHandleConcurrentUpdates()
 }
 
 
+[Fact]
+public async Task UpdateBudgetAsync_ShouldThrowArgumentException_WhenNameIsEmpty()
+{
+    // Arrange
+    var budget = new Budget
+    {
+        Id = 1,
+        Name = "", // Empty name
+        TotalAmount = 1000,
+        DateCreated = DateTime.Now,
+        RowVersion = new byte[8]
+    };
+
+    // Act & Assert
+    var exception = await Assert.ThrowsAsync<ArgumentException>(async () =>
+    {
+        await _budgetService.UpdateBudgetAsync(budget);
+    });
+
+    Assert.Equal("Name cannot be null or empty. (Parameter 'Name')", exception.Message);
+}
+
+
+
+[Fact]
+public async Task DeleteBudgetAsync_ShouldDeleteAssociatedCategories()
+{
+    // Arrange
+    var category = new Category { Name = "Test Category" };
+    var budget = new Budget
+    {
+        Name = "Test Budget",
+        TotalAmount = 1000,
+        DateCreated = DateTime.Now,
+        RowVersion = new byte[8],
+        Categories = new List<Category> { category }
+    };
+
+    _context.Budgets.Add(budget);
+    await _context.SaveChangesAsync();
+
+    // Act
+    var result = await _budgetService.DeleteBudgetAsync(budget.Id);
+
+    // Assert
+    Assert.True(result);
+    Assert.Empty(_context.Categories); // Verify categories were deleted
+}
+
+
+[Fact]
+public async Task CreateBudgetAsync_ShouldEnforceUniqueBudgetName()
+{
+    // Arrange
+    var budget1 = new Budget
+    {
+        Name = "Unique Budget",
+        TotalAmount = 1000,
+        DateCreated = DateTime.Now,
+        RowVersion = new byte[8]
+    };
+
+    var budget2 = new Budget
+    {
+        Name = "Unique Budget", // Duplicate name
+        TotalAmount = 1500,
+        DateCreated = DateTime.Now,
+        RowVersion = new byte[8]
+    };
+
+    _context.Budgets.Add(budget1);
+    await _context.SaveChangesAsync();
+
+    // Act & Assert
+    var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+    {
+        await _budgetService.CreateBudgetAsync(budget2);
+    });
+
+    Assert.Equal("A budget with the same name already exists.", exception.Message);
+}
+
+
+[Fact]
+public async Task GetAllBudgetsAsync_ShouldHandleLargeNumberOfBudgets()
+{
+    // Arrange
+    for (int i = 1; i <= 10000; i++)
+    {
+        _context.Budgets.Add(new Budget
+        {
+            Name = $"Large Budget {i}",
+            TotalAmount = 100 * i,
+            DateCreated = DateTime.Now,
+            RowVersion = new byte[8]
+        });
+    }
+    await _context.SaveChangesAsync();
+
+    // Act
+    var result = await _budgetService.GetAllBudgetsAsync();
+
+    // Assert
+    Assert.Equal(10000, result.Count);
+}
 
 
 
 
+[Fact]
+public async Task GetAllBudgetsAsync_ShouldHandleConcurrentRequests()
+{
+    // Arrange
+    for (int i = 1; i <= 10; i++)
+    {
+        _context.Budgets.Add(new Budget
+        {
+            Name = $"Concurrent Budget {i}",
+            TotalAmount = 100 * i,
+            DateCreated = DateTime.Now,
+            RowVersion = new byte[8]
+        });
+    }
+    await _context.SaveChangesAsync();
+
+    // Act
+    var task1 = _budgetService.GetAllBudgetsAsync();
+    var task2 = _budgetService.GetAllBudgetsAsync();
+
+    var results = await Task.WhenAll(task1, task2);
+
+    // Assert
+    Assert.Equal(10, results[0].Count);
+    Assert.Equal(10, results[1].Count);
+}
 
 
 
+[Fact]
+public async Task CreateBudgetAsync_ShouldCompleteWithinTimeLimit_ForLargeDataset()
+{
+    // Arrange
+    var budgets = Enumerable.Range(1, 10000).Select(i => new Budget
+    {
+        Name = $"Performance Budget {i}",
+        TotalAmount = i * 100,
+        DateCreated = DateTime.Now,
+        RowVersion = new byte[8]
+    }).ToList();
 
+    // Act & Assert
+    var stopwatch = Stopwatch.StartNew();
+    _context.Budgets.AddRange(budgets);
+    await _context.SaveChangesAsync();
+    stopwatch.Stop();
 
-
-
-
-
-
+    Assert.True(stopwatch.ElapsedMilliseconds < 5000); // Ensure operation completes within 5 seconds
+}
 
 
 
