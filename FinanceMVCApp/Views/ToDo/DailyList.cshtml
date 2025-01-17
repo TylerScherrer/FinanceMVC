@@ -1,26 +1,42 @@
 @model IEnumerable<BudgetTracker.Models.ToDoItem>
 
+
+
+<!-- Page Header -->
 <h2>Today's To-Do List</h2>
+
+
+<!-- Button to Add a New Task -->
 <a asp-action="Create" class="btn btn-primary">Add Task</a>
 
+<!-- Table to Display the To-Do List -->
 <table class="table">
+    <!-- Table Header -->
     <thead>
         <tr>
-            <th>Task</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>Task</th> <!-- Column for Task Name -->
+            <th>Status</th> <!-- Column for Task Status (Completed/Pending) -->
+            <th>Actions</th> <!-- Column for Actions (e.g., Mark Complete) -->
         </tr>
     </thead>
+    <!-- Table Body -->
     <tbody>
-    @foreach (var task in Model)
+    <!-- Loop through each task in the model -->
+    @foreach (var task in Model) 
     {
         <tr>
+            <!-- Task Name -->
             <td>@task.Name</td>
+            <!-- Task Status -->
             <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
+            <!-- Actions -->
             <td>
+                <!-- Display the "Mark Complete" button only if the task is not completed -->
                 @if (!task.IsCompleted)
                 {
+                    <!-- Form to Mark Task as Completed -->
                     <form method="post" asp-action="MarkComplete" asp-route-id="@task.Id">
+                        <!-- Submit Button to Mark Complete -->
                         <button type="submit" class="btn btn-success">Mark Complete</button>
                     </form>
                 }
