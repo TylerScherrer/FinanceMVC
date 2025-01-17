@@ -161,221 +161,273 @@
     }
 </style>
 
+
+
+
+
+
+
+
+
 <div class="container-fluid bg-dark text-light py-4">
+    <!-- Page Header -->
     <h1 class="fw-bold text-center mb-4">Organize My Day</h1>
+    <!-- Display the selected date in a formatted manner -->
     <h3 class="text-center mb-3">Schedule for @Model.SelectedDate.ToString("yyyy-MM-dd")</h3>
 
     <!-- Calendar Container -->
     <div class="calendar-container">
-        <!-- Calendar Navigation (Previous / Next) -->
+        <!-- Navigation Buttons for Calendar -->
         <div class="calendar-nav">
+            <!-- Previous Month Button -->
             <button id="prevMonth">&laquo; Prev</button>
+            <!-- Display the current month and year -->
             <span class="month-label" id="monthLabel"></span>
+            <!-- Next Month Button -->
             <button id="nextMonth">Next &raquo;</button>
         </div>
+        <!-- Placeholder for dynamically generated calendar -->
         <div id="calendar"></div>
     </div>
 
-    <script>
-        let currentYear, currentMonth, tasksByDate;
 
-        // Array of month names for labeling
-        const monthNames = [
-            "January", "February", "March", "April",
-            "May", "June", "July", "August",
-            "September", "October", "November", "December"
-        ];
+<script>
+    let currentYear, currentMonth, tasksByDate;
 
-        function updateMonthLabel() {
-            const label = document.getElementById('monthLabel');
-            label.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+    // Array of month names for labeling the calendar header
+    const monthNames = [
+        "January", "February", "March", "April",
+        "May", "June", "July", "August",
+        "September", "October", "November", "December"
+    ];
+
+    // Updates the month label above the calendar
+    function updateMonthLabel() {
+        const label = document.getElementById('monthLabel'); // Get the label element
+        label.textContent = `${monthNames[currentMonth]} ${currentYear}`; // Set the text to the current month and year
+    }
+
+    // Generates the calendar for the given year and month
+    function generateCalendar(year, month, tasksArr) {
+        const calendar = document.getElementById('calendar'); // Get the calendar container
+        const firstDay = new Date(year, month, 1).getDay(); // Find the day of the week for the 1st of the month
+        const daysInMonth = new Date(year, month + 1, 0).getDate(); // Find the total days in the current month
+
+        // Start building the calendar's HTML
+        let calendarHTML = '<table class="calendar-table">';
+        calendarHTML += '<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>';
+        calendarHTML += '<tbody><tr>';
+
+        // Add blank cells for days before the 1st of the month
+        for (let i = 0; i < firstDay; i++) {
+            calendarHTML += '<td></td>';
         }
 
-        function generateCalendar(year, month, tasksArr) {
-            const calendar = document.getElementById('calendar');
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            let calendarHTML = '<table class="calendar-table">';
-            calendarHTML += '<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>';
-            calendarHTML += '<tbody><tr>';
-
-            // Blank cells for days before the 1st of the month
-            for (let i = 0; i < firstDay; i++) {
-                calendarHTML += '<td></td>';
+        // Generate each day's cell
+        for (let day = 1; day <= daysInMonth; day++) {
+            // Start a new row for each Sunday
+            if ((firstDay + day - 1) % 7 === 0) {
+                calendarHTML += '</tr><tr>';
             }
 
-            // Render each day in the month
-            for (let day = 1; day <= daysInMonth; day++) {
-                // Start a new row on Sunday
-                if ((firstDay + day - 1) % 7 === 0) {
-                    calendarHTML += '</tr><tr>';
-                }
+            // Format the current date
+            const currentDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+            const hasTasks = tasksArr.includes(currentDate); // Check if the date has associated tasks
 
-                const currentDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-                const hasTasks = tasksArr.includes(currentDate);
+            // Add a clickable cell for the day, with a special class if it has tasks
+            calendarHTML += `
+                <td class="clickable ${hasTasks ? 'task-day' : ''}"
+                    onclick="selectDate(${year}, ${month}, ${day})">
+                    ${day}
+                </td>
+            `;
+        }
 
-                // Render TD
-                calendarHTML += `
-                    <td class="clickable ${hasTasks ? 'task-day' : ''}"
-                        onclick="selectDate(${year}, ${month}, ${day})">
-                        ${day}
-                    </td>
-                `;
+        // Close the last row and table
+        calendarHTML += '</tr></tbody></table>';
+        calendar.innerHTML = calendarHTML; // Update the calendar container's content
+    }
+
+    // Updates the calendar display for the current year and month
+    function updateCalendar() {
+        generateCalendar(currentYear, currentMonth, tasksByDate); // Generate the calendar
+        updateMonthLabel(); // Update the month label
+    }
+
+    // Handles clicking a date in the calendar
+    function selectDate(year, month, day) {
+        // Format the selected date as a string
+        const selectedDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        // Redirect to the planner page for the selected date
+        window.location.href = '/Planner?date=' + selectedDate;
+    }
+
+    // Event listener for when the page loads
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the initial date from the server (Model.SelectedDate)
+        const selectedDate = new Date('@Model.SelectedDate.ToString("yyyy-MM-dd")');
+
+        // Set up global variables for the current year and month
+        currentYear = selectedDate.getFullYear();
+        currentMonth = selectedDate.getMonth();
+
+        // Convert the list of task dates from the server into a JavaScript array
+        tasksByDate = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+            Model.TasksByDate.Keys.Select(d => d.ToString("yyyy-MM-dd"))
+        ));
+
+        // Generate the initial calendar
+        updateCalendar();
+
+        // Hook up the previous month button
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentMonth--; // Decrease the month
+            if (currentMonth < 0) {
+                currentMonth = 11; // Wrap around to December
+                currentYear--; // Move to the previous year
             }
-
-            calendarHTML += '</tr></tbody></table>';
-            calendar.innerHTML = calendarHTML;
-        }
-
-        function updateCalendar() {
-            generateCalendar(currentYear, currentMonth, tasksByDate);
-            updateMonthLabel();
-        }
-
-        function selectDate(year, month, day) {
-            const selectedDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-            window.location.href = '/Planner?date=' + selectedDate;
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get the initial date from the server (Model.SelectedDate)
-            const selectedDate = new Date('@Model.SelectedDate.ToString("yyyy-MM-dd")');
-
-            // Set up global year & month from the selected date
-            currentYear = selectedDate.getFullYear();
-            currentMonth = selectedDate.getMonth();
-
-            tasksByDate = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
-                Model.TasksByDate.Keys.Select(d => d.ToString("yyyy-MM-dd"))
-            ));
-
-            // Generate the initial calendar
-            updateCalendar();
-
-            // Hook up Prev/Next buttons
-            document.getElementById('prevMonth').addEventListener('click', () => {
-                currentMonth--;
-                if (currentMonth < 0) {
-                    currentMonth = 11;
-                    currentYear--;
-                }
-                updateCalendar();
-            });
-
-            document.getElementById('nextMonth').addEventListener('click', () => {
-                currentMonth++;
-                if (currentMonth > 11) {
-                    currentMonth = 0;
-                    currentYear++;
-                }
-                updateCalendar();
-            });
+            updateCalendar(); // Update the calendar display
         });
-    </script>
+
+        // Hook up the next month button
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentMonth++; // Increase the month
+            if (currentMonth > 11) {
+                currentMonth = 0; // Wrap around to January
+                currentYear++; // Move to the next year
+            }
+            updateCalendar(); // Update the calendar display
+        });
+    });
+</script>
 </div>
+
+
+
+
+
 
 <!-- Daily Schedule Card -->
 <div class="card glass-panel mt-5 text-light">
+    <!-- Card Body -->
     <div class="card-body">
+        <!-- Card Header -->
         <h5 class="fw-bold mb-3 text-white">
             <i class="fas fa-clock me-2"></i> Daily Schedule
         </h5>
+
+        <!-- Table Container for the Schedule -->
         <div class="table-responsive">
             <table class="table table-dark table-bordered border-secondary mb-0 schedule-table">
+                <!-- Table Header -->
                 <thead>
                     <tr>
-                        <th class="time-col">Time</th>
-                        <th class="assignment-col">Task</th>
-                        <th class="action-col">Action</th>
+                        <th class="time-col">Time</th> <!-- Column for Time Slots -->
+                        <th class="assignment-col">Task</th> <!-- Column for Assigned Tasks -->
+                        <th class="action-col">Action</th> <!-- Column for Actions -->
                     </tr>
                 </thead>
-             <tbody>
-@{
-    // We have half-hour increments from 8:00 to 8:00 PM
-    var timeSlots = Enumerable.Range(8, 13)
-        .SelectMany(h => new[] { (h, 0), (h, 30) })
-        .ToList();
 
-    string FormatTime(int hour, int minute)
-    {
-        int displayHour = hour % 12;
-        if (displayHour == 0) displayHour = 12;
-        string ampm = (hour < 12) ? "a.m." : "p.m.";
-        return $"{displayHour}:{minute:D2} {ampm}";
-    }
-}
+                <!-- Table Body -->
+                <tbody>
+                    @{
+                        // Define time slots for the schedule (8:00 AM to 8:00 PM in 30-minute increments)
+                        var timeSlots = Enumerable.Range(8, 13)
+                            .SelectMany(h => new[] { (h, 0), (h, 30) }) // Creates time slots like (8:00, 8:30)
+                            .ToList();
 
-@foreach (var (hour, minute) in timeSlots)
-{
-    var scheduledTask = Model.DailySchedules?
-        .FirstOrDefault(ds => ds.Hour == hour && ds.Minute == minute);
+                        // Helper function to format the time in 12-hour format with AM/PM
+                        string FormatTime(int hour, int minute)
+                        {
+                            int displayHour = hour % 12;
+                            if (displayHour == 0) displayHour = 12; // Adjust for 12 PM or 12 AM
+                            string ampm = (hour < 12) ? "a.m." : "p.m.";
+                            return $"{displayHour}:{minute:D2} {ampm}";
+                        }
+                    }
 
-    <tr>
-        <td class="time-col">@FormatTime(hour, minute)</td>
-        <td class="assignment-col">
-            @if (scheduledTask != null)
-            {
-                <span class="assigned-task">@scheduledTask.Task.Name</span>
-            }
-            else
-            {
-                <!-- Form to assign a task -->
-                <form method="post"
-                      asp-action="AssignTaskToTime"
-                      asp-controller="ToDo"
-                      class="row g-2 align-items-center mb-0">
-                    <!-- Hidden fields for Hour, Minute, Selected Date -->
-                    <input type="hidden" name="hour" value="@hour" />
-                    <input type="hidden" name="minute" value="@minute" />
-                    <input type="hidden" name="selectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+                    <!-- Iterate through each time slot -->
+                    @foreach (var (hour, minute) in timeSlots)
+                    {
+                        // Check if there's a task assigned to the current time slot
+                        var scheduledTask = Model.DailySchedules?
+                            .FirstOrDefault(ds => ds.Hour == hour && ds.Minute == minute);
 
-                    <!-- 1) Dropdown for existing tasks -->
-                    <div class="col-12 col-sm-6">
-                        <select name="taskId" class="form-select form-select-sm bg-dark text-light border-secondary">
-                            <option value="">-- Select Existing Task --</option>
-                            @foreach (var task in Model.TodayTasks)
-                            {
-                                <option value="@task.Id">@task.Name</option>
-                            }
-                        </select>
-                    </div>
+                        <tr>
+                            <!-- Time Slot -->
+                            <td class="time-col">@FormatTime(hour, minute)</td>
 
-                    <!-- 2) OR a new task name -->
-                    <div class="col-12 col-sm-6">
-                        <input type="text"
-                               name="newTaskName"
-                               class="form-control form-control-sm bg-dark text-light border-secondary"
-                               placeholder="Or new task name..." />
-                    </div>
+                            <!-- Task Assignment Column -->
+                            <td class="assignment-col">
+                                @if (scheduledTask != null)
+                                {
+                                    <!-- Display Assigned Task -->
+                                    <span class="assigned-task">@scheduledTask.Task.Name</span>
+                                }
+                                else
+                                {
+                                    <!-- Form to Assign a Task -->
+                                    <form method="post"
+                                          asp-action="AssignTaskToTime"
+                                          asp-controller="ToDo"
+                                          class="row g-2 align-items-center mb-0">
+                                        <!-- Hidden Fields to Pass Hour, Minute, and Selected Date -->
+                                        <input type="hidden" name="hour" value="@hour" />
+                                        <input type="hidden" name="minute" value="@minute" />
+                                        <input type="hidden" name="selectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
 
-                    <div class="col-12 d-grid mt-2">
-                        <button type="submit" class="btn btn-sm custom-bills-btn fw-semibold">
-                            Assign
-                        </button>
-                    </div>
-                </form>
-            }
-        </td>
-        <td class="action-col">
-            @if (scheduledTask != null)
-            {
-                <form method="post"
-                      asp-action="UnassignTask"
-                      asp-controller="ToDo"
-                      class="d-inline">
-                    <input type="hidden" name="taskId" value="@scheduledTask.Task.Id" />
-                    <input type="hidden" name="hour" value="@hour" />
-                    <input type="hidden" name="minute" value="@minute" />
-                    <button type="submit" class="btn btn-sm custom-delete-btn">
-                        Unassign
-                    </button>
-                </form>
-            }
-        </td>
-    </tr>
-}
-</tbody>
+                                        <!-- Dropdown to Select Existing Tasks -->
+                                        <div class="col-12 col-sm-6">
+                                            <select name="taskId" class="form-select form-select-sm bg-dark text-light border-secondary">
+                                                <option value="">-- Select Existing Task --</option>
+                                                @foreach (var task in Model.TodayTasks)
+                                                {
+                                                    <option value="@task.Id">@task.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <!-- Input Field to Add a New Task -->
+                                        <div class="col-12 col-sm-6">
+                                            <input type="text"
+                                                   name="newTaskName"
+                                                   class="form-control form-control-sm bg-dark text-light border-secondary"
+                                                   placeholder="Or new task name..." />
+                                        </div>
+
+                                        <!-- Assign Task Button -->
+                                        <div class="col-12 d-grid mt-2">
+                                            <button type="submit" class="btn btn-sm custom-bills-btn fw-semibold">
+                                                Assign
+                                            </button>
+                                        </div>
+                                    </form>
+                                }
+                            </td>
+
+                            <!-- Action Column -->
+                            <td class="action-col">
+                                @if (scheduledTask != null)
+                                {
+                                    <!-- Form to Unassign the Task -->
+                                    <form method="post"
+                                          asp-action="UnassignTask"
+                                          asp-controller="ToDo"
+                                          class="d-inline">
+                                        <!-- Hidden Fields to Pass Task ID, Hour, and Minute -->
+                                        <input type="hidden" name="taskId" value="@scheduledTask.Task.Id" />
+                                        <input type="hidden" name="hour" value="@hour" />
+                                        <input type="hidden" name="minute" value="@minute" />
+                                        <!-- Unassign Task Button -->
+                                        <button type="submit" class="btn btn-sm custom-delete-btn">
+                                            Unassign
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
     </div>
