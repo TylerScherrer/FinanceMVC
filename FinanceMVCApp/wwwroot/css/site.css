@@ -736,3 +736,14 @@ color: white
   color: #ffffff;
   transition: background-color 0.3s ease;
 }
+
+
+input[type="time"] {
+  color: white; /* Makes text white */
+  background-color: transparent; /* Ensures background is transparent */
+  border: 1px solid white; /* Optional: ensures border matches */
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Turns the clock icon white */
+}
