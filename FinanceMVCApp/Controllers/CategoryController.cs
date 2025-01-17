@@ -142,23 +142,33 @@ public class CategoryController : Controller
     // - `id`: The ID of the category to delete.
     // Returns:
     // - A NotFound response if the category doesn't exist or the deletion fails.
-    // - Redirects to the Budget Index page upon successful deletion.
+    // - Redirects to the Budget Details page upon successful deletion with a confirmation message.
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
-        // Attempt to delete the category using the service.
-        var success = await _categoryService.DeleteCategoryAsync(id);
-
-        // Check if the deletion was unsuccessful.
-        if (!success)
+        // Retrieve the category to get its associated BudgetId
+        var category = await _categoryService.GetCategoryDetailsAsync(id);
+        if (category == null)
         {
-            // Return a NotFound result with an error message.
             return NotFound("Category not found.");
         }
 
-        // Redirect to the Budget Index page after successful deletion.
-        return RedirectToAction("Index", "Budget");
+        // Attempt to delete the category using the service
+        var success = await _categoryService.DeleteCategoryAsync(id);
+
+        if (!success)
+        {
+            return NotFound("Failed to delete the category.");
+        }
+
+        // Set a success message to display in the redirected view
+        TempData["SuccessMessage"] = "Category deleted successfully.";
+
+        // Redirect to the Budget Details page of the associated budget
+        return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
     }
+
+
 
 
 

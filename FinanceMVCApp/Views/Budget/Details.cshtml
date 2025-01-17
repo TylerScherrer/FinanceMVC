@@ -42,7 +42,14 @@
                     <h5 class="fw-bold mb-3 text-center">
                         <i class="fas fa-list-ul me-2"></i>Categories
                     </h5>
-
+        <!-- Success Message -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>@TempData["SuccessMessage"]</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
                     @if (Model.Categories != null && Model.Categories.Any())
                     {
                         <div class="table-responsive mx-auto" style="width: 90%;">
