@@ -1,34 +1,52 @@
 @model BudgetTracker.Models.Bill
 
+<!-- Main Container -->
 <div class="container py-4 bg-dark text-light">
+    <!-- Page Title -->
     <h1 class="fw-bold mb-4">Add Bill</h1>
+
+    <!-- Form to Create a New Bill -->
     <form asp-action="Create" method="post">
+        <!-- Hidden Input for Budget ID -->
         <input type="hidden" asp-for="BudgetId" />
 
+        <!-- Bill Name Input -->
         <div class="mb-3">
+            <!-- Label for Bill Name -->
             <label asp-for="Name" class="form-label">Name</label>
+            <!-- Input Field for Bill Name -->
             <input asp-for="Name" class="form-control" />
         </div>
 
+        <!-- Bill Amount Input -->
         <div class="mb-3">
+            <!-- Label for Bill Amount -->
             <label asp-for="Amount" class="form-label">Amount</label>
+            <!-- Input Field for Bill Amount -->
             <input asp-for="Amount" class="form-control" />
         </div>
 
+        <!-- Bill Due Date Input -->
         <div class="mb-3">
+            <!-- Label for Due Date -->
             <label asp-for="DueDate" class="form-label">Due Date</label>
+            <!-- Input Field for Due Date -->
             <input asp-for="DueDate" class="form-control" type="date" />
         </div>
 
+        <!-- Is Paid Checkbox -->
         <div class="mb-3 form-check">
+            <!-- Checkbox Input for Payment Status -->
             <input asp-for="IsPaid" class="form-check-input" />
+            <!-- Label for Is Paid Checkbox -->
             <label asp-for="IsPaid" class="form-check-label">Is Paid</label>
         </div>
 
         <!-- Save Button -->
         <button type="submit" class="btn custom-create-btn">Save</button>
 
-        <!-- Cancel Button: link that calls your Bill/ViewBills action with the same budgetId -->
+        <!-- Cancel Button -->
+        <!-- Link to View Bills with the Current Budget ID -->
         <a asp-action="ViewBills"
            asp-controller="Bill"
            asp-route-budgetId="@Model.BudgetId"

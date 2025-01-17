@@ -1,29 +1,43 @@
 @model List<BudgetTracker.Models.Bill>
 @{
+    // Set the page title dynamically
     ViewBag.Title = "Manage Bills";
 }
 
+<!-- Page Heading -->
 <h2>Bills</h2>
+
+<!-- Bills Table -->
 <table class="table">
+    <!-- Table Header -->
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Due Date</th>
-            <th>Is Paid</th>
-            <th>Actions</th>
+            <th>Name</th> <!-- Column for bill name -->
+            <th>Amount</th> <!-- Column for bill amount -->
+            <th>Due Date</th> <!-- Column for bill due date -->
+            <th>Is Paid</th> <!-- Column for bill payment status -->
+            <th>Actions</th> <!-- Column for action buttons -->
         </tr>
     </thead>
+    
+ <!-- Table Body -->
     <tbody>
+        <!-- Loop through each bill in the model -->
         @foreach (var bill in Model)
         {
             <tr>
+                <!-- Display Bill Name -->
                 <td>@bill.Name</td>
+                <!-- Display Bill Amount (formatted as currency) -->
                 <td>@bill.Amount.ToString("C")</td>
+                <!-- Display Bill Due Date -->
                 <td>@bill.DueDate.ToShortDateString()</td>
+                <!-- Display Payment Status -->
                 <td>@bill.IsPaid</td>
                 <td>
+                    <!-- Delete Form -->
                     <form asp-action="Delete" asp-route-id="@bill.Id" asp-route-budgetId="@ViewBag.BudgetId" method="post">
+                           <!-- Submit Button for Deleting the Bill -->
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
@@ -31,4 +45,6 @@
         }
     </tbody>
 </table>
+
+<!-- Add Bill Button -->
 <a asp-action="Create" asp-route-budgetId="@ViewBag.BudgetId" class="btn btn-primary">Add Bill</a>
