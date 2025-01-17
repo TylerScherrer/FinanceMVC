@@ -104,35 +104,44 @@
 
 <!-- Main Layout -->
 <div class="d-flex flex-nowrap">
-    <!-- (Optional) Sidebar goes here if you have one. Otherwise remove. -->
+    <!-- Sidebar Placeholder (optional) -->
+    <!-- Uncomment and add code for a sidebar here if needed -->
     <!-- <nav id="sidebar" ...>Sidebar Code</nav> -->
 
+    <!-- Main Content Area -->
     <div class="flex-fill">
         <!-- Hero Section -->
         <div class="hero-section text-light mb-10">
+            <!-- Header Title and Subtitle -->
             <div class="create-header-title">
+                <!-- Main Dashboard Title -->
                 <h1 class="display-5 fw-bold">My Dashboard</h1>
-                <p class="lead mb-0">
-                </p>
+                <!-- Placeholder for a lead paragraph or subheading -->
+                <p class="lead mb-0"></p>
             </div>
         </div>
 
-        <!-- Main Row -->
+        <!-- Main Row Container -->
         <div class="container-fluid px-4">
             <div class="row g-3">
-                <!-- LEFT COLUMN (col-lg-8): Budgets, Today's Tasks, Today's Schedule -->
+                <!-- LEFT COLUMN: Budgets, Today's Tasks, Today's Schedule -->
                 <div class="col-lg-8">
-                    <!-- Create New Budget -->
+                    <!-- Create New Budget Card -->
                     <div class="card glass-panel mb-4 text-light border-white">
+                        <!-- Card Body -->
                         <div class="card-body">
-<h4 class="create-budget-title">
-    <i class="fas fa-plus-circle text-info me-2"></i>Create New Budget
-</h4>
+                            <!-- Section Title -->
+                            <h4 class="create-budget-title">
+                                <!-- Icon and Title -->
+                                <i class="fas fa-plus-circle text-info me-2"></i>Create New Budget
+                            </h4>
 
+                            <!-- Form to Create a New Budget -->
                             <form asp-action="Create"
                                   asp-controller="Budget"
                                   method="post"
                                   class="row g-2">
+                                <!-- Input for Budget Name -->
                                 <div class="col-md-5">
                                     <input type="text"
                                            name="Name"
@@ -140,6 +149,7 @@
                                            placeholder="Budget Name"
                                            required />
                                 </div>
+                                <!-- Input for Total Amount -->
                                 <div class="col-md-5">
                                     <input type="number"
                                            name="TotalAmount"
@@ -148,6 +158,7 @@
                                            step="0.01"
                                            required />
                                 </div>
+                                <!-- Submit Button -->
                                 <div class="col-md-2 d-grid">
                                     <button type="submit" class="btn custom-create-btn fw-semibold text-white">
                                         Add Budget
@@ -157,292 +168,430 @@
                         </div>
                     </div>
 
-                    <!-- Budgets Section -->
-                    <h4 class="fw-bold mb-3 text-light">
-                        <i class="fas fa-wallet me-2 text-warning"></i>Your Budgets
-                    </h4>
-                    @if (Model.Budgets.Any())
-                    {
-                        <div class="row row-cols-1 row-cols-md-2 g-3">
-                            @foreach (var budget in Model.Budgets)
-                            {
-                                <div class="col">
-                                    <div class="card glass-panel h-100 text-light border-white">
-                                        <div class="card-body d-flex flex-column">
-                                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                                <div>
-                                                    <h5 class="fw-bold">@budget.Name</h5>
-                                                    <small class="text-muted">
-                                                        Created: @budget.DateCreated.ToShortDateString()
-                                                    </small>
-                                                </div>
-                                            </div>
 
-                                            <div class="mb-3">
-                                                <div class="text-muted">
-                                                    Total: @budget.TotalAmount.ToString("C")
-                                                </div>
-                                                <div class="text-muted">
-                                                    Remaining:
-                                                    <span class="fw-bold @(budget.RemainingAmount >= 0 ? "text-success" : "text-danger")">
-                                                        @budget.RemainingAmount.ToString("C")
-                                                    </span>
-                                                </div>
-                                            </div>
 
-                                            <div class="mt-auto d-flex flex-wrap gap-2">
-                                                <a class="btn custom-view-btn btn-sm text-white"
-                                                   href="@Url.Action("Details", "Budget", new { id = budget.Id })">
-                                                    <i class="fas fa-eye me-1"></i>View
-                                                </a>
-                                                <a class="btn custom-edit-btn btn-sm text-white"
-                                                   href="@Url.Action("Edit", "Budget", new { id = budget.Id })">
-                                                    <i class="fas fa-edit me-1"></i>Edit
-                                                </a>
-                                                <a class="btn custom-create-btn btn-sm text-white"
-                                                   href="@Url.Action("Create", "Category", new { budgetId = budget.Id })">
-                                                    <i class="fas fa-folder-plus me-1"></i>Add Category
-                                                </a>
-                                                <a class="btn custom-bills-btn btn-sm text-white "
-                                                   href="@Url.Action("ViewBills", "Bill", new { budgetId = budget.Id })">
-                                                    <i class="fas fa-file-invoice-dollar me-1"></i>View Bills
-                                                </a>
+
+
+
+
+<!-- Budgets Section -->
+<h4 class="fw-bold mb-3 text-light">
+    <!-- Wallet Icon and Section Title -->
+    <i class="fas fa-wallet me-2 text-warning"></i>Your Budgets
+</h4>
+
+<!-- Check if there are any budgets to display -->
+@if (Model.Budgets.Any())
+{
+    <!-- Row container for budgets -->
+    <div class="row row-cols-1 row-cols-md-2 g-3">
+        <!-- Loop through each budget in the model -->
+        @foreach (var budget in Model.Budgets)
+        {
+            <div class="col">
+                <!-- Budget Card -->
+                <div class="card glass-panel h-100 text-light border-white">
+                    <div class="card-body d-flex flex-column">
+                        <!-- Budget Header: Name and Date -->
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <!-- Display Budget Name -->
+                                <h5 class="fw-bold">@budget.Name</h5>
+                                <!-- Display Budget Creation Date -->
+                                <small class="text-muted">
+                                    Created: @budget.DateCreated.ToShortDateString()
+                                </small>
+                            </div>
+                        </div>
+
+
+
+
+
+
+<!-- Budget Summary Section -->
+<div class="mb-3">
+    <!-- Display Total Budget Amount -->
+    <div class="text-muted">
+        Total: @budget.TotalAmount.ToString("C")
+    </div>
+    <!-- Display Remaining Budget Amount -->
+    <div class="text-muted">
+        Remaining:
+        <!-- Conditional Styling for Remaining Amount -->
+        <!-- Use 'text-success' for positive values and 'text-danger' for negative values -->
+        <span class="fw-bold @(budget.RemainingAmount >= 0 ? "text-success" : "text-danger")">
+            @budget.RemainingAmount.ToString("C")
+        </span>
+    </div>
+</div>
+
+
+
+
+
+<!-- Budget Actions Section -->
+<div class="mt-auto d-flex flex-wrap gap-2">
+    <!-- View Budget Details Button -->
+    <a class="btn custom-view-btn btn-sm text-white"
+       href="@Url.Action("Details", "Budget", new { id = budget.Id })">
+        <!-- Eye Icon and Label -->
+        <i class="fas fa-eye me-1"></i>View
+    </a>
+    <!-- Edit Budget Button -->
+    <a class="btn custom-edit-btn btn-sm text-white"
+       href="@Url.Action("Edit", "Budget", new { id = budget.Id })">
+        <!-- Edit Icon and Label -->
+        <i class="fas fa-edit me-1"></i>Edit
+    </a>
+    <!-- Add Category to Budget Button -->
+    <a class="btn custom-create-btn btn-sm text-white"
+       href="@Url.Action("Create", "Category", new { budgetId = budget.Id })">
+        <!-- Folder Plus Icon and Label -->
+        <i class="fas fa-folder-plus me-1"></i>Add Category
+    </a>
+    <!-- View Bills Linked to Budget Button -->
+    <a class="btn custom-bills-btn btn-sm text-white"
+       href="@Url.Action("ViewBills", "Bill", new { budgetId = budget.Id })">
+        <!-- Invoice Dollar Icon and Label -->
+        <i class="fas fa-file-invoice-dollar me-1"></i>View Bills
+    </a>
+
+                                                <!-- Delete Budget Button -->
+                                                <!-- Pass the budget name as a data attribute -->
+                                                <!-- Bootstrap toggle for opening a modal -->
+                                                <!-- Target the delete confirmation modal -->
                                                 <button class="btn custom-delete-btn btn-sm delete-btn text-white"
                                                         type="button"
                                                         data-id="@budget.Id"
-                                                        data-name="@budget.Name"
+                                                        data-name="@budget.Name"  
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteBudgetModal">
+                                                        <!-- Trash Icon and Label -->
                                                     <i class="fas fa-trash-alt me-1"></i>Delete
                                                 </button>
+                    </div> <!-- End of Actions Section -->
+
+                    </div> <!-- End of Card Body -->
+                    </div> <!-- End of Budget Card -->
+                    </div> <!-- End of Column -->
+
+                                                }
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-secondary text-center mt-3" role="alert">
+                                                No budgets available. Create one above to get started.
+                                            </div>
+                                        }
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Today's Tasks Section -->
+<div class="card glass-panel text-light mt-5 border-white">
+    <div class="card-body">
+        <!-- Section Title -->
+        <h5 class="fw-bold mb-3 text-white">
+            <!-- Check Square Icon and Section Label -->
+            <i class="fas fa-check-square me-2"></i>Today's Tasks
+        </h5>
+
+        <!-- Tasks Table Container -->
+        <div class="table-responsive">
+            <table class="elegant-table">
+                <!-- Table Header -->
+                <thead>
+                    <tr>
+                        <th>Task</th> <!-- Column for task name -->
+                        <th>Due</th> <!-- Column for task due date -->
+                        <th>Status</th> <!-- Column for task completion status -->
+                        <th class="text-end">Actions</th> <!-- Column for task action buttons -->
+                    </tr>
+                </thead>
+
+                <!-- Table Body -->
+                <tbody>
+                    <!-- Check if there are any tasks for today -->
+                    @if (Model.TodayTasks.Any())
+                    {
+                        <!-- Loop through each task in today's tasks -->
+                        @foreach (var task in Model.TodayTasks)
+                        {
+                            <tr>
+                                <!-- Task Name -->
+                                <td>@task.Name</td>
+
+                                <!-- Task Due Date -->
+                                <td class="text-muted">
+                                    <!-- Display due date if available, otherwise show 'No Due Date' -->
+                                    @(task.DueDate.HasValue ? task.DueDate.Value.ToShortDateString() : "No Due Date")
+                                </td>
+
+                                <!-- Task Status -->
+                                <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
+
+                                <!-- Action Buttons -->
+                                <td class="text-end">
+                                    <!-- Mark Complete Form -->
+                                    <form method="post"
+                                          asp-action="MarkComplete"
+                                          asp-controller="ToDo"
+                                          asp-route-id="@task.Id"
+                                          class="d-inline">
+                                        <!-- Submit button to mark task as complete -->
+                                        <button type="submit"
+                                                class="btn custom-complete-btn btn-sm text-white"
+                                                title="Mark Complete">
+                                            <i class="fas fa-check me-0"></i>Complete
+                                        </button>
+                                    </form>
+
+                                    <!-- Delete Task Form -->
+                                    <form method="post"
+                                          asp-action="Delete"
+                                          asp-controller="ToDo"
+                                          asp-route-id="@task.Id"
+                                          class="d-inline">
+                                        <!-- Submit button to delete the task -->
+                                        <button type="submit"
+                                                class="btn custom-edit-btn btn-sm text-white"
+                                                title="Delete Task">
+                                            <i class="fas fa-trash me-0"></i>Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
                     }
                     else
                     {
-                        <div class="alert alert-secondary text-center mt-3" role="alert">
-                            No budgets available. Create one above to get started.
-                        </div>
+                        <!-- Message for no tasks available -->
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">
+                                No tasks for today
+                            </td>
+                        </tr>
                     }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-                    <!-- Today's Tasks -->
-                    <div class="card glass-panel text-light mt-5 border-white">
-                        <div class="card-body">
-                            <h5 class="fw-bold mb-3 text-white">
-                                <i class="fas fa-check-square me-2"></i>Today's Tasks
-                            </h5>
-                            <div class="table-responsive">
-                                <table class="elegant-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Task</th>
-                                            <th>Due</th>
-                                            <th>Status</th>
-                                            <th class="text-end">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model.TodayTasks.Any())
-                                        {
-                                            @foreach (var task in Model.TodayTasks)
-                                            {
-                                                <tr>
-                                                    <td>@task.Name</td>
-                                                    <td class="text-muted">
-                                                        @(task.DueDate.HasValue ? task.DueDate.Value.ToShortDateString() : "No Due Date")
-                                                    </td>
 
-                                                    <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
-                                                    <td class="text-end">
-                                                        <!-- Mark Complete -->
-                                                        <form method="post"
-                                                              asp-action="MarkComplete"
-                                                              asp-controller="ToDo"
-                                                              asp-route-id="@task.Id"
-                                                              class="d-inline">
-                                                            <button type="submit"
-                                                                    class="btn custom-complete-btn btn-sm text-white"
-                                                                    title="Mark Complete">
-                                                                <i class="fas fa-check me-0"></i>Complete
-                                                            </button>
-                                                        </form>
-                                                        <!-- Delete Task -->
-                                                        <form method="post"
-                                                              asp-action="Delete"
-                                                              asp-controller="ToDo"
-                                                              asp-route-id="@task.Id"
-                                                              class="d-inline">
-                                                            <button type="submit"
-                                                                    class="btn custom-edit-btn btn-sm text-white"
-                                                                    title="Delete Task">
-                                                                <i class="fas fa-trash me-0"></i>Delete
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <tr>
-                                                <td colspan="4" class="text-center text-muted">
-                                                    No tasks for today
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Today's Schedule -->
-                    <div class="card glass-panel text-light mt-4 border-white">
-                        <div class="card-body">
-                            <h5 class="fw-bold mb-3 text-white">
-                                <i class="fas fa-clock me-2"></i>Today's Schedule
-                            </h5>
-                            <div class="table-responsive">
-                                <table class="elegant-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Time</th>
-                                            <th>Task</th>
-                                            <th>Status</th> <!-- Add Status column -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model.DailySchedules != null && Model.DailySchedules.Any())
-                                        {
-                                            @foreach (var schedule in Model.DailySchedules.Where(s => s.Task != null))
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        @($"{(schedule.Hour <= 12 ? schedule.Hour : schedule.Hour - 12)}:{(schedule.Minute == 0 ? "00" : "30")} {(schedule.Hour < 12 ? "a.m." : "p.m.")}")
-                                                    </td>
-                                                    <td>@schedule.Task.Name</td>
-                                                     <td>@(schedule.Task.IsCompleted ? "Completed" : "Pending")</td> <!-- Add Status -->
-                                                </tr>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <tr>
-                                                <td colspan="3" class="text-center text-muted">
-                                                    No tasks have been assigned for today.
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Today's Schedule -->
+<div class="card glass-panel text-light mt-4 border-white">
+    <div class="card-body">
+        <!-- Section Title -->
+        <h5 class="fw-bold mb-3 text-white">
+            <!-- Clock Icon and Label -->
+            <i class="fas fa-clock me-2"></i>Today's Schedule
+        </h5>
+
+        <!-- Schedule Table Container -->
+        <div class="table-responsive">
+            <table class="elegant-table">
+                <!-- Table Header -->
+                <thead>
+                    <tr>
+                        <th>Time</th> <!-- Column for time of task -->
+                        <th>Task</th> <!-- Column for task name -->
+                        <th>Status</th> <!-- Column for task completion status -->
+                    </tr>
+                </thead>
+                <!-- Table Body -->
+                <tbody>
+                    <!-- Check if there are any schedules for today -->
+                    @if (Model.DailySchedules != null && Model.DailySchedules.Any())
+                    {
+                        <!-- Loop through daily schedules with a valid task -->
+                        @foreach (var schedule in Model.DailySchedules.Where(s => s.Task != null))
+                        {
+                            <tr>
+                                <!-- Display formatted time in 12-hour format -->
+                                <td>
+                                    @($"{(schedule.Hour <= 12 ? schedule.Hour : schedule.Hour - 12)}:{(schedule.Minute == 0 ? "00" : "30")} {(schedule.Hour < 12 ? "a.m." : "p.m.")}")
+                                </td>
+                                <!-- Display the task name -->
+                                <td>@schedule.Task.Name</td>
+                                <!-- Display task status -->
+                                <td>@(schedule.Task.IsCompleted ? "Completed" : "Pending")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <!-- Message for no schedules available -->
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">
+                                No tasks have been assigned for today.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
                 </div>
                 <!-- END LEFT COLUMN -->
 
                 <!-- RIGHT COLUMN (col-lg-4): Upcoming Tasks & Bills -->
-                <div class="col-lg-4 d-flex flex-column gap-4">
-                    <!-- Upcoming Tasks This Week -->
-                    <div class="card glass-panel text-light border-white">
-                        <div class="card-body">
-                            <h5 class="fw-bold mb-3 text-white">
-                                <i class="fas fa-calendar-week me-2"></i>Upcoming Tasks This Week
-                            </h5>
-                            <div class="d-flex justify-content-between mb-3">
-                                <div class="fw-semibold">Tasks</div>
-                                <a class="btn btn-sm custom-create-btn text-white"
-                                   href="@Url.Action("Index", "Schedule")">
-                                    <i class="fas fa-plus me-1 text-white"></i>Add Task
-                                </a>
+<!-- RIGHT COLUMN: Upcoming Tasks & Bills -->
+<div class="col-lg-4 d-flex flex-column gap-4">
+    <!-- Upcoming Tasks This Week -->
+    <div class="card glass-panel text-light border-white">
+        <div class="card-body">
+            <!-- Section Title -->
+            <h5 class="fw-bold mb-3 text-white">
+                <!-- Calendar Icon and Label -->
+                <i class="fas fa-calendar-week me-2"></i>Upcoming Tasks This Week
+            </h5>
+            <!-- Add Task Button -->
+            <div class="d-flex justify-content-between mb-3">
+                <div class="fw-semibold">Tasks</div>
+                <a class="btn btn-sm custom-create-btn text-white"
+                   href="@Url.Action("Index", "Schedule")">
+                    <!-- Plus Icon and Label -->
+                    <i class="fas fa-plus me-1 text-white"></i>Add Task
+                </a>
+            </div>
+    <!-- Task List -->
+            <ul class="list-group list-group-flush">
+                <!-- Check if there are any tasks for the current week -->
+                @if (Model.CurrentWeekTasks != null && Model.CurrentWeekTasks.Any())
+                {
+                    <!-- Loop through each task for the current week -->
+                    @foreach (var task in Model.CurrentWeekTasks)
+                    {
+                        <li class="list-group-item bg-transparent border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
+                            <div>
+                                <!-- Display Task Name -->
+                                <span class="task-text">@task.Name</span>
+                                <br />
+                                <!-- Display Task Dates -->
+                                <small class="task-date">From: @task.StartDate.ToShortDateString() to @task.EndDate.ToShortDateString()</small>
+                                <!-- Display Task Time in 12-hour format -->
+                                <small class="text-muted">Time: @BudgetTracker.Helpers.TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</small>
                             </div>
-                            <ul class="list-group list-group-flush">
-@if (Model.CurrentWeekTasks != null && Model.CurrentWeekTasks.Any())
-{
-    @foreach (var task in Model.CurrentWeekTasks)
-    {
-        <li class="list-group-item bg-transparent border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
-            <div>
-                <span class="task-text">@task.Name</span>
-                <br />
-                <small class="task-date">From: @task.StartDate.ToShortDateString() to @task.EndDate.ToShortDateString()</small>
-                <small class="text-muted">Time: @BudgetTracker.Helpers.TimeFormatHelper.FormatTimeSpanTo12Hour(task.Time)</small>
-            </div>
-                                            <form asp-action="DeleteScheduledTask"
-                                                  asp-controller="Schedule"
-                                                  method="post"
-                                                  class="d-inline">
-                                                <input type="hidden" name="id" value="@task.Id" />
-                                                <button type="submit"
-                                                        class="btn btn-sm custom-delete-btn text-white"
-                                                        title="Delete Task">
-                                                    <i class="fas fa-trash me-1 text-white"></i>Delete
-                                                </button>
-                                            </form>
-                                        </li>
-                                    }
-                                }
-                                else
-                                {
-                                    <li class="list-group-item bg-transparent text-muted">
-                                        No tasks for this week
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Bills for the Month -->
-                    <div class="card glass-panel text-light border-white">
-                        <div class="card-body p-3">
-                            <h5 class="fw-bold mb-3 text-white">
-                                <i class="fas fa-file-invoice-dollar me-2 text-info"></i>Bills for the Month
-                            </h5>
-                            @if (Model.MonthlyBills != null && Model.MonthlyBills.Any())
-                            {
-                                <div class="table-responsive mb-2">
-                                    <table class="elegant-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Amount</th>
-                                                <th>Due Date</th>
-                                                <th>Is Paid</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var bill in Model.MonthlyBills)
-                                            {
-                                                <tr>
-                                                    <td>@bill.Name</td>
-                                                    <td>@bill.Amount.ToString("C")</td>
-                                                    <td>@bill.DueDate.ToShortDateString()</td>
-                                                    <td>@(bill.IsPaid ? "Yes" : "No")</td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="alert alert-secondary text-center mb-0" role="alert">
-                                    No bills available for the current month.
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <!-- END RIGHT COLUMN -->
-            </div>
+                            <!-- Delete Task Form -->
+                            <form asp-action="DeleteScheduledTask"
+                                  asp-controller="Schedule"
+                                  method="post"
+                                  class="d-inline">
+                                <!-- Hidden field for task ID -->
+                                <input type="hidden" name="id" value="@task.Id" />
+                                <!-- Submit Button for Deleting Task -->
+                                <button type="submit"
+                                        class="btn btn-sm custom-delete-btn text-white"
+                                        title="Delete Task">
+                                    <!-- Trash Icon and Label -->
+                                    <i class="fas fa-trash me-1 text-white"></i>Delete
+                                </button>
+                            </form>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <!-- Message for no tasks available -->
+                    <li class="list-group-item bg-transparent text-muted">
+                        No tasks for this week
+                    </li>
+                }
+            </ul>
         </div>
     </div>
+
+
+
+
+<!-- Bills for the Month Section -->
+<div class="card glass-panel text-light border-white">
+    <div class="card-body p-3">
+        <!-- Section Title -->
+        <h5 class="fw-bold mb-3 text-white">
+            <!-- Invoice Dollar Icon and Label -->
+            <i class="fas fa-file-invoice-dollar me-2 text-info"></i>Bills for the Month
+        </h5>
+
+        <!-- Check if there are any monthly bills -->
+        @if (Model.MonthlyBills != null && Model.MonthlyBills.Any())
+        {
+            <!-- Bills Table Container -->
+            <div class="table-responsive mb-2">
+                <table class="elegant-table">
+                    <!-- Table Header -->
+                    <thead>
+                        <tr>
+                            <th>Name</th> <!-- Column for bill name -->
+                            <th>Amount</th> <!-- Column for bill amount -->
+                            <th>Due Date</th> <!-- Column for bill due date -->
+                            <th>Is Paid</th> <!-- Column for payment status -->
+                        </tr>
+                    </thead>
+                    <!-- Table Body -->
+                    <tbody>
+                        <!-- Loop through each bill in the monthly bills -->
+                        @foreach (var bill in Model.MonthlyBills)
+                        {
+                            <tr>
+                                <!-- Display Bill Name -->
+                                <td>@bill.Name</td>
+                                <!-- Display Bill Amount (formatted as currency) -->
+                                <td>@bill.Amount.ToString("C")</td>
+                                <!-- Display Bill Due Date -->
+                                <td>@bill.DueDate.ToShortDateString()</td>
+                                <!-- Display Payment Status -->
+                                <td>@(bill.IsPaid ? "Yes" : "No")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <!-- Fallback Alert for No Bills -->
+            <div class="alert alert-secondary text-center mb-0" role="alert">
+                No bills available for the current month.
+            </div>
+        }
+    </div>
 </div>
+
+<!-- End of Right Column -->
+</div>
+</div>
+</div>
+</div>
+
+
+
+
 
 <!-- Single Delete Budget Modal (shared by all budgets) -->
 <div class="modal fade" id="deleteBudgetModal" tabindex="-1" aria-hidden="true">
@@ -474,23 +623,36 @@
     </div>
 </div>
 
-<!-- JS to dynamically fill the Delete Budget Modal -->
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const deleteButtons = document.querySelectorAll(".delete-btn");
-        const modalBody = document.getElementById("deleteBudgetModalBody");
-        const deleteIdInput = document.getElementById("deleteBudgetId");
-        const deleteForm = document.getElementById("deleteBudgetForm");
 
-        deleteButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                const budgetId = button.getAttribute("data-id");
-                const budgetName = button.getAttribute("data-name");
 
-                modalBody.textContent = `Are you sure you want to delete "${budgetName}"?`;
-                deleteIdInput.value = budgetId;
-                deleteForm.action = "/Budget/Delete"; // Update if needed
+<!-- JavaScript to Dynamically Fill the Delete Budget Modal -->
+    <script>
+        // Wait for the DOM to be fully loaded before executing the script
+        document.addEventListener("DOMContentLoaded", () => {
+            // Select all delete buttons
+            const deleteButtons = document.querySelectorAll(".delete-btn");
+            // Get the modal body element where the confirmation message will be displayed
+            const modalBody = document.getElementById("deleteBudgetModalBody");
+            // Get the hidden input field in the modal for storing the budget ID
+            const deleteIdInput = document.getElementById("deleteBudgetId");
+            // Get the delete form element in the modal
+            const deleteForm = document.getElementById("deleteBudgetForm");
+
+            // Add a click event listener to each delete button
+            deleteButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    // Get the budget ID and name from the button's data attributes
+                    const budgetId = button.getAttribute("data-id");
+                    const budgetName = button.getAttribute("data-name");
+
+                    // Update the modal body text with the budget name
+                    modalBody.textContent = `Are you sure you want to delete "${budgetName}"?`;
+                    // Set the hidden input field value to the budget ID
+                    deleteIdInput.value = budgetId;
+                    // Update the form's action to ensure it points to the delete endpoint
+                    deleteForm.action = "/Budget/Delete"; // Modify the endpoint if necessary
+                });
             });
         });
-    });
-</script>
+    </script>
+

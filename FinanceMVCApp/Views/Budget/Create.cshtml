@@ -1,17 +1,34 @@
 @model BudgetTracker.Models.Budget
 
+<!-- Page Header -->
 <h1>Add Budget</h1>
 
+<!-- Form for adding a new budget -->
 <form asp-action="Create" method="post">
+    <!-- Input Field for Budget Name -->
     <div class="form-group">
+        <!-- Label for the Name field -->
         <label asp-for="Name"></label>
+
+        <!-- Input box for the Name field -->
         <input asp-for="Name" class="form-control" />
+
+        <!-- Validation message for the Name field -->
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
+
+    <!-- Input Field for Total Amount -->
     <div class="form-group">
+        <!-- Label for the TotalAmount field -->
         <label asp-for="TotalAmount"></label>
+
+        <!-- Input box for the TotalAmount field -->
         <input asp-for="TotalAmount" type="number" class="form-control" />
+
+        <!-- Validation message for the TotalAmount field -->
         <span asp-validation-for="TotalAmount" class="text-danger"></span>
     </div>
+
+    <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">Add</button>
 </form>

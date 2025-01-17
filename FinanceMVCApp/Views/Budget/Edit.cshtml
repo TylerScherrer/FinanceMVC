@@ -1,38 +1,57 @@
 @model BudgetTracker.Models.Budget
 
 @{
+    // Setting the title of the page
     ViewData["Title"] = "Edit Budget";
 }
 
+<!-- Main container with padding -->
 <div class="container py-5">
+    <!-- Center the form within the page -->
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-sm-10">
+            <!-- Card to encapsulate the form -->
             <div class="card shadow-sm">
+                <!-- Card header with title -->
                 <div class="card-header bg-primary text-white text-center">
                     <h3 class="fw-bold mb-0">Edit Budget</h3>
                 </div>
+                <!-- Card body containing the form -->
                 <div class="card-body">
+                    <!-- Form for editing the budget -->
                     <form asp-action="Edit" method="post">
-                        <!-- Hidden field for Budget ID -->
+                        <!-- Hidden field to store the Budget ID -->
                         <input type="hidden" asp-for="Id" />
-                        <input type="hidden" asp-for="RowVersion" /> <!-- Required for concurrency -->
+                        <!-- Hidden field to manage concurrency (RowVersion) -->
+                        <input type="hidden" asp-for="RowVersion" />
 
+                        <!-- Budget Name Input -->
                         <div class="mb-4">
+                            <!-- Label for the budget name -->
                             <label asp-for="Name" class="form-label">Budget Name</label>
+                            <!-- Input field for budget name -->
                             <input asp-for="Name" class="form-control" required />
+                            <!-- Validation message for budget name -->
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
 
+                        <!-- Total Amount Input -->
                         <div class="mb-4">
+                            <!-- Label for the total amount -->
                             <label asp-for="TotalAmount" class="form-label">Total Amount</label>
+                            <!-- Input field for total amount (number with decimal support) -->
                             <input asp-for="TotalAmount" class="form-control" type="number" step="0.01" required />
+                            <!-- Validation message for total amount -->
                             <span asp-validation-for="TotalAmount" class="text-danger"></span>
                         </div>
 
+                        <!-- Action Buttons -->
                         <div class="d-flex justify-content-between">
+                            <!-- Save changes button -->
                             <button type="submit" class="btn custom-create-btn btn-lg">
                                 Save Changes
                             </button>
+                            <!-- Cancel button to return to the index page -->
                             <a asp-action="Index" class="btn custom-delete-btn btn-lg">
                                 Cancel
                             </a>
@@ -44,7 +63,7 @@
     </div>
 </div>
 
-<!-- Client-Side Validation -->
+<!-- Include client-side validation scripts -->
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

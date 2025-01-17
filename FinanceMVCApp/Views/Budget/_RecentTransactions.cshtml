@@ -1,21 +1,32 @@
 @model List<BudgetTracker.Models.Transaction>
 
+<!-- This view displays a list of recent transactions, formatted with Bootstrap styling. -->
+
 <div class="list-group">
+    <!-- Check if the Model is not null and contains any transactions. -->
     @if (Model != null && Model.Any())
     {
+        <!-- Loop through each transaction in the Model. -->
         @foreach (var transaction in Model)
         {
+            <!-- Display each transaction as a Bootstrap list-group item. -->
             <div class="list-group-item d-flex justify-content-between align-items-center">
                 <div>
+                    <!-- Display the transaction description in bold. -->
                     <strong>@transaction.Description</strong>
+
+                    <!-- Display the transaction date in a muted style. -->
                     <small class="text-muted d-block">@transaction.Date.ToShortDateString()</small>
                 </div>
+
+                <!-- Display the transaction amount in bold and styled as text-danger (red). -->
                 <span class="text-danger fw-bold">@transaction.Amount.ToString("C")</span>
             </div>
         }
     }
     else
     {
+        <!-- If no transactions are available, display a message to the user. -->
         <div class="text-center text-muted">
             No recent transactions available.
         </div>
