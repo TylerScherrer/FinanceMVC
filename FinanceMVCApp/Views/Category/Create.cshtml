@@ -1,30 +1,59 @@
 @model BudgetTracker.Models.Category
 
+<!-- Main Container -->
 <div class="container-fluid py-4 bg-dark text-light">
+    <!-- Page Header -->
     <div class="text-center mb-5">
+        <!-- Page Title -->
         <h1 class="fw-bold text-light">Add Category</h1>
+        <!-- Page Subtitle -->
         <p class="text-muted">Create a new category and allocate your budget.</p>
     </div>
 
+    <!-- Form Row -->
     <div class="row justify-content-center">
         <div class="col-md-6">
+            <!-- Form Card -->
             <div class="card border-0 shadow-sm glass-panel">
                 <div class="card-body">
-                    <h4 class="fw-bold mb-3 text-info"><i class="fas fa-folder-plus me-2"></i>Create Category</h4>
+                    <!-- Form Title -->
+                    <h4 class="fw-bold mb-3 text-info">
+                        <i class="fas fa-folder-plus me-2"></i>Create Category
+                    </h4>
+
+                    <!-- Form to Create Category -->
                     <form asp-action="Create" method="post" class="row g-3">
+                        <!-- Hidden Field for Budget ID -->
                         <input type="hidden" asp-for="BudgetId" />
+
+                        <!-- Category Name Input -->
                         <div class="col-12">
+                            <!-- Label for Category Name -->
                             <label asp-for="Name" class="form-label fw-semibold text-light">Category Name</label>
-                            <input asp-for="Name" class="form-control bg-dark text-light border-light" placeholder="e.g. Groceries" />
+                            <!-- Input Field for Category Name -->
+                            <input asp-for="Name" 
+                                   class="form-control bg-dark text-light border-light" 
+                                   placeholder="e.g. Groceries" />
+                            <!-- Validation Message for Name -->
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
+
+                        <!-- Allocated Amount Input -->
                         <div class="col-12">
+                            <!-- Label for Allocated Amount -->
                             <label asp-for="AllocatedAmount" class="form-label fw-semibold text-light">Allocated Amount</label>
-                            <input asp-for="AllocatedAmount" class="form-control bg-dark text-light border-light" placeholder="e.g. 200" />
+                            <!-- Input Field for Allocated Amount -->
+                            <input asp-for="AllocatedAmount" 
+                                   class="form-control bg-dark text-light border-light" 
+                                   placeholder="e.g. 200" />
+                            <!-- Validation Message for Allocated Amount -->
                             <span asp-validation-for="AllocatedAmount" class="text-danger"></span>
                         </div>
+
+                        <!-- Submit Button -->
                         <div class="col-12 d-grid">
                             <button type="submit" class="btn btn-primary">
+                                <!-- Check Icon and Button Text -->
                                 <i class="fas fa-check me-1"></i>Submit
                             </button>
                         </div>
