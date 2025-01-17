@@ -14,22 +14,34 @@ using System.Diagnostics;
 
 namespace BudgetTracker.Tests
 {
-  public class BudgetServiceTests
-{
-    private readonly ApplicationDbContext _context;
-    private readonly BudgetService _budgetService;
-
-    public BudgetServiceTests()
+    // Test class for BudgetService, which handles budget-related logic
+    public class BudgetServiceTests
     {
-        // Use in-memory database
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString()) // Ensure a unique database for each test
-            .Options;
+        // Private fields for the in-memory database context and the service being tested
+        private readonly ApplicationDbContext _context;
+        private readonly BudgetService _budgetService;
 
-        _context = new ApplicationDbContext(options);
-        _budgetService = new BudgetService(_context);
-    }
+        // Constructor for initializing the test setup
+        public BudgetServiceTests()
+        {
+            // Set up an in-memory database for testing purposes
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString()) // Use a unique in-memory database for each test
+                .Options;
 
+            // Initialize the in-memory database context
+            _context = new ApplicationDbContext(options);
+
+            // Initialize the service to be tested, passing in the test database context
+            _budgetService = new BudgetService(_context);
+        }
+
+
+// This test verifies that the UpdateBudgetAsync method correctly updates an existing budget in the database when valid data is provided.
+// It ensures that:
+// 1. The budget is updated with the new properties (e.g., updated name).
+// 2. The method returns the updated budget.
+// The test uses an in-memory database to simulate the update operation and asserts that the changes are saved and returned as expected.
 [Fact]
 public async Task UpdateBudgetAsync_ShouldUpdateBudget_WhenValid()
 {
@@ -56,6 +68,12 @@ public async Task UpdateBudgetAsync_ShouldUpdateBudget_WhenValid()
 }
 
 
+
+
+/// Verifies that the UpdateBudgetAsync method throws a DbUpdateConcurrencyException
+/// when a concurrency conflict occurs. This test simulates two users (User A and User B)
+/// trying to update the same budget concurrently, where User B's update is saved first,
+/// and User A's update results in a conflict due to outdated RowVersion.
 [Fact]
 public async Task UpdateBudgetAsync_ShouldThrowDbUpdateConcurrencyException_WhenConcurrencyConflictOccurs()
 {
@@ -101,6 +119,13 @@ public async Task UpdateBudgetAsync_ShouldThrowDbUpdateConcurrencyException_When
 }
 
 
+
+
+
+/// Verifies that the UpdateBudgetAsync method throws an InvalidOperationException
+/// when the budget being updated has been deleted by another user. This test simulates
+/// the scenario by first removing the budget directly from the database and then attempting
+/// to update it with stale data.
 [Fact]
 public async Task UpdateBudgetAsync_ShouldThrowInvalidOperationException_WhenBudgetIsDeleted()
 {
@@ -144,6 +169,10 @@ public async Task UpdateBudgetAsync_ShouldThrowInvalidOperationException_WhenBud
 
 
 
+/// Verifies that the CreateBudgetAsync method throws an ArgumentException
+/// when an attempt is made to create a budget with a negative TotalAmount.
+/// This ensures that the service enforces a validation rule to prevent invalid budgets
+/// from being created.
 [Fact]
 public async Task CreateBudgetAsync_ShouldThrowArgumentException_WhenTotalAmountIsNegative()
 {
@@ -165,6 +194,12 @@ public async Task CreateBudgetAsync_ShouldThrowArgumentException_WhenTotalAmount
 }
 
 
+
+
+
+/// Verifies that the CreateBudgetAsync method successfully adds a budget to the database
+/// when valid data is provided. This test ensures that the method correctly saves the budget
+/// and returns the expected result with accurate details such as Name, TotalAmount, and DateCreated.
 [Fact]
 public async Task CreateBudgetAsync_ShouldAddBudget_WhenValid()
 {
@@ -188,6 +223,11 @@ public async Task CreateBudgetAsync_ShouldAddBudget_WhenValid()
 }
 
 
+
+
+/// Verifies that the GetAllBudgetsAsync method retrieves all budgets from the database.
+/// This test adds multiple budgets to the database and ensures that the service correctly
+/// returns the expected number of budgets, along with verifying that specific budgets exist in the result.
 [Fact]
 public async Task GetAllBudgetsAsync_ShouldReturnAllBudgets()
 {
@@ -211,6 +251,13 @@ public async Task GetAllBudgetsAsync_ShouldReturnAllBudgets()
 }
 
 
+
+
+
+
+/// Verifies that the GetAllBudgetsAsync method retrieves all budgets from the database.
+/// This test adds multiple budgets to the database and ensures that the service correctly
+/// returns the expected number of budgets, along with verifying that specific budgets exist in the result.
 [Fact]
 public async Task GetBudgetDetailsAsync_ShouldReturnBudget_WhenIdExists()
 {
@@ -235,6 +282,12 @@ public async Task GetBudgetDetailsAsync_ShouldReturnBudget_WhenIdExists()
     Assert.Equal("Existing Budget", result.Name);
 }
 
+
+
+
+/// Verifies that the GetBudgetDetailsAsync method retrieves the correct budget
+/// when a valid budget ID is provided. This test ensures that the returned budget
+/// matches the expected details, such as Name and TotalAmount.
 [Fact]
 public async Task GetBudgetDetailsAsync_ShouldThrowInvalidOperationException_WhenIdDoesNotExist()
 {
@@ -246,6 +299,11 @@ public async Task GetBudgetDetailsAsync_ShouldThrowInvalidOperationException_Whe
 }
 
 
+
+
+/// Verifies that the UpdateBudgetAsync method throws an InvalidOperationException
+/// when attempting to update a budget that does not exist in the database. This ensures
+/// that the method correctly handles cases where the specified budget ID is invalid.
 [Fact]
 public async Task UpdateBudgetAsync_ShouldThrowInvalidOperationException_WhenBudgetDoesNotExist()
 {
@@ -266,6 +324,11 @@ public async Task UpdateBudgetAsync_ShouldThrowInvalidOperationException_WhenBud
     });
 }
 
+
+
+/// Verifies that the DeleteBudgetAsync method returns true and successfully deletes a budget
+/// when the specified budget ID exists in the database. This test also ensures that the budget
+/// is removed from the database after deletion.
 [Fact]
 public async Task DeleteBudgetAsync_ShouldReturnTrue_WhenBudgetExists()
 {
@@ -290,6 +353,12 @@ public async Task DeleteBudgetAsync_ShouldReturnTrue_WhenBudgetExists()
     Assert.Empty(_context.Budgets); // Ensure the budget is removed
 }
 
+
+
+
+/// Verifies that the DeleteBudgetAsync method returns false when attempting to delete a budget
+/// that does not exist in the database. This ensures that the method does not throw an exception
+/// and gracefully handles non-existent IDs.
 [Fact]
 public async Task DeleteBudgetAsync_ShouldReturnFalse_WhenBudgetDoesNotExist()
 {
@@ -302,6 +371,10 @@ public async Task DeleteBudgetAsync_ShouldReturnFalse_WhenBudgetDoesNotExist()
 
 
 
+
+/// Verifies that the CreateBudgetAsync method allows creating a budget with a zero TotalAmount.
+/// This ensures that the method does not enforce a positive amount restriction
+/// and correctly saves and returns the budget details when TotalAmount is zero.
 [Fact]
 public async Task CreateBudgetAsync_ShouldAllowBudgetWithZeroTotalAmount()
 {
@@ -325,7 +398,9 @@ public async Task CreateBudgetAsync_ShouldAllowBudgetWithZeroTotalAmount()
 
 
 
-
+/// Verifies that the GetAllBudgetsAsync method retrieves all budgets from the database
+/// and includes their associated categories. This ensures that the method correctly
+/// populates navigation properties and provides comprehensive data for each budget.
 [Fact]
 public async Task GetAllBudgetsAsync_ShouldIncludeCategories()
 {
@@ -363,7 +438,9 @@ public async Task GetAllBudgetsAsync_ShouldIncludeCategories()
 
 
 
-
+/// Verifies that the CreateBudgetAsync method initializes the RowVersion property
+/// when it is null in the provided budget. This ensures that the RowVersion
+/// property is always populated for concurrency control.
 [Fact]
 public async Task CreateBudgetAsync_ShouldInitializeRowVersion_WhenNull()
 {
@@ -386,6 +463,11 @@ public async Task CreateBudgetAsync_ShouldInitializeRowVersion_WhenNull()
 
 
 
+
+
+/// Verifies that the UpdateBudgetAsync method throws an InvalidOperationException
+/// when attempting to update a budget with a null RowVersion. This ensures that
+/// concurrency control mechanisms are enforced during updates.
 [Fact]
 public async Task UpdateBudgetAsync_ShouldThrowInvalidOperationException_WhenRowVersionIsNull()
 {
@@ -406,6 +488,14 @@ public async Task UpdateBudgetAsync_ShouldThrowInvalidOperationException_WhenRow
     });
 }
 
+
+
+
+
+/// Verifies that the DeleteBudgetAsync method gracefully handles scenarios where
+/// the budget is concurrently deleted by another operation. This ensures that
+/// the method does not throw an exception and correctly returns false when
+/// the budget no longer exists in the database.
 [Fact]
 public async Task DeleteBudgetAsync_ShouldHandleConcurrentDeletion()
 {
@@ -434,6 +524,15 @@ public async Task DeleteBudgetAsync_ShouldHandleConcurrentDeletion()
     Assert.False(result); // Budget was already deleted
 }
 
+
+
+
+
+
+/// Verifies that the UpdateBudgetAsync method throws a DbUpdateConcurrencyException
+/// when the RowVersion of the budget being updated does not match the RowVersion in
+/// the database. This ensures that concurrency control mechanisms are enforced,
+/// preventing data inconsistencies caused by simultaneous updates.
 [Fact]
 public async Task UpdateBudgetAsync_ShouldThrowDbUpdateConcurrencyException_WhenRowVersionMismatchOccurs()
 {
@@ -478,6 +577,13 @@ public async Task UpdateBudgetAsync_ShouldThrowDbUpdateConcurrencyException_When
     Assert.Contains("The budget was updated by another user", exception.Message);
 }
 
+
+
+
+
+/// Verifies that the GetBudgetDetailsAsync method retrieves a budget and includes
+/// the associated categories and their transactions. This ensures that navigation
+/// properties are correctly populated and all relevant data is returned for detailed views.
 [Fact]
 public async Task GetBudgetDetailsAsync_ShouldIncludeTransactionsInCategories()
 {
@@ -520,6 +626,10 @@ public async Task GetBudgetDetailsAsync_ShouldIncludeTransactionsInCategories()
 }
 
 
+
+/// Verifies that the GetAllBudgetsAsync method returns an empty list when no
+/// budgets exist in the database. This ensures that the method handles empty
+/// database states correctly without errors or null references.
 [Fact]
 public async Task GetAllBudgetsAsync_ShouldReturnEmptyList_WhenNoBudgetsExist()
 {
@@ -531,6 +641,12 @@ public async Task GetAllBudgetsAsync_ShouldReturnEmptyList_WhenNoBudgetsExist()
     Assert.Empty(result);
 }
 
+
+
+
+/// Verifies that the GetBudgetDetailsAsync method throws an InvalidOperationException
+/// when the specified budget ID does not exist in the database. This ensures
+/// that the method handles invalid IDs correctly and prevents null reference errors.
 [Fact]
 public async Task GetBudgetDetailsAsync_ShouldThrowException_WhenBudgetDoesNotExist()
 {
@@ -540,6 +656,11 @@ public async Task GetBudgetDetailsAsync_ShouldThrowException_WhenBudgetDoesNotEx
 }
 
 
+
+
+/// Verifies that the CreateBudgetAsync method throws an ArgumentException when the
+/// budget's Name property is null. This ensures that the method validates required fields
+/// and prevents invalid data from being added to the database.
 [Fact]
 public async Task CreateBudgetAsync_ShouldThrowArgumentException_WhenNameIsNull()
 {
@@ -556,6 +677,11 @@ public async Task CreateBudgetAsync_ShouldThrowArgumentException_WhenNameIsNull(
 }
 
 
+
+
+/// Verifies that a category can be successfully added to an existing budget,
+/// and that the association is correctly saved and retrievable from the database.
+/// This ensures the integrity of the relationship between budgets and categories.
 [Fact]
 public async Task AddCategoryToBudget_ShouldSucceed()
 {
@@ -584,6 +710,12 @@ public async Task AddCategoryToBudget_ShouldSucceed()
 }
 
 
+
+
+
+/// Verifies that the UpdateBudgetAsync method throws a DbUpdateConcurrencyException
+/// when concurrent updates are attempted on the same budget. This ensures that the method
+/// enforces concurrency control and prevents overwriting changes made by another user.
 [Fact]
 public async Task UpdateBudgetAsync_ShouldHandleConcurrentUpdates()
 {
@@ -620,6 +752,11 @@ public async Task UpdateBudgetAsync_ShouldHandleConcurrentUpdates()
 }
 
 
+
+
+/// Verifies that the UpdateBudgetAsync method throws an ArgumentException
+/// when the Name property of the budget is empty. This ensures that the method
+/// validates required fields and prevents invalid data from being saved.
 [Fact]
 public async Task UpdateBudgetAsync_ShouldThrowArgumentException_WhenNameIsEmpty()
 {
@@ -644,6 +781,11 @@ public async Task UpdateBudgetAsync_ShouldThrowArgumentException_WhenNameIsEmpty
 
 
 
+
+
+/// Verifies that when a budget is deleted, all associated categories
+/// are also removed from the database. This ensures the cascade delete behavior
+/// and prevents orphaned data in the categories table.
 [Fact]
 public async Task DeleteBudgetAsync_ShouldDeleteAssociatedCategories()
 {
@@ -670,6 +812,12 @@ public async Task DeleteBudgetAsync_ShouldDeleteAssociatedCategories()
 }
 
 
+
+
+
+/// Verifies that the CreateBudgetAsync method throws an InvalidOperationException
+/// when attempting to create a budget with a duplicate name. This ensures that the method
+/// enforces uniqueness for budget names, maintaining data integrity.
 [Fact]
 public async Task CreateBudgetAsync_ShouldEnforceUniqueBudgetName()
 {
@@ -703,6 +851,12 @@ public async Task CreateBudgetAsync_ShouldEnforceUniqueBudgetName()
 }
 
 
+
+
+
+/// Verifies that the GetAllBudgetsAsync method can handle a large number of budgets
+/// without performance degradation or memory issues. This test ensures the service
+/// is robust and scalable for datasets with significant size.
 [Fact]
 public async Task GetAllBudgetsAsync_ShouldHandleLargeNumberOfBudgets()
 {
@@ -729,6 +883,10 @@ public async Task GetAllBudgetsAsync_ShouldHandleLargeNumberOfBudgets()
 
 
 
+
+/// Verifies that the GetAllBudgetsAsync method can handle concurrent requests
+/// by ensuring the method operates correctly and consistently when called multiple times
+/// simultaneously. This test ensures thread safety and data consistency during concurrent usage.
 [Fact]
 public async Task GetAllBudgetsAsync_ShouldHandleConcurrentRequests()
 {
@@ -758,6 +916,11 @@ public async Task GetAllBudgetsAsync_ShouldHandleConcurrentRequests()
 
 
 
+
+
+/// Verifies that the CreateBudgetAsync method can process a large dataset
+/// efficiently and complete the operation within a reasonable time limit. This test
+/// evaluates the performance of the service under high load conditions.
 [Fact]
 public async Task CreateBudgetAsync_ShouldCompleteWithinTimeLimit_ForLargeDataset()
 {

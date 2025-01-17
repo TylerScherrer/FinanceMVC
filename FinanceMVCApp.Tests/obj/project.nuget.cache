@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/O4snHZkjaE=",
+  "dgSpecHash": "3HAZ5LKJVrM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.tests\\FinanceMVCApp.Tests.csproj",
+  "projectFilePath": "C:\\Users\\Tyler\\OneDrive\\Desktop\\FinanceMVC\\FinanceMVCApp.Tests\\FinanceMVCApp.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tyler\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Tyler\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
