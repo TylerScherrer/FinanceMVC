@@ -88,7 +88,7 @@ public class CategoryController : Controller
         {
             // Call the service to create the new category asynchronously.
             await _categoryService.CreateCategoryAsync(category);
-
+            TempData["SuccesfulCategory"] = "Sucessfully created your category";
             // Redirect to the Details page of the associated budget upon successful creation.
             return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
         }
@@ -101,6 +101,14 @@ public class CategoryController : Controller
             return View(category);
         }
     }
+
+
+
+
+
+
+
+
 
     // ***********
     // GET Method for Viewing Category Details

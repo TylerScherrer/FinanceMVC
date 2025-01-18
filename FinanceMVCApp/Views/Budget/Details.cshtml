@@ -1,6 +1,49 @@
 @model BudgetTracker.Models.Budget
 
 <div class="container-fluid py-4 bg-dark text-light">
+
+
+<div class="container-fluid py-4 bg-dark text-light">
+<!-- Toast Container -->
+<div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+    <!-- Success Toast -->
+    @if (TempData["SuccesfulCategory"] != null)
+    {
+        <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["SuccesfulCategory"]
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    }
+
+    <!-- Error Toast -->
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["ErrorMessage"]
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="d-flex flex-column align-items-center">
 
         <!-- Main Content -->
@@ -84,8 +127,8 @@
             <thead class="table-secondary">
                 <tr>
                     <th>Name</th> <!-- Column for category name -->
-                    <th>Allocated (Initial)</th> <!-- Column for initial allocated amount -->
-                    <th>Allocated (Current)</th> <!-- Column for current allocated amount -->
+                    <th>Initial Amount</th> <!-- Column for initial allocated amount -->
+                    <th>Money Left</th> <!-- Column for current allocated amount -->
                     <th class="text-end">Actions</th> <!-- Column for action buttons -->
                 </tr>
             </thead>
@@ -235,3 +278,25 @@
 
                         </div>
                     </div>
+
+
+                    @section Scripts {
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Check if success toast exists in the DOM
+        const successToastElement = document.getElementById('successToast');
+        if (successToastElement) {
+            const successToast = new bootstrap.Toast(successToastElement);
+            successToast.show();
+        }
+
+        // Check if error toast exists in the DOM
+        const errorToastElement = document.getElementById('errorToast');
+        if (errorToastElement) {
+            const errorToast = new bootstrap.Toast(errorToastElement);
+            errorToast.show();
+        }
+    });
+</script>
+
+}
