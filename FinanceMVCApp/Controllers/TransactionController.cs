@@ -204,19 +204,24 @@ namespace BudgetTracker.Controllers
     /// Returns:
     /// - Redirects to the `Category` details page upon success or failure.
     [HttpPost]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(int id, int categoryId)
     {
         try
         {
-            await _transactionService.DeleteTransactionAsync(id); // Delete the transaction.
+            // Delete the transaction using the service
+            await _transactionService.DeleteTransactionAsync(id);
         }
         catch (Exception ex)
         {
-            ModelState.AddModelError("", ex.Message); // Log any errors during deletion.
+            // Log any errors during deletion
+            ModelState.AddModelError("", ex.Message);
         }
 
-        return RedirectToAction("Details", "Category", new { id = id }); // Redirect to category details.
+        // Redirect to the category details page with the category ID
+        TempData["SuccessTransactionDelete"] = "Your transaction was succesfully deleted.";
+        return RedirectToAction("Details", "Category", new { id = categoryId });
     }
+
 
 
 

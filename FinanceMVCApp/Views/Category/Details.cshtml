@@ -1,10 +1,6 @@
 @model BudgetTracker.Models.Category
 
-<!-- Main Container -->
 <div class="container py-4" style="background: #121212;">
-
-
-
     <!-- Toast Container -->
     <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
         <!-- Success Toast for Category -->
@@ -33,6 +29,22 @@
             </div>
         }
 
+    <!-- Success Toast for Transaction Deletion -->
+        @if (TempData["SuccessTransactionDelete"] != null)
+        {
+            <div id="deleteTransactionToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        @TempData["SuccessTransactionDelete"]
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+
+
+
+
         <!-- Error Toast -->
         @if (TempData["ErrorMessage"] != null)
         {
@@ -47,7 +59,7 @@
         }
     </div>
 
-
+ 
 
 
 
@@ -58,7 +70,7 @@
         <!-- Title of the Page -->
         <h1 class="fw-bold text-light">Category Details</h1>
         <!-- Subtitle for Additional Context -->
-        <p class="text-muted">View and manage your category's transactions and allocation.</p>
+        <p class="text-light">View and manage your category's transactions and allocation.</p>
     </div>
 
     <!-- Category Details Card -->
@@ -141,10 +153,15 @@
                                             Edit
                                         </a>
                                         <!-- Delete Transaction Form -->
-                                        <form asp-action="Delete" asp-controller="Transaction" asp-route-id="@transaction.Id" 
-                                              method="post" class="d-inline">
+                                        <form asp-action="Delete" asp-controller="Transaction" method="post" class="d-inline">
+                                            <!-- Pass transaction ID -->
+                                            <input type="hidden" name="id" value="@transaction.Id" />
+                                            <!-- Pass category ID -->
+                                            <input type="hidden" name="categoryId" value="@Model.Id" />
+                                            <!-- Delete Button -->
                                             <button type="submit" class="btn custom-delete-btn btn-sm">Delete</button>
                                         </form>
+
                                     </td>
                                 </tr>
                             }
@@ -162,29 +179,18 @@
         </div>
     </div>
 </div>
+
 @section Scripts {
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // Check if success toast exists in the DOM and show it
-        const successToastElement = document.getElementById('successToast');
-        if (successToastElement) {
-            const successToast = new bootstrap.Toast(successToastElement);
-            successToast.show();
-        }
-
-        // Check if transaction toast exists in the DOM and show it
-        const transactionToastElement = document.getElementById('transactionToast');
-        if (transactionToastElement) {
-            const transactionToast = new bootstrap.Toast(transactionToastElement);
-            transactionToast.show();
-        }
-
-        // Check if error toast exists in the DOM and show it
-        const errorToastElement = document.getElementById('errorToast');
-        if (errorToastElement) {
-            const errorToast = new bootstrap.Toast(errorToastElement);
-            errorToast.show();
-        }
-    });
-</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Show toast messages if they exist
+            ['successToast', 'transactionToast', 'deleteTransactionToast', 'errorToast'].forEach(id => {
+                const toastElement = document.getElementById(id);
+                if (toastElement) {
+                    const toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+            });
+        });
+    </script>
 }
