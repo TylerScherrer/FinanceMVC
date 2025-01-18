@@ -7,31 +7,20 @@
 <!-- Toast Container -->
 <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
     <!-- Success Toast -->
-    @if (TempData["SuccesfulCategory"] != null)
+    @if (TempData["SuccessMessage"] != null)
     {
-        <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="successMessageToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
-                    @TempData["SuccesfulCategory"]
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
-    }
-
-    <!-- Error Toast -->
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    @TempData["ErrorMessage"]
+                    @TempData["SuccessMessage"]
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     }
 </div>
+
+
 
 
 
@@ -104,17 +93,7 @@
 
 
 
-<!-- Display Success Message -->
-@if (TempData["SuccessMessage"] != null)
-{
-    <!-- Success message alert with dismiss button -->
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <!-- Display the success message -->
-        <strong>@TempData["SuccessMessage"]</strong>
-        <!-- Button to close the alert -->
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
+
 
 <!-- Check if the Categories model has data -->
 @if (Model.Categories != null && Model.Categories.Any())
@@ -280,23 +259,18 @@
                     </div>
 
 
-                    @section Scripts {
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // Check if success toast exists in the DOM
-        const successToastElement = document.getElementById('successToast');
-        if (successToastElement) {
-            const successToast = new bootstrap.Toast(successToastElement);
-            successToast.show();
-        }
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Check if the success toast exists in the DOM
+            const successMessageToastElement = document.getElementById('successMessageToast');
+            if (successMessageToastElement) {
+                const successMessageToast = new bootstrap.Toast(successMessageToastElement);
+                successMessageToast.show();
+            }
+        });
+    </script>
+}
 
-        // Check if error toast exists in the DOM
-        const errorToastElement = document.getElementById('errorToast');
-        if (errorToastElement) {
-            const errorToast = new bootstrap.Toast(errorToastElement);
-            errorToast.show();
-        }
-    });
-</script>
 
 }

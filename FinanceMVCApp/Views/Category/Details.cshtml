@@ -2,6 +2,57 @@
 
 <!-- Main Container -->
 <div class="container py-4" style="background: #121212;">
+
+
+
+    <!-- Toast Container -->
+    <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+        <!-- Success Toast for Category -->
+        @if (TempData["SuccesfulCategory"] != null)
+        {
+            <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        @TempData["SuccesfulCategory"]
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+
+        <!-- Success Toast for Transaction -->
+        @if (TempData["SuccessfulTransaction"] != null)
+        {
+            <div id="transactionToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        @TempData["SuccessfulTransaction"]
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+
+        <!-- Error Toast -->
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        @TempData["ErrorMessage"]
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+
+
+
+
     <!-- Page Header -->
     <div class="text-center mb-5">
         <!-- Title of the Page -->
@@ -111,3 +162,29 @@
         </div>
     </div>
 </div>
+@section Scripts {
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Check if success toast exists in the DOM and show it
+        const successToastElement = document.getElementById('successToast');
+        if (successToastElement) {
+            const successToast = new bootstrap.Toast(successToastElement);
+            successToast.show();
+        }
+
+        // Check if transaction toast exists in the DOM and show it
+        const transactionToastElement = document.getElementById('transactionToast');
+        if (transactionToastElement) {
+            const transactionToast = new bootstrap.Toast(transactionToastElement);
+            transactionToast.show();
+        }
+
+        // Check if error toast exists in the DOM and show it
+        const errorToastElement = document.getElementById('errorToast');
+        if (errorToastElement) {
+            const errorToast = new bootstrap.Toast(errorToastElement);
+            errorToast.show();
+        }
+    });
+</script>
+}
