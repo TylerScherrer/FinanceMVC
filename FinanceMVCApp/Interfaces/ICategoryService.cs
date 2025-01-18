@@ -23,5 +23,11 @@ namespace BudgetTracker.Interfaces
         // category: The Category object containing the updated details, including the ID.
         // Returns nothing. Saves the changes made to the category in the database.
         Task UpdateCategoryAsync(Category category);
+
+
+
+        Task<Budget> GetBudgetByIdAsync(int budgetId);
+
+        
     }
 }

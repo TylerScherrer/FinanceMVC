@@ -79,7 +79,12 @@ namespace BudgetTracker.Services
     }
 
 
-
+    public async Task<Budget> GetBudgetByIdAsync(int budgetId)
+    {
+        return await _context.Budgets
+            .Include(b => b.Categories) // Include related categories if needed
+            .FirstOrDefaultAsync(b => b.Id == budgetId);
+    }
 
 
     //**************

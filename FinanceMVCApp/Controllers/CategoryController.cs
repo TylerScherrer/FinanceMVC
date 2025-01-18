@@ -74,33 +74,43 @@ public class CategoryController : Controller
     // Returns:
     // - Redirects to the Details page of the associated budget if successful.
     // - Returns the Create view with validation messages if the model state is invalid or an error occurs.
-    [HttpPost]
-    public async Task<IActionResult> Create(Category category)
+[HttpPost]
+public async Task<IActionResult> Create(Category category)
+{
+    if (!ModelState.IsValid)
     {
-        // Check if the model state is valid.
-        if (!ModelState.IsValid)
-        {
-            // If the model state is invalid, return the Create view with the submitted category data.
-            return View(category);
-        }
-
-        try
-        {
-            // Call the service to create the new category asynchronously.
-            await _categoryService.CreateCategoryAsync(category);
-            TempData["SuccesfulCategory"] = "Sucessfully created your category";
-            // Redirect to the Details page of the associated budget upon successful creation.
-            return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
-        }
-        catch (InvalidOperationException ex)
-        {
-            // Add an error message to the model state if an exception occurs.
-            ModelState.AddModelError("", ex.Message);
-
-            // Return the Create view with the submitted category data and error messages.
-            return View(category);
-        }
+        return View(category);
     }
+
+    try
+    {
+        // Fetch the budget details to get the remaining budget amount
+        var budget = await _categoryService.GetBudgetByIdAsync(category.BudgetId);
+        if (budget == null)
+        {
+            ModelState.AddModelError("", "Budget not found.");
+            return View(category);
+        }
+
+        // Check if the allocated amount exceeds the remaining budget
+        if (category.AllocatedAmount > budget.RemainingAmount)
+        {
+            ModelState.AddModelError("AllocatedAmount", "The allocated amount exceeds the remaining budget.");
+            return View(category);
+        }
+
+        // Create the new category
+        await _categoryService.CreateCategoryAsync(category);
+        TempData["SuccessMessage"] = "Successfully created your category.";
+        return RedirectToAction("Details", "Budget", new { id = category.BudgetId });
+    }
+    catch (InvalidOperationException ex)
+    {
+        ModelState.AddModelError("", ex.Message);
+        return View(category);
+    }
+}
+
 
 
 
