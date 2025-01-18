@@ -30,10 +30,8 @@ namespace BudgetTracker.Interfaces
 
 
 
-        /// Marks a bill as paid.
-        /// <param name="id">The unique ID of the bill to mark as paid.</param>
-        /// <returns>A boolean indicating whether the operation was successful.</returns>
-        Task<bool> MarkAsPaidAsync(int id);
+
+        public Task<bool> TogglePaidAsync(int billId);
 
 
 
@@ -49,7 +47,7 @@ namespace BudgetTracker.Interfaces
         /// <returns>The bill object with the specified ID, or null if not found.</returns>
         Task<Bill> GetBillByIdAsync(int id);
 
-        
+
 
         /// Retrieves all bills for a specific month and year.
         /// <param name="month">The month (1-12) to filter bills.</param>

@@ -211,7 +211,7 @@ namespace BudgetTracker.Services
     /// <exception cref="InvalidOperationException">
     /// Thrown if the database context is improperly configured or disposed during the operation.
     /// </exception>
-    public async Task<bool> MarkAsPaidAsync(int billId)
+    public async Task<bool> TogglePaidAsync(int billId)
     {
         // Retrieve the bill by its ID
         var bill = await _context.Bills.FindAsync(billId);
@@ -222,14 +222,15 @@ namespace BudgetTracker.Services
             return false;
         }
 
-        // Update the IsPaid property
-        bill.IsPaid = true;
+        // Toggle the IsPaid property
+        bill.IsPaid = !bill.IsPaid;
 
         // Save the changes to the database
         await _context.SaveChangesAsync();
 
         return true; // Return true indicating success
     }
+
 
 
 

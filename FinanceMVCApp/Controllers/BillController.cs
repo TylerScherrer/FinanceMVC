@@ -249,20 +249,21 @@ namespace BudgetTracker.Controllers
     // - `budgetId`: The ID of the budget the bill belongs to, used for redirection.
     // Uses asynchronous operations to fetch bills from the service layer.
     [HttpPost]
-    public async Task<IActionResult> MarkAsPaid(int id, int budgetId)
+    public async Task<IActionResult> TogglePaid(int id, int budgetId)
     {
-        // Attempt to mark the bill as paid asynchronously.
-        var success = await _billService.MarkAsPaidAsync(id);
+        // Attempt to toggle the paid status of the bill asynchronously
+        var success = await _billService.TogglePaidAsync(id);
 
-        // If the operation fails, store an error message in TempData for the next request.
+        // If the operation fails, store an error message in TempData for the next request
         if (!success)
         {
-            TempData["Error"] = "Unable to mark the bill as paid.";
+            TempData["Error"] = "Unable to toggle the bill's paid status.";
         }
 
-        // Redirect the user back to the "ViewBills" page for the specified budget.
+        // Redirect the user back to the "ViewBills" page for the specified budget
         return RedirectToAction("ViewBills", new { budgetId });
     }
+
 
 
     // ***********
