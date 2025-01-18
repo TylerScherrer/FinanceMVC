@@ -79,12 +79,31 @@ namespace BudgetTracker.Services
     }
 
 
+    /// <summary>
+    /// Retrieves a budget by its unique identifier (ID) from the database.
+    /// Includes related categories if needed for further processing or display.
+    /// </summary>
+    /// <param name="budgetId">
+    /// The unique identifier (ID) of the budget to retrieve.
+    /// </param>
+    /// <returns>
+    /// An asynchronous task that, when completed, contains the `Budget` object with the specified ID. 
+    /// If no budget with the given ID is found, it returns `null`.
+    /// </returns>
+    /// <remarks>
+    /// This method uses Entity Framework Core to query the database asynchronously.
+    /// The `Include` method is used to load related `Categories` associated with the budget.
+    /// </remarks>
     public async Task<Budget> GetBudgetByIdAsync(int budgetId)
     {
+        // Query the database for a budget with the specified ID.
+        // Use Include to load the associated Categories collection for the budget.
+        // Return the first budget found or null if no match is found.
         return await _context.Budgets
-            .Include(b => b.Categories) // Include related categories if needed
-            .FirstOrDefaultAsync(b => b.Id == budgetId);
+            .Include(b => b.Categories) // Eagerly load related categories for the budget.
+            .FirstOrDefaultAsync(b => b.Id == budgetId); // Match the budget by its ID.
     }
+
 
 
     //**************

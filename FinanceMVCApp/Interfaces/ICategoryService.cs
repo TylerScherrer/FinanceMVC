@@ -26,8 +26,11 @@ namespace BudgetTracker.Interfaces
 
 
 
+        // Retrieves detailed information about a specific budget by its ID.
+        // budgetId: The unique identifier of the budget to fetch.
+        // Returns the Budget object with the specified ID, including any associated categories, or null if not found.
         Task<Budget> GetBudgetByIdAsync(int budgetId);
 
-        
+
     }
 }
