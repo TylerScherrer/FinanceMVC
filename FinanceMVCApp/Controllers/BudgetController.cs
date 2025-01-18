@@ -303,34 +303,35 @@ namespace BudgetTracker.Controllers
     // POST method to handle form submission for editing a budget.
     // Validates the submitted data and updates the budget in the database if valid.
     // Redirects to the Index page upon successful update.
-[HttpPost]
-public async Task<IActionResult> Edit(Budget budget)
-{
-    if (!ModelState.IsValid)
+    [HttpPost]
+    public async Task<IActionResult> Edit(Budget budget)
     {
-        return View(budget);
-    }
-
-    try
-    {
-        await _budgetService.UpdateBudgetAsync(budget);
-        return RedirectToAction(nameof(Index));
-    }
-    catch (DbUpdateConcurrencyException ex)
-    {
-        // Notify the user about the concurrency issue
-        ModelState.AddModelError(string.Empty, "The budget you attempted to edit has been modified by another user.");
-
-        // Optionally: Reload the current values from the database
-        var currentValues = await _budgetService.GetBudgetDetailsAsync(budget.Id);
-        if (currentValues != null)
+        if (!ModelState.IsValid)
         {
-            ModelState.AddModelError("", $"Current values: Name = {currentValues.Name}, TotalAmount = {currentValues.TotalAmount}");
+            return View(budget);
         }
 
-        return View(budget);
+        try
+        {
+            await _budgetService.UpdateBudgetAsync(budget);
+            TempData["Successful"] = "Your Budget was updated successfully!";
+            return RedirectToAction(nameof(Index));
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            // Notify the user about the concurrency issue
+            ModelState.AddModelError(string.Empty, "The budget you attempted to edit has been modified by another user.");
+            TempData["Error"] = "An error occurred while updating your budget.";
+            // Optionally: Reload the current values from the database
+            var currentValues = await _budgetService.GetBudgetDetailsAsync(budget.Id);
+            if (currentValues != null)
+            {
+                ModelState.AddModelError("", $"Current values: Name = {currentValues.Name}, TotalAmount = {currentValues.TotalAmount}");
+            }
+
+            return View(budget);
+        }
     }
-}
 
 
 
