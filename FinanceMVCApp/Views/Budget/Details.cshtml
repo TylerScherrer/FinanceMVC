@@ -76,7 +76,7 @@
                     </div>
 
                     <!-- Button to Add a New Category -->
-                    <a class="btn custom-create-btn btn-sm" 
+                    <a class="btn custom-create-btn btn-sm text-white" 
                        href="@Url.Action("Create", "Category", new { budgetId = Model.Id })">
                         <i class="fas fa-folder-plus me-1"></i>Add Category
                     </a>
@@ -125,12 +125,12 @@
                         <!-- Action buttons -->
                         <td class="text-end">
                             <!-- Link to view category details -->
-                            <a class="btn btn-sm custom-create-btn me-0" 
+                            <a class="btn btn-sm custom-create-btn me-0 text-white" 
                                href="@Url.Action("Details", "Category", new { id = category.Id })">
                                 <i class="fas fa-eye me-1"></i>View
                             </a>
                             <!-- Link to edit category -->
-                            <a class="btn btn-sm custom-edit-btn me-0" 
+                            <a class="btn btn-sm custom-edit-btn me-0 text-white " 
                                href="@Url.Action("Edit", "Category", new { id = category.Id })">
                                 <i class="fas fa-edit me-1"></i>Edit
                             </a>
@@ -143,12 +143,12 @@
                                 <input type="hidden" name="id" value="@category.Id" />
                                 <!-- Submit button for deleting the category -->
                                 <button type="submit" 
-                                        class="btn btn-sm custom-delete-btn me-0">
+                                        class="btn btn-sm custom-delete-btn me-0 text-white">
                                     <i class="fas fa-trash me-1"></i>Delete
                                 </button>
                             </form>
                             <!-- Button to toggle transactions for the category -->
-                            <button class="btn btn-sm custom-bills-btn ms-0" 
+                            <button class="btn btn-sm custom-bills-btn ms-0 text-white" 
                                     type="button" 
                                     data-bs-toggle="collapse" 
                                     data-bs-target="#transactions-@category.Id">

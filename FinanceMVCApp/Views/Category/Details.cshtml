@@ -91,25 +91,25 @@
             <!-- Action Buttons -->
             <div class="d-flex flex-wrap gap-2 mb-4">
                 <!-- Add Transaction Button -->
-                <a class="btn custom-create-btn" href="@Url.Action("Create", "Transaction", new { categoryId = Model.Id })">
+                <a class="btn custom-create-btn text-white" href="@Url.Action("Create", "Transaction", new { categoryId = Model.Id })">
                     <i class="fas fa-plus me-1"></i>Add Transaction
                 </a>
 
                 <!-- Edit Category Button -->
-                <a class="btn custom-edit-btn" href="@Url.Action("Edit", "Category", new { id = Model.Id })">
+                <a class="btn custom-edit-btn text-white" href="@Url.Action("Edit", "Category", new { id = Model.Id })">
                     <i class="fas fa-edit me-1"></i>Edit Category
                 </a>
 
                 <!-- Delete Category Form -->
                 <form asp-action="Delete" asp-controller="Category" method="post" class="d-inline">
                     <input type="hidden" name="id" value="@Model.Id" />
-                    <button type="submit" class="btn custom-delete-btn">
+                    <button type="submit" class="btn custom-delete-btn text-white">
                         <i class="fas fa-trash-alt me-1"></i>Delete Category
                     </button>
                 </form>
 
                 <!-- Return to Budget Button -->
-                <a class="btn custom-bills-btn" href="@Url.Action("Details", "Budget", new { id = Model.Budget.Id })">
+                <a class="btn custom-bills-btn text-white" href="@Url.Action("Details", "Budget", new { id = Model.Budget.Id })">
                     <i class="fas fa-arrow-left me-1"></i>Return to Budget
                 </a>
             </div>
@@ -149,7 +149,7 @@
                                     <td>
                                         <!-- Edit Transaction Button -->
                                         <a asp-action="Edit" asp-controller="Transaction" asp-route-id="@transaction.Id" 
-                                           class="btn custom-create-btn btn-sm me-2">
+                                           class="btn custom-create-btn btn-sm me-2 text-white">
                                             Edit
                                         </a>
                                         <!-- Delete Transaction Form -->
@@ -159,7 +159,7 @@
                                             <!-- Pass category ID -->
                                             <input type="hidden" name="categoryId" value="@Model.Id" />
                                             <!-- Delete Button -->
-                                            <button type="submit" class="btn custom-delete-btn btn-sm">Delete</button>
+                                            <button type="submit" class="btn custom-delete-btn btn-sm text-white">Delete</button>
                                         </form>
 
                                     </td>
