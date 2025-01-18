@@ -5,116 +5,150 @@
 
 
 
-    <!-- Main Content -->
-    <div class="flex-fill p-4" style="background: #121212;">
-        <div class="text-center mb-5">
-            <h1 class="fw-bold text-light" style="text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);">Tasks Overview</h1>
-            <p class="text-white" style="font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);">
-                Manage your tasks for today and all tasks at a glance.
-            </p>
-        </div>
+<!-- Main Content Section -->
+<div class="flex-fill p-4" style="background: #121212;">
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+        <!-- Main Title -->
+        <h1 class="fw-bold text-light" style="text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);">Tasks Overview</h1>
+        
+        <!-- Supporting Description -->
+        <p class="text-white" style="font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);">
+            Manage your tasks for today and all tasks at a glance.
+        </p>
+    </div>
 
-        <!-- Today's Tasks -->
-        <div class="card border-5 shadow-sm mb-8 glass-panel">
-            <div class="card-body">
-                <h4 class="fw-bold mb-8 text-white large-header">
-                    <i class="fas fa-calendar-day me-0 "></i>Today's Tasks
-                </h4>
-
-                <div class="d-flex justify-content-between mb-3">
-                    <h6 class="fw-semibold text-white">Tasks for Today</h6>
-                    <a asp-action="Create" class="custom-create-btn">
-                        <i class="fas fa-plus me-1"></i>Create New Task
-                    </a>
-                </div>
-                <div class="table-responsive">
-                    <table class="elegant-table">
-                        <thead class="table-light text-dark">
-                            <tr>
-                                <th>Task</th>
-                                <th>Due Date</th>
-                                <th>Status</th>
-                                <th class="text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var task in Model.TodayTasks)
-                            {
-                                <tr>
-                                    <td class="text-light">@task.Name</td>
-                                    <td class="text-muted">@(task.DueDate.HasValue ? task.DueDate.Value.ToShortDateString() : "No due date")
-</td>
-                                    <td>
-                                            <span class="custom-badge @(task.IsCompleted ? "custom-bills-btn" : "custom-edit-btn")">
-                                                @(task.IsCompleted ? "Completed" : "Pending")
-                                            </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <form method="post" asp-action="MarkComplete" asp-route-id="@task.Id" class="d-inline">
-                                            <button type="submit" class="custom-complete-btn">
-                                                <i class="fas fa-check me-1"></i>Complete
-                                            </button>
-                                        </form>
-                                            <form method="post" asp-action="Delete" asp-route-id="@task.Id" class="d-inline">
-                                                <button type="submit" class="custom-delete-btn">
-                                                    <i class="fas fa-trash me-1"></i>Delete
-                                                </button>
-                                            </form>
-
-                                    </td>
-                                </tr>
-                            }
-
-                            @if (!Model.TodayTasks.Any())
-                            {
-                                <tr>
-                                    <td colspan="4" class="text-center text-muted">No tasks for today</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- All Tasks -->
-       <!-- All Tasks -->
-<div class="card border-0 shadow-sm glass-panel">
+<!-- Card for Today's Tasks -->
+<div class="card border-5 shadow-sm mb-8 glass-panel">
     <div class="card-body">
-        <h4 class="fw-bold mb-3 text-white">
-            <i class="fas fa-list-ul me-2"></i>All Tasks
+        <!-- Section Header -->
+        <h4 class="fw-bold mb-8 text-white large-header">
+            <i class="fas fa-calendar-day me-0"></i>Today's Tasks
         </h4>
+
+        <!-- Header Row with Title and Action Link -->
+        <div class="d-flex justify-content-between mb-3">
+            <!-- Section Subheading -->
+            <h6 class="fw-semibold text-white">Tasks for Today</h6>
+            <!-- Link to Create a New Task -->
+            <a asp-action="Create" class="custom-create-btn">
+                <i class="fas fa-plus me-1"></i>Create New Task
+            </a>
+        </div>
+
+        <!-- Table to Display Today's Tasks -->
         <div class="table-responsive">
             <table class="elegant-table">
+                <!-- Table Header -->
                 <thead class="table-light text-dark">
                     <tr>
                         <th>Task</th>
                         <th>Due Date</th>
                         <th>Status</th>
-                        <!-- Single 'Actions' column that spans the far right -->
                         <th class="text-end">Actions</th>
                     </tr>
                 </thead>
+
+                <!-- Table Body -->
                 <tbody>
+                    <!-- Loop through Today's Tasks -->
+                    @foreach (var task in Model.TodayTasks)
+                    {
+                        <tr>
+                            <!-- Task Name -->
+                            <td class="text-light">@task.Name</td>
+                            <!-- Due Date or Default Message -->
+                            <td class="text-muted">
+                                @(task.DueDate.HasValue ? task.DueDate.Value.ToShortDateString() : "No due date")
+                            </td>
+                            <!-- Task Status -->
+                            <td>
+                                <!-- Badge Style Changes Based on Completion -->
+                                <span class="custom-badge @(task.IsCompleted ? "custom-bills-btn" : "custom-edit-btn")">
+                                    @(task.IsCompleted ? "Completed" : "Pending")
+                                </span>
+                            </td>
+                            <!-- Actions for Task -->
+                            <td class="text-end">
+                                <!-- Mark as Complete Button -->
+                                <form method="post" asp-action="MarkComplete" asp-route-id="@task.Id" class="d-inline">
+                                    <button type="submit" class="custom-complete-btn">
+                                        <i class="fas fa-check me-1"></i>Complete
+                                    </button>
+                                </form>
+                                <!-- Delete Task Button -->
+                                <form method="post" asp-action="Delete" asp-route-id="@task.Id" class="d-inline">
+                                    <button type="submit" class="custom-delete-btn">
+                                        <i class="fas fa-trash me-1"></i>Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+
+                    <!-- Display Message If No Tasks Exist -->
+                    @if (!Model.TodayTasks.Any())
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">No tasks for today</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Card for All Tasks -->
+<div class="card border-0 shadow-sm glass-panel">
+    <div class="card-body">
+        <!-- Section Header -->
+        <h4 class="fw-bold mb-3 text-white">
+            <i class="fas fa-list-ul me-2"></i>All Tasks
+        </h4>
+
+        <!-- Table Container -->
+        <div class="table-responsive">
+            <table class="elegant-table">
+                <!-- Table Header -->
+                <thead class="table-light text-dark">
+                    <tr>
+                        <!-- Column Definitions -->
+                        <th>Task</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <!-- Actions Column -->
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+
+                <!-- Table Body -->
+                <tbody>
+                    <!-- Check if AllTasks exists and contains any items -->
                     @if (Model.AllTasks != null && Model.AllTasks.Any())
                     {
+                        <!-- Iterate through each task -->
                         @foreach (var task in Model.AllTasks)
                         {
                             <tr>
+                                <!-- Task Name -->
                                 <td class="text-light">@task.Name</td>
+                                <!-- Due Date or Default Message -->
                                 <td class="text-muted">
                                     @(task.DueDate.HasValue 
                                         ? task.DueDate.Value.ToShortDateString() 
                                         : "No due date")
                                 </td>
+                                <!-- Task Status -->
                                 <td>
+                                    <!-- Badge for Task Status -->
                                     <span class="custom-badge @(task.IsCompleted ? "custom-bills-btn" : "custom-edit-btn")">
                                         @(task.IsCompleted ? "Completed" : "Pending")
                                     </span>
                                 </td>
+                                <!-- Action Buttons -->
                                 <td class="text-end">
-                                    <!-- All three forms in a single cell -->
-                                    <!-- 1) Complete button -->
+                                    <!-- Complete Task Button -->
                                     <form method="post" 
                                           asp-action="MarkComplete" 
                                           asp-controller="ToDo" 
@@ -125,7 +159,7 @@
                                         </button>
                                     </form>
 
-                                    <!-- 2) Delete button -->
+                                    <!-- Delete Task Button -->
                                     <form method="post" 
                                           asp-action="Delete" 
                                           asp-route-id="@task.Id" 
@@ -135,11 +169,12 @@
                                         </button>
                                     </form>
 
-                                    <!-- 3) Move to Today's Tasks button -->
+                                    <!-- Move Task to Today's Tasks Button -->
                                     <form method="post" 
                                           asp-action="MoveToToday" 
                                           asp-controller="ToDo" 
                                           class="d-inline ms-2">
+                                        <!-- Hidden Field to Pass Task ID -->
                                         <input type="hidden" name="taskId" value="@task.Id" />
                                         <button type="submit" class="custom-move-btn">
                                             <i class="fas fa-arrow-right me-1"></i>Move to Today's Tasks
@@ -151,6 +186,7 @@
                     }
                     else
                     {
+                        <!-- No Tasks Message -->
                         <tr>
                             <td colspan="4" class="text-center text-muted">
                                 No tasks available
