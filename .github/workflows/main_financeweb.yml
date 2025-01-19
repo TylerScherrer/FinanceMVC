@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy ASP.Net Core app to Azure Web App - FinanceWeb
 
 on:
@@ -11,8 +14,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
@@ -20,18 +22,16 @@ jobs:
           dotnet-version: '9.x'
 
       - name: Build with dotnet
-        run: dotnet build FinanceMVC.sln --configuration Release
-        working-directory: ./FinanceMVCApp
+        run: dotnet build --configuration Release
 
-      - name: Publish with dotnet
-        run: dotnet publish FinanceMVC.sln --configuration Release --output ${{ github.workspace }}/published
-        working-directory: ./FinanceMVCApp
+      - name: dotnet publish
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
-      - name: Upload artifact for deployment
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: app
-          path: ${{ github.workspace }}/published
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
@@ -40,20 +40,20 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # Required for requesting the JWT
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: app
+          name: .net-app
       
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8B710F2CF19646C7BDE66A9B47462ADB }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E40F118BE3624325B96744DF1434744C }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_28B39B2B8D344FFFA4D }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6D381EB41F6E4F2D91F15A94A087666C }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D45ED46B2D6C4811A9C42CAE04D24334 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F9DBCA6433D74ABC960741CB1E3B2BF7 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -61,4 +61,5 @@ jobs:
         with:
           app-name: 'FinanceWeb'
           slot-name: 'Production'
-          package: ${{ github.workspace }}/published
+          package: .
+          
