@@ -18,35 +18,32 @@ jobs:
         with:
           dotnet-version: '9.x'
 
+      # Build the solution
       - name: Build with dotnet
         run: dotnet build FinanceMVCApp.sln --configuration Release
-        working-directory: FinanceMVCApp
+        working-directory: FinanceMVC/FinanceMVCApp
 
-      - name: dotnet publish
-        run: dotnet publish FinanceMVCApp.sln -c Release -o "${{github.workspace}}/myapp"
-        working-directory: FinanceMVCApp
+      # Publish the project
+      - name: Publish with dotnet
+        run: dotnet publish FinanceMVCApp.sln --configuration Release --output ${{github.workspace}}/publish
+        working-directory: FinanceMVC/FinanceMVCApp
 
-      - name: Upload artifact for deployment job
+      # Upload the published files
+      - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ${{github.workspace}}/myapp
+          name: app
+          path: ${{github.workspace}}/publish
 
   deploy:
     runs-on: windows-latest
     needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write # Required for requesting the JWT
-
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
-      
+          name: app
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -55,9 +52,8 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'FinanceWeb'
           slot-name: 'Production'
-          package: ${{github.workspace}}/myapp
+          package: './publish'
