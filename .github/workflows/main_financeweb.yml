@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy ASP.Net Core app to Azure Web App - FinanceWeb
 
 on:
@@ -18,41 +21,45 @@ jobs:
         with:
           dotnet-version: '9.x'
 
-      # Build the solution file
       - name: Build with dotnet
-        run: dotnet build FinanceMVC.sln --configuration Release
-        working-directory: ./FinanceMVCApp
+        run: dotnet build --configuration Release
 
-      # Publish the application
-      - name: Publish with dotnet
-        run: dotnet publish FinanceMVC.sln --configuration Release --output ${{github.workspace}}/publish
-        working-directory: ./FinanceMVCApp
+      - name: dotnet publish
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
-      # Upload the published files as an artifact
-      - name: Upload artifact for deployment
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: app
-          path: ${{github.workspace}}/publish
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
     needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+
     steps:
-      - name: Download artifact
+      - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: app
-
+          name: .net-app
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D351633E7F4D4286A6790EC93F6EC480 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_FFC2FC78366148DFBDDAC5239A9B0BC3 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_83EFCED4085D48EEBA3EBA899A8F3A5E }}
 
       - name: Deploy to Azure Web App
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'FinanceWeb'
-          package: './publish'
+          slot-name: 'Production'
+          package: .
+          
