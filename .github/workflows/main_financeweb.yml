@@ -12,31 +12,28 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # Check out the code from the repository
       - uses: actions/checkout@v4
 
-      # Set up .NET Core SDK version 9.0
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '9.x'
 
-      # Build the solution
+      - name: Change working directory
+        run: cd FinanceMVCApp
+
       - name: Build with dotnet
-        run: dotnet build --configuration Release FinanceMVC.sln
-        working-directory: C:/Users/Tyler/OneDrive/Desktop/FinanceMVC/FinanceMVCApp
+        run: dotnet build --configuration Release
 
-      # Publish the project
       - name: dotnet publish
-        run: dotnet publish --configuration Release --output ./publish FinanceMVC.sln
-        working-directory: C:/Users/Tyler/OneDrive/Desktop/FinanceMVC/FinanceMVCApp
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
-      # Upload the published files as artifacts for the deploy job
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ./FinanceMVCApp/publish
+          path: ${{env.DOTNET_ROOT}}/myapp
+
 
   deploy:
     runs-on: windows-latest
