@@ -18,13 +18,16 @@ jobs:
         with:
           dotnet-version: '9.x'
 
+      - name: Change working directory to FinanceMVCApp
+        run: cd FinanceMVCApp
+
       - name: Build with dotnet
-        working-directory: FinanceMVC/FinanceMVCApp
         run: dotnet build FinanceMVC.sln --configuration Release
+        working-directory: FinanceMVC/FinanceMVCApp
 
       - name: dotnet publish
-        working-directory: FinanceMVC/FinanceMVCApp
         run: dotnet publish FinanceMVC.sln -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        working-directory: FinanceMVC/FinanceMVCApp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
