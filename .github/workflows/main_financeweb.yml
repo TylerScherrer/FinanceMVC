@@ -9,9 +9,12 @@ on:
 jobs:
   deploy:
     runs-on: windows-latest
+
     steps:
+      # Checkout code
       - uses: actions/checkout@v4
 
+      # Login to Azure
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -19,10 +22,23 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
+      # Set up .NET
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.x'
+
+      # Build the solution
+      - name: Build with dotnet
+        run: dotnet build FinanceMVCApp/FinanceMVC.sln --configuration Release
+
+      # Publish the solution to a folder
+      - name: Publish with dotnet
+        run: dotnet publish FinanceMVCApp/FinanceMVC.sln -c Release -o publish_output
+
+      # Deploy to Azure Web App
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'FinanceWeb'
-          slot-name: 'Production'
-          package: .
+          package: publish_output
