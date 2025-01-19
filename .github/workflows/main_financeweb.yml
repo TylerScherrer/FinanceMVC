@@ -11,29 +11,27 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.x'
 
-      - name: Change working directory to FinanceMVCApp
-        run: cd FinanceMVCApp
-
       - name: Build with dotnet
         run: dotnet build FinanceMVC.sln --configuration Release
-        working-directory: FinanceMVC/FinanceMVCApp
+        working-directory: ./FinanceMVCApp
 
-      - name: dotnet publish
-        run: dotnet publish FinanceMVC.sln -c Release -o "${{env.DOTNET_ROOT}}/myapp"
-        working-directory: FinanceMVC/FinanceMVCApp
+      - name: Publish with dotnet
+        run: dotnet publish FinanceMVC.sln --configuration Release --output ${{ github.workspace }}/published
+        working-directory: ./FinanceMVCApp
 
-      - name: Upload artifact for deployment job
+      - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: app
+          path: ${{ github.workspace }}/published
 
   deploy:
     runs-on: windows-latest
@@ -48,7 +46,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
+          name: app
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -63,4 +61,4 @@ jobs:
         with:
           app-name: 'FinanceWeb'
           slot-name: 'Production'
-          package: .
+          package: ${{ github.workspace }}/published
