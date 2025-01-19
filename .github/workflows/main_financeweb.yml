@@ -18,17 +18,17 @@ jobs:
         with:
           dotnet-version: '9.x'
 
-      # Build the solution
+      # Build the solution file
       - name: Build with dotnet
-        run: dotnet build FinanceMVCApp.sln --configuration Release
-        working-directory: FinanceMVC/FinanceMVCApp
+        run: dotnet build FinanceMVC.sln --configuration Release
+        working-directory: ./FinanceMVCApp
 
-      # Publish the project
+      # Publish the application
       - name: Publish with dotnet
-        run: dotnet publish FinanceMVCApp.sln --configuration Release --output ${{github.workspace}}/publish
-        working-directory: FinanceMVC/FinanceMVCApp
+        run: dotnet publish FinanceMVC.sln --configuration Release --output ${{github.workspace}}/publish
+        working-directory: ./FinanceMVCApp
 
-      # Upload the published files
+      # Upload the published files as an artifact
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
@@ -55,5 +55,4 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'FinanceWeb'
-          slot-name: 'Production'
           package: './publish'
