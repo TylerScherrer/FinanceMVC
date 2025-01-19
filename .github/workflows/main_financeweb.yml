@@ -23,17 +23,16 @@ jobs:
         run: cd FinanceMVCApp
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build FinanceMVC.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish FinanceMVC.sln -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
-
 
   deploy:
     runs-on: windows-latest
@@ -42,28 +41,26 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # Required for requesting the JWT
+      id-token: write #This is required for requesting the JWT
 
     steps:
-      # Download the artifact created in the build job
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: .net-app
       
-      # Log in to Azure
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8B710F2CF19646C7BDE66A9B47462ADB }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E40F118BE3624325B96744DF1434744C }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_28B39B2B8D344FFFA74D3C83DD9EFA4D }}
 
-      # Deploy the app to Azure Web App
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'FinanceWeb' # Replace with your Azure Web App name
+          app-name: 'FinanceWeb'
           slot-name: 'Production'
-          package: ./FinanceMVCApp/publish # Path to the published output
+          package: .
+
