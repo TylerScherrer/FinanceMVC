@@ -31,7 +31,7 @@
             <!-- Section Subheading -->
             <h6 class="fw-semibold text-white">Tasks for Today</h6>
             <!-- Link to Create a New Task -->
-            <a asp-action="Create" class="custom-create-btn">
+            <a asp-action="Create" class="custom-create-btn text-white">
                 <i class="fas fa-plus me-1"></i>Create New Task
             </a>
         </div>
@@ -72,13 +72,13 @@
                             <td class="text-end">
                                 <!-- Mark as Complete Button -->
                                 <form method="post" asp-action="MarkComplete" asp-route-id="@task.Id" class="d-inline">
-                                    <button type="submit" class="custom-complete-btn">
+                                    <button type="submit" class="custom-complete-btn text-white">
                                         <i class="fas fa-check me-1"></i>Complete
                                     </button>
                                 </form>
                                 <!-- Delete Task Button -->
                                 <form method="post" asp-action="Delete" asp-route-id="@task.Id" class="d-inline">
-                                    <button type="submit" class="custom-delete-btn">
+                                    <button type="submit" class="custom-delete-btn  text-white">
                                         <i class="fas fa-trash me-1"></i>Delete
                                     </button>
                                 </form>
@@ -154,7 +154,7 @@
                                           asp-controller="ToDo" 
                                           asp-route-id="@task.Id" 
                                           class="d-inline">
-                                        <button type="submit" class="custom-complete-btn">
+                                        <button type="submit" class="custom-complete-btn  text-white ">
                                             <i class="fas fa-check me-1"></i>Complete
                                         </button>
                                     </form>
@@ -164,7 +164,7 @@
                                           asp-action="Delete" 
                                           asp-route-id="@task.Id" 
                                           class="d-inline ms-2">
-                                        <button type="submit" class="custom-delete-btn">
+                                        <button type="submit" class="custom-delete-btn  text-white ">
                                             <i class="fas fa-trash me-1"></i>Delete
                                         </button>
                                     </form>
@@ -176,7 +176,7 @@
                                           class="d-inline ms-2">
                                         <!-- Hidden Field to Pass Task ID -->
                                         <input type="hidden" name="taskId" value="@task.Id" />
-                                        <button type="submit" class="custom-move-btn">
+                                        <button type="submit" class="custom-move-btn text-white ">
                                             <i class="fas fa-arrow-right me-1"></i>Move to Today's Tasks
                                         </button>
                                     </form>
