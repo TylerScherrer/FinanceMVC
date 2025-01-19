@@ -11,7 +11,7 @@
     <!-- Add Bill Button -->
     <div class="text-center mb-4">
         <!-- Button to Navigate to the Add Bill Page -->
-        <a asp-action="Create" asp-route-budgetId="@ViewBag.BudgetId" class="btn custom-create-btn btn-lg">
+        <a asp-action="Create" asp-route-budgetId="@ViewBag.BudgetId" class="btn custom-create-btn btn-lg text-white">
             <!-- Plus Icon with Text -->
             <i class="fas fa-plus me-2"></i>Add Bill
         </a>
@@ -56,14 +56,14 @@
     <form asp-action="TogglePaid" asp-controller="Bill" method="post" class="d-inline">
         <input type="hidden" name="budgetId" value="@ViewBag.BudgetId" />
         <input type="hidden" name="id" value="@bill.Id" />
-        <button type="submit" class="btn @(bill.IsPaid ? "custom-delete-btn" : "custom-create-btn") btn-sm">
+        <button type="submit" class="btn @(bill.IsPaid ? "custom-edit-btn  text-white " : "custom-create-btn  text-white") btn-sm">
             <i class="fas @(bill.IsPaid ? "fa-times" : "fa-check")"></i> 
             @(bill.IsPaid ? "Mark as Unpaid" : "Mark as Paid")
         </button>
     </form>
 
     <!-- Edit Bill Button -->
-    <a asp-action="Edit" asp-route-id="@bill.Id" class="btn custom-bills-btn btn-sm mx-2">
+    <a asp-action="Edit" asp-route-id="@bill.Id" class="btn custom-bills-btn btn-sm mx-2  text-white">
         <i class="fas fa-edit"></i> Edit
     </a>
 
@@ -71,7 +71,7 @@
     <form asp-action="Delete" asp-controller="Bill" method="post" class="d-inline">
         <input type="hidden" name="id" value="@bill.Id" />
         <input type="hidden" name="budgetId" value="@ViewBag.BudgetId" />
-        <button type="submit" class="btn custom-edit-btn btn-sm">
+        <button type="submit" class="btn custom-delete-btn btn-sm  text-white">
             <i class="fas fa-trash"></i> Delete
         </button>
     </form>
